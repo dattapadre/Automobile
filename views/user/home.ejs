@@ -1,0 +1,705 @@
+  <%-include('navbar.ejs')%>
+
+  <style>
+
+    :root {
+      --primary-color: #1a1a1a;
+      --secondary-color: #f0f0f0; 
+      --accent-color:#8c2517;
+       --accent-color1:rgb(77, 172, 139);
+      --text-color: #333;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f8f9fa;
+      color: var(--text-color);
+    }
+    
+    /* slides */
+    .slide-box {
+        height: 400px;
+        position: relative;
+    }
+
+    .slide-box img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        filter: brightness(50%);
+    }
+
+    /* slide vrche titles */
+    .slide-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        color: white;
+        width: 90%;
+    }
+
+    .slide-text h1 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+    
+    .slide-text p {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .slide-btn {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+
+    /* --- Section Title Styling --- */
+    .section-title-wrapper {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    
+    .section-title {
+        font-weight: 700;
+        color: var(--primary-color);
+        display: inline-block;
+        position: relative;
+        padding-bottom: 0.75rem;
+        margin-bottom: 0;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: var(--accent-color);
+        border-radius: 2px;
+    }
+
+    /* --- Icon Category Section Styling --- */
+    .icon-category-card {
+      background-color: #fff;
+      padding: 1.5rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--primary-color);
+      transition: all 0.3s ease;
+      border: 1px solid #e9ecef;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    
+    .icon-category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+    
+    .icon-category-card .cat-icon {
+      max-height: 50px;
+      margin-bottom: 1rem;
+      width: auto;
+    }
+
+    /* --- Brand Section Styling --- */
+    .brand-logo {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      padding: 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100px;
+    }
+    
+    .brand-logo:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transform: scale(1.05);
+      border-color: var(--accent-color);
+    }
+    
+    .brand-logo img {
+      max-height: 50px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* --- Flash Sale / Product Card Styling --- */
+    .product-card {
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background-color: #fff;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    }
+    
+    .product-card .card-img-top {
+      height: 200px;
+      object-fit: contain;
+      padding: 1rem;
+      width: 100%;
+    }
+    
+    .product-card .card-body {
+        padding: 1rem 1.25rem;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    
+    .product-card .card-title {
+      font-weight: 600;
+      min-height: 48px;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+    
+    .product-card .price {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    
+    .product-card .price del {
+        font-size: 0.9rem;
+        font-weight: 400;
+        color: #6c757d;
+        margin-right: 0.5rem;
+    }
+    
+    .sale-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: var(--accent-color1) !important;
+        color:white;
+        font-weight: 700;
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        border-radius: 5px;
+    }
+    
+    .btn-add-to-cart {
+        color:black;
+        border: 2px solid var(--primary-color);
+        font-weight: 600;
+        transition: all 0.2s ease;
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .btn-add-to-cart:hover {
+        background-color: var(--accent-color1);
+        color:white;
+        border-color: var(--accent-color1);
+    }
+
+    /* --- Image Category Section Styling (Top Categories) --- */
+    .image-category-card {
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+    
+    .image-category-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    .image-category-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    
+    .image-category-card:hover img {
+      transform: scale(1.1);
+    }
+    
+    .category-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+    
+    .category-overlay h5 {
+      color: #fff;
+      margin: 0;
+      font-weight: 700;
+      font-size: 1.25rem;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    }
+    
+    .info-section {
+       background-color: #fff;
+       padding: 40px 0;
+    }
+
+    .info-container {
+      display: flex;
+      max-width: 1100px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .info-box {
+      flex: 1;
+      padding: 0 20px;
+    }
+
+    .info-box:not(:last-child) {
+      border-right: 1px solid #ddd;
+    }
+
+    .info-box h3 {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      color: #333;
+      line-height: 1.5;
+      font-size: 0.95rem;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .slide-text h1 {
+        font-size: 1.5rem;
+      }
+      
+      .slide-text p {
+        font-size: 1rem;
+      }
+      
+      .info-container {
+        flex-direction: column;
+      }
+      
+      .info-box {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+      }
+      
+      .info-box:last-child {
+        border-bottom: none;
+      }
+      
+      .product-card .card-title {
+        min-height: auto;
+      }
+      
+      .category-overlay h5 {
+        font-size: 1rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .slide-box {
+        height: 300px;
+      }
+      
+      .slide-text h1 {
+        font-size: 1.3rem;
+      }
+      
+      .slide-text p {
+        font-size: 0.9rem;
+      }
+      
+      .icon-category-card {
+        padding: 1rem 0.5rem;
+      }
+      
+      .product-card .card-img-top {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+   <div id="autoCarousel" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- Indicators -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="2"></button>
+        </div>
+
+        <!-- Slides -->
+        <div class="carousel-inner">
+
+            <div class="carousel-item active">
+                <div class="slide-box">
+                    <img src="upload/slider-2.png" alt="Rear Lights">
+                    <div class="slide-text">
+                        <h1>FIND THE RIGHT</h1>
+                        <p>Your One step Destination for The Perfect Auto Spare Parts.</p>
+                        <a href="#" class="btn btn-light">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="slide-box">
+                    <img src="upload\slider-1.png" alt="Engine Parts">
+                    <div class="slide-text">
+                        <h1>ALL TYPES OF WIDE RANGE OF SPARE PARTS</h1>
+                        <p>Explore The Diverse Selection of Quality Automotive Components.</p>
+                        <a href="#" class="btn btn-light">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="slide-box">
+                    <img src="upload\slider-3.png" alt="Accessories">
+                    <div class="slide-text">
+                        <h1>LUXURY INTERIOR AND EXTERIOR PARTS</h1>
+                        <p>Elevate Your Vehicle's Aesthetics With Our Premium Range.</p>
+                        <a href="#" class="btn btn-light ">SHOP NOW</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<!-- 2. Categories with Icons Section -->
+<section class="py-5">
+  <div class="container">
+    <div class="section-title-wrapper">
+        <h2 class="section-title">Shop by Category</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/Brake.jpg" alt="Brake Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Brakes</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/Mats.jpg" alt="Suspension Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Suspension</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/Air filter.jpg" alt="Filters Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Filters</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/water pump.jpg" alt="Engine Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Engine Parts</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/oil filter.jpg" alt="Cooling Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Cooling System</p>
+        </a>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <a href="#" class="icon-category-card">
+          <img src="upload/BI.jpg" alt="Lighting Icon" class="cat-icon">
+          <p class="fw-bold mb-0">Lighting</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- 3. Flash Sale Section -->
+<section id="flash-sale" class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title-wrapper">
+        <h2 class="section-title">Flash Sale</h2>
+    </div>
+    <div class="row g-4">
+      <!-- Product Card 1 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card product-card h-100 text-center">
+          <span class="badge sale-badge">SALE</span>
+          <img src="upload/spark.jpg" class="card-img-top" alt="Spark Plug">
+          <div class="card-body">
+            <h5 class="card-title">Spark Plug for Audi A4</h5>
+            <div class="mt-auto">
+              <p class="price mb-2"><del>₹3,500</del> <span class="text-danger">₹2,000</span></p>
+              <button class="btn btn-add-to-cart w-100 add-to-cart">
+                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card product-card h-100 text-center">
+          <span class="badge sale-badge">SALE</span>
+          <img src="upload/Bowden.jpg" class="card-img-top" alt="Bowden Cable">
+          <div class="card-body">
+            <h5 class="card-title">Bonnet Release Bowden Cable</h5>
+            <div class="mt-auto">
+              <p class="price mb-2"><del>₹2,500</del> <span class="text-danger">₹2,200</span></p>
+              <button class="btn btn-add-to-cart w-100 add-to-cart">
+                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card product-card h-100 text-center">
+          <span class="badge sale-badge">SALE</span>
+          <img src="upload/bearing.jpg" class="card-img-top" alt="BMW Bearing">
+          <div class="card-body">
+            <h5 class="card-title">Wheel Hub Bearing for BMW i8</h5>
+            <div class="mt-auto">
+              <p class="price mb-2"><del>₹4,000</del> <span class="text-danger">₹2,500</span></p>
+              <button class="btn btn-add-to-cart w-100 add-to-cart">
+                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card product-card h-100 text-center">
+          <span class="badge sale-badge">SALE</span>
+          <img src="upload/bm2.jpg" class="card-img-top" alt="Fog Lamp Cover">
+          <div class="card-body">
+            <h5 class="card-title">Fog Lamp Grille Cover</h5>
+            <div class="mt-auto">
+              <p class="price mb-2"><del>₹3,000</del> <span class="text-danger">₹1,800</span></p>
+              <button class="btn btn-add-to-cart w-100 add-to-cart">
+                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-5">
+  <div class="container">
+    <div class="section-title-wrapper">
+        <h2 class="section-title">Top Categories</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <a href="interior.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/interior.jpg" alt="Interior">
+            <div class="category-overlay">
+              <h5>INTERIOR</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="exterior.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/EXTERIOR.jpg" alt="Exterior">
+            <div class="category-overlay">
+              <h5>EXTERIOR</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="performance.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/PERFORMANCE.jpg" alt="Performance">
+            <div class="category-overlay">
+              <h5>PERFORMANCE</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="lighting.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/LIGHTING.jpg" alt="Lighting">
+            <div class="category-overlay">
+              <h5>LIGHTING</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="wheels.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/WHEELS.jpg" alt="Wheels">
+            <div class="category-overlay">
+              <h5>WHEELS & TIRES</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="bodyparts.html" class="text-decoration-none">
+          <div class="image-category-card">
+            <img src="upload/bodyparts.jpg" alt="Body Parts">
+            <div class="category-overlay">
+              <h5>BODY PARTS</h5>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+    
+    <div class="info-container mt-5">
+      <div class="info-box">
+        <h3>Explore Quality Parts</h3>
+        <p>Discover competitively priced auto and luxury car spare parts in our vast selection.</p>
+      </div>
+      <div class="info-box">
+        <h3>Expert Guidance</h3>
+        <p>Access FAQs and expert advice for choosing and maintaining your luxury car parts.</p>
+      </div>
+      <div class="info-box">
+        <h3>Secure Checkout</h3>
+        <p>Shop confidently with our streamlined, secure checkout process. Your satisfaction is our priority.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Brands Section -->
+<section id="brands" class="py-5 bg-light">
+  <div class="container">
+    <div class="section-title-wrapper">
+        <h2 class="section-title">Shop by Popular Brands</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/bmw.png" class="img-fluid" alt="BMW">
+        </a>
+      </div>
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/audi.png" class="img-fluid" alt="Audi">
+        </a>
+      </div>
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/benz.png" class="img-fluid" alt="Mercedes-Benz">
+        </a>
+      </div>
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/jaguar.png" class="img-fluid" alt="Jaguar">
+        </a>
+      </div>
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/lr.png" class="img-fluid" alt="Land Rover">
+        </a>
+      </div>
+      <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/mini.png" class="img-fluid" alt="Mini Cooper">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/TVS.png" class="img-fluid" alt="TVS">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/suzuki.png" class="img-fluid" alt="Suzuki">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/Yamaha.png" class="img-fluid" alt="Yamaha">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/Kawasaki.png" class="img-fluid" alt="Kawasaki">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/KTM.png" class="img-fluid" alt="KTM">
+        </a>
+      </div>
+       <div class="col-4 col-md-2">
+        <a href="#" class="brand-logo">
+          <img src="upload/bajaj.png" class="img-fluid" alt="KTM">
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.add-to-cart').forEach(button => {
+    const originalText = button.innerHTML;
+
+    button.addEventListener('click', () => {
+      button.innerHTML = 'ADDING...';
+      button.disabled = true;
+
+      setTimeout(() => {
+        button.innerHTML = '<i class="fas fa-check"></i> ADDED!';
+        
+        setTimeout(() => {
+          button.innerHTML = originalText;
+          button.disabled = false;
+        }, 1500);
+      }, 1000);
+    });
+  });
+</script>
+<%-include('footer.ejs')%>
