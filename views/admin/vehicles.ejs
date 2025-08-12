@@ -2,8 +2,29 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Add Vehicles</h1>
+            <h1 class="bg-secondary">Add Vehicles</h1>
         </div>
     </div>
+</div>
+<div class="container mt-5">
+    
+
+
+       <form action="/admin/vehicles" method="POST" enctype="multipart/form-data" >
+        <div class="row">
+           <div class="col-md-6">
+               <label for="vehicle" class="form-label fw-bold">Vehicle Brand</label>
+               <input type="file" class="form-control" id="vehicleName" name="vehicle_brand" required>
+           </div>
+           <div class="col-md-6">
+               <label for="vehicle_name" class="form-label fw-bold">Vehicle Name</label>
+               <input type="text" class="form-control" id="vehicleName" name="vehicle_name" required>
+           </div>
+          <div class="col-md-12 text-center mt-5">
+            <button type="submit" class="btn btn-primary">Add Vehicles</button>
+          </div>
+            </div>
+       </form>
+   
 </div>
 <%-include('footer.ejs')%>
