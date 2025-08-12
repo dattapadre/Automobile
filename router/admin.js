@@ -4,5 +4,7 @@ var router = express.Router()
 router.get("/",function(req,res){
     res.render("admin/home.ejs")
 })
-
+router.get("/parts_inventory",function(req,res){
+    res.render("admin/parts_inventory.ejs")
+})
 module.exports = router;
