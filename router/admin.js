@@ -7,4 +7,8 @@ router.get("/",function(req,res){
 router.get("/parts_inventory",function(req,res){
     res.render("admin/parts_inventory.ejs")
 })
+router.get("/vehicles", function (req,res){
+    res.render("admin/vehicles.ejs")
+});
+
 module.exports = router;
