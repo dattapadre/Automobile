@@ -15,7 +15,7 @@ router.post("/vehicles",async function(req,res){
     var d = req.body;
   var sql = `INSERT INTO vehicle_brand (vehicle_brand, vehicle_name) VALUES (?, ?)`;
   var result = await exe (sql,[d.vehicle_brand, d.vehicle_name]);
-  
+  res.redirect("/admin/vehicles");
 
   // Execute SQL query with params
 });
