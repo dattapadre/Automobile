@@ -1,382 +1,542 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shree Hari Automobile - Admin Panel</title>
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Custom CSS -->
-    <style>
-        :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --light-color: #ecf0f1;
-            --dark-color: #2c3e50;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
-            overflow-x: hidden;
-        }
-        
-        .sidebar {
-            background-color: #494574;
-            color: white;
-            height: 100vh;
-            position: fixed;
-            transition: all 0.3s;
-            z-index: 1000;
-            width: 250px;
-            left: 0;
-        }
-        
-        .sidebar.collapsed {
-            left: -250px;
-        }
-        
-        .sidebar-header {
-            padding: 20px;
-            background-color: #494574;
-        }
-        
-        .sidebar-header h3 {
-            color: white;
-            margin-bottom: 0;
-        }
-        
-        .sidebar-header img {
-            width: 40px;
-            height: 40px;
-            margin-right: 10px;
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            border-left: 3px solid transparent;
-            padding: 12px 20px;
-            margin-bottom: 5px;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: white;
-            background-color: rgba(0, 0, 0, 0.2);
-            border-left: 3px solid var(--secondary-color);
-        }
-        
-        .nav-link i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            transition: all 0.3s;
-        }
-        
-        .main-content.expanded {
-            margin-left: 0;
-        }
-        
-        .top-navbar {
-            background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 15px 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark-color);
-            margin-right: 15px;
-        }
-        
-        .user-info img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 10px;
-        }
-        
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .card-header {
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
-            padding: 15px 20px;
-        }
-        
-        .stat-card {
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .stat-card i {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            color: var(--secondary-color);
-        }
-        
-        .stat-card h2 {
-            font-weight: bold;
-            color: var(--dark-color);
-        }
-        
-        .stat-card p {
-            color: #7f8c8d;
-        }
-        
-        .table-responsive {
-            border-radius: 10px;
-            overflow: hidden;
-        }
-        
-        .table th {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .badge-success {
-            background-color: #2ecc71;
-        }
-        
-        .badge-warning {
-            background-color: #f39c12;
-        }
-        
-        .badge-danger {
-            background-color: #e74c3c;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary-color);
-            border-color: var(--secondary-color);
-        }
-        
-        .btn-primary:hover {
-            background-color: #2980b9;
-            border-color: #2980b9;
-        }
-        
-        .btn-danger {
-            background-color: var(--accent-color);
-            border-color: var(--accent-color);
-        }
-        
-        .btn-danger:hover {
-            background-color: #c0392b;
-            border-color: #c0392b;
-        }
-        
-        .search-box {
-            position: relative;
-            flex-grow: 1;
-            max-width: 400px;
-        }
-        
-        .search-box input {
-            padding-left: 40px;
-            border-radius: 20px;
-        }
-        
-        .search-box i {
-            position: absolute;
-            left: 15px;
-            top: 10px;
-            color: #7f8c8d;
-        }
-        
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--accent-color);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* Responsive styles */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 80px;
-                overflow: hidden;
-            }
-            
-            .sidebar .nav-link span {
-                display: none;
-            }
-            
-            .sidebar .nav-link i {
-                margin-right: 0;
-                font-size: 1.2rem;
-            }
-            
-            .sidebar-header h3 {
-                display: none;
-            }
-            
-            .sidebar-header {
-                text-align: center;
-            }
-            
-            .sidebar-header img {
-                margin-right: 0;
-            }
-            
-            .main-content {
-                margin-left: 80px;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-            
-            .sidebar {
-                left: -250px;
-            }
-            
-            .sidebar.show {
-                left: 0;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .top-navbar {
-                flex-wrap: wrap;
-            }
-            
-            .search-box {
-                order: 3;
-                margin-top: 15px;
-                max-width: 100%;
-                width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Automobile</title>
+
+  <!-- Bootstrap + Font Awesome -->
+   
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    :root {
+      --primary-color: #57497b;
+      --secondary-color:#57497b;
+      --accent-color: #56497c;
+      --light-color: #f8f9fa;
+      --dark-color: #212529;
+      --sidebar-width: 280px;
+      --sidebar-collapsed-width: 80px;
+      --transition-speed: 0.3s;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      overflow-x: hidden;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      height: 100vh;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #574477;
+      color: white;
+      transition: all var(--transition-speed) ease;
+      z-index: 1050;
+      overflow-y: auto;
+    }
+
+    .sidebar-collapsed {
+      width: var(--sidebar-collapsed-width);
+    }
+
+    .sidebar-collapsed .menu-item-text,
+    .sidebar-collapsed .logo h2 {
+      display: none;
+    }
+
+    .logo {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .logo i {
+      font-size: 28px;
+      transition: all var(--transition-speed) ease;
+    }
+    
+    .logo h2 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-left: 10px;
+      margin-bottom: 0;
+      white-space: nowrap;
+    }
+
+    .menu1 {
+      padding: 15px 0;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .menu-item:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .menu-item.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-left: 3px solid white;
+      color: white;
+    }
+
+    .menu-item i {
+      width: 25px;
+      text-align: center;
+      margin-right: 10px;
+    } 
+     .menu-item-text {
+      white-space: nowrap;
+    }
+    .main-content {
+      margin-left: var(--sidebar-width);
+      transition: all var(--transition-speed) ease;
+      min-height: 100vh;
+    }
+
+    .main-content-collapsed {
+      margin-left: var(--sidebar-collapsed-width);
+    }
+
+    .top-navbar {
+      height: 70px;
+      background-color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .toggle-btn {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    
+
+    
+
+    
+
+    .submenu {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      background-color: #4c4a86;
+      transition: max-height 0.5s ease, opacity 0.5s ease;
+    }
+    
+
+    .submenu.show {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .toggle-icon {
+      transition: transform 0.3s ease;
+      
+    }
+
+    .toggle-icon.rotate {
+      transform: rotate(180deg);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: 1040;
+      display: none;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    @media (max-width: 992px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.show {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+    }
+    .user-profile {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 2px solid var(--accent-color);
+    }
+    .user-name {
+      font-weight: 500;
+      margin-right: 10px;
+    }
+    
+    .dropdown-menu {
+      position: relative;
+      right: 0;
+    
+      width: 350px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      display: none;
+    }
+    
+    .dropdown-menu.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    /* @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    } */
+    
+    .user-info {
+      display: flex;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 10px;
+    }
+    
+    .user-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 15px;
+    }
+    
+    .user-details h5 {
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+    
+    .user-details p {
+      margin-bottom: 0;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+    
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 0;
+      color: var(--dark-color);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    
+    .dropdown-item:hover {
+      color: var(--primary-color);
+    }
+    
+    .dropdown-item i {
+      width: 25px;
+      text-align: center;
+      margin-right: 10px;
+    }
+    
+  
+
+    /* Notification dot */
+    .notification {
+      height: 12px;
+      width: 12px;
+      background-color: red;
+      border-radius: 6px;
+      position: relative;
+      top: -10px;
+      left: 10px;
+      z-index: -1;
+    }
+     .banner {
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to right, #c44d51, #4b3f92, white);
+  position: relative;
+  overflow: hidden;
+  border-left: 7px solid gold;
+}
+  </style>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header d-flex align-items-center">
-            <img src="https://i.pinimg.com/736x/2f/55/12/2f551280eb27f868ea8111fcede82bc2.jpg" alt="Logo" class="img-fluid">
-            <h3>Automobile</h3>
-        </div>
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/vehicles">
-                    <i class="fas fa-car"></i>
-                    <span>Vehicle Inventory</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-users"></i>
-                    <span>Customers</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    <span>Sales</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-tools"></i>
-                    <span>Services</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/admin/parts_inventory">
-                    <i class="fas fa-boxes"></i>
-                    <span>Parts Inventory</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-user-cog"></i>
-                    <span>Employees</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-chart-line"></i>
-                    <span>Reports</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="fas fa-cog"></i>
-                    <span>Settings</span>
-                </a>
-            </li>
-        </ul>
+
+  <!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+
+  <div class="logo">
+    <i class="fas fa-car me-2"></i>
+    <h3 class="">Automobile</h3>
+  </div>
+
+  <div class="menu1">
+
+    <!-- Dashboard -->
+     <a href="/admin/" class="menu-item active">
+        <i class="fas fa-chart-line"></i>
+        <span class="menu-item-text">Dashboard</span>
+      </a>
+
+    <!-- Vehicle Inventory -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-car-side"></i>
+      <span class="menu-item-text">Vehicle Inventory</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
     </div>
-    <div class="main-content" id="mainContent">
-      <div class="top-navbar">
-            <div class="d-flex align-items-center">
-                <button class="menu-toggle" id="menuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" class="form-control" placeholder="Search...">
-                </div>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="notification me-4 position-relative">
-                    <i class="fas fa-bell fa-lg"></i>
-                    <span class="notification-badge">3</span>
-                </div>
-                <div class="user-info d-flex align-items-center">
-                    <img src="https://png.pngtree.com/png-vector/20191003/ourmid/pngtree-user-login-or-authenticate-icon-on-gray-background-flat-icon-ve-png-image_1786166.jpg" alt="User" class="img-fluid">
-                    <span>Admin User</span>
-                </div>
-            </div>
+    <div class="submenu">
+      
+      <a href="/admin/vehicles" class="menu-item">
+        <i class="fas fa-layer-group"></i> Categories
+      </a>
+      <a href="/admin/vehicles_list" class="menu-item">
+        <i class="fas fa-list-ul"></i> Vehicles List
+      </a>
+    </div>
+
+    <!-- Sales -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-dollar-sign"></i>
+      <span class="menu-item-text">Sales</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/sales-list" class="menu-item">
+        <i class="fas fa-receipt"></i> Sales Records
+      </a>
+      <a href="/admin/invoices" class="menu-item">
+        <i class="fas fa-file-invoice-dollar"></i> Invoices
+      </a>
+    </div>
+
+    <!-- Parts Inventory -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-cogs"></i>
+      <span class="menu-item-text">Parts Inventory</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/parts" class="menu-item">
+        <i class="fas fa-boxes"></i> All Parts
+      </a>
+      <a href="/admin/suppliers" class="menu-item">
+        <i class="fas fa-truck-loading"></i> Suppliers
+      </a>
+    </div>
+
+    <!-- Employees -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-users"></i>
+      <span class="menu-item-text">Employees</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/employees" class="menu-item">
+        <i class="fas fa-id-badge"></i> Employee List
+      </a>
+      <a href="/admin/roles" class="menu-item">
+        <i class="fas fa-user-shield"></i> Roles
+      </a>
+    </div>
+
+    <!-- Reports -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-chart-bar"></i>
+      <span class="menu-item-text">Reports</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/sales-report" class="menu-item">
+        <i class="fas fa-file-alt"></i> Sales Report
+      </a>
+      <a href="/admin/inventory-report" class="menu-item">
+        <i class="fas fa-clipboard-list"></i> Inventory Report
+      </a>
+    </div>
+
+    <!-- Services -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-tools"></i>
+      <span class="menu-item-text">Services</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/services" class="menu-item">
+        <i class="fas fa-wrench"></i> Service List
+      </a>
+      <a href="/admin/bookings" class="menu-item">
+        <i class="fas fa-calendar-check"></i> Bookings
+      </a>
+    </div>
+
+    <!-- Customers -->
+    <div class="menu-item submenu-toggle">
+      <i class="fas fa-user-friends"></i>
+      <span class="menu-item-text">Customers</span>
+      <i class="fas fa-chevron-down ms-auto toggle-icon"></i>
+    </div>
+    <div class="submenu">
+      <a href="/admin/customers" class="menu-item">
+        <i class="fas fa-address-book"></i> Customer List
+      </a>
+      <a href="/admin/feedback" class="menu-item">
+        <i class="fas fa-comment-dots"></i> Feedback
+      </a>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Overlay for mobile -->
+  <div class="overlay" id="sidebarOverlay"></div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+     <nav class="top-navbar">
+      <button class="toggle-btn" id="toggleSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="user-profile">
+        <div class="notification"></div>
+        <i class="fa-solid fa-bell fs-5 me-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="bell"></i>
+        <i class="fas fa-cog settings-icon mx-3 text-primary" data-bs-toggle="modal" data-bs-target="#settingsModal"></i>
+        
+        <!-- Avatar Trigger - Using Bootstrap dropdown -->
+        <div class="dropdown user-profile ">
+ 
+    <img src="" alt="User" class="user-avatar" id="userDropdown" data-bs-toggle="dropdown"  />
+   
+   
+  
+
+  <ul class="dropdown-menu  p-3" aria-labelledby="userDropdown">
+    <li>
+      <div class="user-info">
+        <img src="" alt="User" />
+        <div class="user-details">
+          <h5></h5>
+          <p></p>
         </div>
+      </div>
+    </li>
+   
+    <li>
+      <a class="dropdown-item" href="/student/profile">
+        <i class="fas fa-user"></i> Profile
+      </a>
+    </li>
+    <li>
+      <a class="dropdown-item" href="/student/logout">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </li>
+  </ul>
+</div>
 
+      </div>
+    </nav>
 
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label class="form-label">Theme Color</label>
+              <select class="form-select">
+                <option>Default</option>
+                <option>Dark Mode</option>
+                <option>Light Mode</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Notification Preferences</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                <label class="form-check-label" for="emailNotifications">Email Notifications</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                <label class="form-check-label" for="pushNotifications">Push Notifications</label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notices Modal -->
+    <div class="modal fade rounded-3" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div style="background-color: #373573;" class="modal-header text-center">
+            <h5 class="modal-title" id="exampleModalLabel">Notices Bar</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body rounded-3">
             
-    <!-- Main Content -->
+              <div class="mb-2 border-bottom">
+                <p class="float-end"><b>Date :</b> </b></p>
+                <p><b>Title :</b> </p>
+                <p><b>Information :</b> </p>
+                <p class="text-primary"><b>Send By :</b></b>
+              </div>
+          
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Container -->
+    
+
   
