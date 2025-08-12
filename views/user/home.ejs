@@ -1,0 +1,377 @@
+<%-include('navbar.ejs')%>
+<style>
+  .rotate-image {
+      width: 350px !important;
+      height: 300px !important; /* तू हवा तसा width ठेऊ शकतोस */
+      height: auto;
+      position: absolute;
+      top: 30%;
+      left: 65%;
+      border-radius: 50%;
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+</style>
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <div class="hero-content animate__animated animate__zoomIn">
+            <h1>Authentic Cuisine With Modern Twist</h1>
+            <p>Experience the finest dining with our carefully crafted menu using locally sourced ingredients and traditional recipes.</p>
+            <a href="/menu" class="btn btn-primary me-2">View Menu</a>
+          </div>
+          <!-- <img src="https://madraskitchen.co.uk/wp-content/uploads/2023/09/thalli-3.jpg" alt="" class="rotate-image"> -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section" id="about"  data-aos="zoom-in-up" data-aos-duration="1400">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <div class="about-img">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="About SK Restaurant">
+          </div>
+        </div>
+        <div class="col-lg-6 ">
+          <h2 class="mb-4">Our Story</h2>
+          <p class="lead ">Founded in 2005, SK Restaurant has been serving authentic cuisine with a modern twist for over 15 years.</p>
+          <p>Our chef brings decades of experience from around the world, combining traditional techniques with innovative approaches to create unforgettable dining experiences.</p>
+          <p>We pride ourselves on using only the freshest, locally-sourced ingredients to craft our seasonal menus. Every dish tells a story of passion, tradition, and culinary excellence.</p>
+          <div class="row mt-4">
+            <div class="col-md-6 mb-3">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-utensils fa-2x text-primary me-3"></i>
+                <div>
+                  <h5 class="mb-0">Fresh Ingredients</h5>
+                  <p class="mb-0">Locally sourced</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-award fa-2x text-primary me-3"></i>
+                <div>
+                  <h5 class="mb-0">Award Winning</h5>
+                  <p class="mb-0">5-star rated</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section class="menu-section" id="menu"  data-aos="zoom-in-up" data-aos-duration="1400">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Menu</h2>
+        <p>Seasonal selections crafted with care</p>
+      </div>
+
+      <ul class="nav nav-pills menu-tabs justify-content-center" id="menuTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="starters-tab" data-bs-toggle="pill" data-bs-target="#starters" type="button" role="tab">Starters</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="mains-tab" data-bs-toggle="pill" data-bs-target="#mains" type="button" role="tab">Main Courses</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="desserts-tab" data-bs-toggle="pill" data-bs-target="#desserts" type="button" role="tab">Desserts</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="drinks-tab" data-bs-toggle="pill" data-bs-target="#drinks" type="button" role="tab">Drinks</button>
+        </li>
+      </ul>
+
+      <div class="tab-content" id="menuTabContent">
+        <!-- Starters -->
+        <div class="tab-pane fade show active" id="starters" role="tabpanel">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://png.pngtree.com/thumb_back/fh260/background/20240328/pngtree-mutton-biryani-meal-in-a-plate-on-table-image_15645442.jpg" alt="Bruschetta">
+                </div>
+                <div class="menu-content">
+                  <h3>Classic Bruschetta</h3>
+                  <p>Toasted bread topped with tomatoes, garlic, and fresh basil</p>
+                  <span class="price">$8.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Calamari">
+                </div>
+                <div class="menu-content">
+                  <h3>Crispy Calamari</h3>
+                  <p>Lightly fried squid served with lemon aioli</p>
+                  <span class="price">$12.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Soup">
+                </div>
+                <div class="menu-content">
+                  <h3>Seasonal Soup</h3>
+                  <p>Chef's selection of the day with artisan bread</p>
+                  <span class="price">$7.99</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Courses -->
+        <div class="tab-pane fade" id="mains" role="tabpanel">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1398&q=80" alt="Steak">
+                </div>
+                <div class="menu-content">
+                  <h3>Grilled Ribeye Steak</h3>
+                  <p>12oz prime ribeye with roasted vegetables and red wine reduction</p>
+                  <span class="price">$28.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1371&q=80" alt="Pasta">
+                </div>
+                <div class="menu-content">
+                  <h3>Truffle Mushroom Pasta</h3>
+                  <p>House-made fettuccine with wild mushrooms and truffle oil</p>
+                  <span class="price">$18.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Salmon">
+                </div>
+                <div class="menu-content">
+                  <h3>Pan-Seared Salmon</h3>
+                  <p>Atlantic salmon with lemon butter sauce and asparagus</p>
+                  <span class="price">$22.99</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desserts -->
+        <div class="tab-pane fade" id="desserts" role="tabpanel" data-aos="zoom-in-up" data-aos-duration="1400">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80" alt="Chocolate Cake">
+                </div>
+                <div class="menu-content">
+                  <h3>Chocolate Lava Cake</h3>
+                  <p>Warm chocolate cake with a molten center and vanilla ice cream</p>
+                  <span class="price">$8.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1557&q=80" alt="Cheesecake">
+                </div>
+                <div class="menu-content">
+                  <h3>New York Cheesecake</h3>
+                  <p>Classic cheesecake with berry compote</p>
+                  <span class="price">$7.99</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Tiramisu">
+                </div>
+                <div class="menu-content">
+                  <h3>Tiramisu</h3>
+                  <p>Traditional Italian dessert with espresso-soaked ladyfingers</p>
+                  <span class="price">$9.99</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Drinks -->
+        <div class="tab-pane fade" id="drinks" role="tabpanel">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Wine">
+                </div>
+                <div class="menu-content">
+                  <h3>House Wines</h3>
+                  <p>Selection of red, white, and rosé wines by the glass</p>
+                  <span class="price">$8-12</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Cocktails">
+                </div>
+                <div class="menu-content">
+                  <h3>Signature Cocktails</h3>
+                  <p>Our mixologist's special creations</p>
+                  <span class="price">$12-15</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="menu-item">
+                <div class="menu-img">
+                  <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Coffee">
+                </div>
+                <div class="menu-content">
+                  <h3>Artisan Coffee</h3>
+                  <p>Locally roasted coffee prepared by our barista</p>
+                  <span class="price">$4-6</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonial-section" data-aos="zoom-in-up" data-aos-duration="1400">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Our Customers Say</h2>
+        <p>Hear from our valued guests</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="testimonial-item text-center">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer">
+            </div>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p>"The steak was cooked to perfection and the service was impeccable. We'll definitely be back!"</p>
+            <h4>Sarah Johnson</h4>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="testimonial-item text-center">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Customer">
+            </div>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <p>"Best Italian food I've had outside of Italy. The pasta was fresh and the flavors were amazing."</p>
+            <h4>Michael Chen</h4>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="testimonial-item text-center">
+            <div class="testimonial-img">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer">
+            </div>
+            <div class="stars">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+            <p>"The atmosphere was perfect for our anniversary dinner. Food and service were both outstanding."</p>
+            <h4>Emily Rodriguez</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="gallery-section" id="gallery" data-aos="zoom-in-up" data-aos-duration="1400">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Gallery</h2>
+        <p>A glimpse of our restaurant</p>
+      </div>
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Restaurant Interior">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Chef Cooking">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Dining Area">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1398&q=80" alt="Food Presentation">
+            <div class="gallery-overlay">
+              <i class="fas fa-search-plus"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<%-include('footer.ejs')%>

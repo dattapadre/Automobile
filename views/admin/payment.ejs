@@ -1,0 +1,156 @@
+<%- include('navbar.ejs') %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+  body {
+    background-color: #f8f9fa;
+  }
+
+  .invoice-box {
+    max-width: 800px;
+    margin: auto;
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    color: #212529;
+  }
+
+  .invoice-header h2 {
+    font-weight: bold;
+    color: #343a40;
+  }
+
+  .table th {
+    background-color: #000 !important;
+    color: #fff;
+  }
+
+  .total-row td {
+    font-weight: bold;
+    font-size: 18px;
+    background-color: #f8f9fa;
+  }
+
+  .thank-you {
+    text-align: center;
+    margin-top: 30px;
+    font-style: italic;
+    color: #6c757d;
+  }
+
+  @media print {
+    .no-print, .no-print * {
+      display: none !important;
+    }
+
+    body {
+      background: white !important;
+    }
+
+    .invoice-box {
+      box-shadow: none !important;
+      border: none !important;
+    }
+  }
+</style>
+<div class="invoice-box my-4 p-4">
+  <div class="invoice-header text-center mb-4">
+    <h2>SK Restaurant</h2>
+    <p class="mb-0"><strong>Invoice</strong></p>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <p><strong>Date:</strong> <%= new Date(order.order_date).toLocaleDateString() %></p>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <p><strong>Table:</strong> <%= order.table_no %></p>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-bordered align-middle text-center">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price (₹)</th>
+          <th>Total (₹)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let total = 0; %>
+        <% items.forEach(item => {
+            let itemTotal = item.quantity * item.menu_price;
+            total += itemTotal;
+        %>
+          <tr>
+            <td><%= item.menu_name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= item.menu_price %></td>
+            <td><%= itemTotal %></td>
+          </tr>
+        <% }) %>
+        <tr class="table-light total-row">
+          <td colspan="3" class="text-end">Grand Total</td>
+          <td>₹<%= total %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="thank-you">Thank you for dining with us! Visit again.</p>
+
+  <!-- Payment Button -->
+  <div class="text-center no-print mt-4">
+    <button 
+      class="btn btn-success px-4" 
+      id="payBtn" 
+      data-orderid="<%= order.table_no %>" 
+      data-amount="<%= total %>" 
+      onclick="payNow()">💳 Pay Invoice</button>
+  </div>
+
+  <!-- Print Button -->
+  <div class="text-center no-print mt-3">
+    <button class="btn btn-primary px-4" onclick="window.print()">🖨️ Print Receipt</button>
+  </div>
+</div>
+
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+  function payNow() {
+    const btn = document.getElementById('payBtn');
+    const orderId = btn.dataset.orderid;
+    const totalAmount = btn.dataset.amount;
+
+    const options = {
+      key: "rzp_test_GmXyAFAK01Uo7t", // Replace with live key for production
+      amount: totalAmount * 100, // in paise
+      currency: "INR",
+      name: "SK Restaurant",
+      description: "Food Bill Payment",
+      image: "https://yourdomain.com/logo.png",
+      callback_url: `/admin/payment_success/${orderId}`,
+      prefill: {
+        name: "Customer",
+        contact: "9999999999"
+      },
+      theme: {
+        color: "#28a745"
+      }
+    };
+
+    const rzp = new Razorpay(options);
+    rzp.open();
+
+    rzp.on('payment.failed', function (response) {
+      alert("Payment failed: " + response.error.description);
+    });
+  }
+</script>
+
+<%- include('footer.ejs') %>

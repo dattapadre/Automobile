@@ -1,0 +1,284 @@
+<%-include('navbar.ejs')%>
+    <style>
+        /* Menu Page Specific Styles */
+        .menu-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .menu-header {
+            background-image: url('https://5.imimg.com/data5/SELLER/Default/2023/5/307014966/AU/YL/IA/57533496/resturent-pubs-designers-500x500.jpeg');
+            background-size: 100% 100%;
+            display: flex;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .menu-header h1 {
+            font-size: 2.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .menu-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .menu-section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #c00;
+            border-bottom: 2px solid #c00;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .menu-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .item-details {
+            padding: 20px;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #c00;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .spicy-level {
+            display: flex;
+            align-items: center;
+            color: #666;
+        }
+
+        .spicy-icon {
+            color: #c00;
+            margin-right: 5px;
+        }
+        /* Hero Section */
+    .about-hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.37), rgba(0, 0, 0, 0.199)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80');
+      background-size: cover;
+      background-position: center;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+
+    .about-hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+
+        @media (max-width: 768px) {
+            .menu-items {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+        <section class="about-hero">
+            <div class="container">
+                <h1 class="m-5">Test Of Sk Resturent</h1>
+                <nav aria-label="breadcrumb">
+                </nav>
+            </div>
+        </section>
+
+    <div class="menu-container">
+        <!-- Appetizers Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Appetizers</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item">
+                    <img src="https://www.indianhealthyrecipes.com/wp-content/uploads/2013/12/spring-rolls.jpg"
+                        alt="Spring Rolls" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Vegetable Spring Rolls</h3>
+                        <p class="item-price">₹180</p>
+                        <p class="item-description">Crispy rolls filled with fresh vegetables and served with sweet
+                            chili sauce.</p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️</span>
+                            <span>Mild</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-item">
+                    <img src="https://food.fnr.sndimg.com/content/dam/images/food/plus/fullset/2020/02/06/0/FNK-Live_112119-Jet-Tila-Chicken-Satay-with-Peanut-Sauce-0005_s4x3.jpg.rend.hgtvcom.1280.960.suffix/1581032331905.webp"
+                        alt="Chicken Satay" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Chicken Satay</h3>
+                        <p class="item-price">₹220</p>
+                        <p class="item-description">Grilled chicken skewers with peanut sauce and cucumber relish.</p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️🌶️</span>
+                            <span>Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRFIw8Qnb1kyqCVhixFf1cC98X0wFs1Cj4-vtPXh8SO2dt_iOfRdVQit-t09w9vC6pbYQY&usqp=CAU"
+                        alt="Prawn Tempura" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Prawn Tempura</h3>
+                        <p class="item-price">₹280</p>
+                        <p class="item-description">Lightly battered and fried prawns served with tempura dipping sauce.
+                        </p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️</span>
+                            <span>Mild</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Courses Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Main Courses</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjbMru7s65lMY38cozS9JgFjEW4A_pXw2LCQ&s"
+                        alt="Green Curry" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Green Curry</h3>
+                        <p class="item-price">₹320</p>
+                        <p class="item-description">Aromatic green curry with your choice of chicken, beef or tofu,
+                            bamboo shoots and Thai eggplant.</p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️🌶️🌶️</span>
+                            <span>Spicy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-item">
+                    <img src="https://img.hellofresh.com/f_auto,fl_lossy,q_auto,w_1200/hellofresh_s3/image/prawn-pad-thai-7bb184d7-c94831de.jpg"
+                        alt="Pad Thai" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Prawn Pad Thai</h3>
+                        <p class="item-price">₹350</p>
+                        <p class="item-description">Stir-fried rice noodles with prawns, bean sprouts, peanuts and egg
+                            in a tangy tamarind sauce.</p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️🌶️</span>
+                            <span>Medium</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSdeXBNuobg85Gg0o7oQC-GhsZW9rpzDKFAfw&s"
+                        alt="Massaman Curry" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Massaman Curry</h3>
+                        <p class="item-price">₹340</p>
+                        <p class="item-description">Rich and mild curry with potatoes, onions, peanuts and your choice
+                            of meat.</p>
+                        <div class="spicy-level">
+                            <span class="spicy-icon">🌶️</span>
+                            <span>Mild</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desserts Section -->
+        <div class="menu-section">
+            <h2 class="section-title">Desserts</h2>
+            <div class="menu-items">
+                <!-- Item 1 -->
+                <div class="menu-item">
+                    <img src="https://i.pinimg.com/600x315/72/21/9c/72219c1c46c3d506dd1b1fd9f9fe4b47.jpg"
+                        alt="Mango Sticky Rice" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Mango Sticky Rice</h3>
+                        <p class="item-price">₹200</p>
+                        <p class="item-description">Sweet sticky rice with fresh mango and coconut milk.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="menu-item">
+                    <img src="https://hot-thai-kitchen.com/wp-content/uploads/2018/11/Thai-banana-roti-sm.jpg"
+                        alt="Thai Pancakes" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Thai Banana Pancakes</h3>
+                        <p class="item-price">₹180</p>
+                        <p class="item-description">Crispy pancakes filled with banana and drizzled with condensed milk.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="menu-item">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxeYy4CDi1CMscxk9B4kZxa6qOwgcCvmgiYA&s"
+                        alt="Coconut Ice Cream" class="item-image">
+                    <div class="item-details">
+                        <h3 class="item-name">Coconut Ice Cream</h3>
+                        <p class="item-price">₹160</p>
+                        <p class="item-description">Homemade coconut ice cream served in a coconut shell with toppings.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-include('footer.ejs')%>

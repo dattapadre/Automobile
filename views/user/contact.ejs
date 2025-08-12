@@ -1,0 +1,639 @@
+<%-include('navbar.ejs')%>
+  <!-- Contact Section -->
+  <!-- <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h2 class="mb-4">Contact Us</h2>
+          <div class="contact-info">
+            <div class="d-flex mb-4">
+              <i class="fas fa-map-marker-alt"></i>
+              <div>
+                <h5>Address</h5>
+                <p>123 Restaurant Row, Foodie City, FC 12345</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <i class="fas fa-phone-alt"></i>
+              <div>
+                <h5>Phone</h5>
+                <p>(123) 456-7890</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <i class="fas fa-envelope"></i>
+              <div>
+                <h5>Email</h5>
+                <p>info@skrestaurant.com</p>
+              </div>
+            </div>
+            <div class="d-flex mb-4">
+              <i class="fas fa-clock"></i>
+              <div>
+                <h5>Hours</h5>
+                <p>Monday - Friday: 11am - 10pm<br>Saturday - Sunday: 10am - 11pm</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <h2 class="mb-4">Make a Reservation</h2>
+          <form class="contact-form" id="reservation">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="text" class="form-control" placeholder="Your Name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="email" class="form-control" placeholder="Your Email" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="tel" class="form-control" placeholder="Phone Number" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="number" class="form-control" placeholder="Number of Guests" min="1" required>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <input type="date" class="form-control" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <input type="time" class="form-control" required>
+              </div>
+            </div>
+            <textarea class="form-control" rows="4" placeholder="Special Requests"></textarea>
+            <button type="submit" class="btn btn-primary mt-3">Book Table</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section> -->
+
+    <style>
+        /* Global Styles */
+        :root {
+            --primary: #c23c3cef; /* Dark red for accents */
+            --secondary: #F5F5DC; /* Beige background */
+            --text: #333333;
+            --light: #FFFFFF;
+            --dark: #222222;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', serif;
+        }
+        
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        
+        
+        /* Hero Section */
+        .contact-hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            color: var(--light);
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 40px;
+        }
+        
+        .contact-hero h1 {
+            font-size: 48px;
+            margin-top: 100px;
+            margin-bottom: 20px;
+        }
+        
+        .contact-hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Main Content */
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .info-box {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+        
+        .info-box h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 20px;
+            color: var(--primary);
+            margin-right: 15px;
+            margin-top: 3px;
+        }
+        
+        .contact-text h3 {
+            margin-bottom: 5px;
+        }
+        
+        /* Form Styles */
+        form {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        form h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 24px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #6d0000;
+        }
+        
+        /* Map Section */
+        .map-section {
+            margin-bottom: 60px;
+        }
+        
+        .map-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 32px;
+        }
+        
+        .map-container {
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Social Media */
+        .social-media {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .social-media h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .social-icons a {
+            color: var(--text);
+            font-size: 28px;
+            transition: color 0.3s;
+        }
+        
+        .social-icons a:hover {
+            color: var(--primary);
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            margin-bottom: 60px;
+        }
+        
+        .faq-section h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--primary);
+            font-size: 32px;
+        }
+        
+        .faq-item {
+            background-color: var(--light);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px;
+            background-color: var(--primary);
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            padding: 20px;
+            max-height: 500px;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            padding: 40px 0;
+        }
+        
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .footer-column h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 15px;
+            }
+            
+            .contact-hero h1 {
+                font-size: 36px;
+            }
+            
+            .contact-hero p {
+                font-size: 18px;
+            }
+            
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 5px 0;
+            }
+            
+            .contact-hero {
+                padding: 60px 20px;
+            }
+            
+            .contact-hero h1 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <h1>Get In Touch</h1>
+        <p>We'd love to hear from you. Whether you have a question about our menu, want to make a reservation, or are planning a special event, our team is here to help.</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="contact-container">
+            <!-- Contact Information -->
+            <div class="contact-info">
+                <div class="info-box">
+                    <h2>Contact Information</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Address</h3>
+                            <p>123 Culinary Avenue<br>Foodie District, NY 10001</p>
+                            <a href="https://maps.google.com" target="_blank">View on Google Maps</a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Phone</h3>
+                            <p>Reservations: (555) 123-4567<br>
+                            General Inquiries: (555) 123-4568</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Email</h3>
+                            <p>General: info@gourmetbistro.com<br>
+                            Reservations: reservations@gourmetbistro.com<br>
+                            Events: events@gourmetbistro.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h3>Hours</h3>
+                            <p>Monday - Thursday: 11am - 10pm<br>
+                            Friday - Saturday: 11am - 11pm<br>
+                            Sunday: 10am - 9pm<br>
+                            <em>Kitchen closes 30 minutes before</em></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h2>Parking & Transportation</h2>
+                    <p>Valet parking available Friday-Sunday evenings for $15. Street parking available. Nearest subway station: Foodie District Station (Lines 1, 2, 3).</p>
+                </div>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <form id="contactForm">
+                    <h2>Send Us a Message</h2>
+                    
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Select a subject</option>
+                            <option value="reservation">Reservation Inquiry</option>
+                            <option value="feedback">Feedback/Suggestion</option>
+                            <option value="private-event">Private Event Inquiry</option>
+                            <option value="employment">Employment Opportunity</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Map Section -->
+        <div class="map-section">
+            <h2>Our Location</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5249.132183162872!2d74.72725227530832!3d19.106000187136818!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcb17ca9d749e5%3A0x516744f9b2f35ec9!2sA2Z%20IT%20HUB%20PVT.%20LTD.!5e0!3m2!1smr!2sin!4v1753505110498!5m2!1smr!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        
+        <!-- Social Media -->
+        <div class="social-media">
+            <h2>Connect With Us</h2>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" aria-label="Yelp"><i class="fab fa-yelp"></i></a>
+                <a href="#" aria-label="OpenTable"><i class="fas fa-utensils"></i></a>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you take reservations?</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we accept reservations for parties of all sizes. You can book through our website, by calling us directly, or through OpenTable. We recommend making reservations at least 24 hours in advance for weekends and special occasions.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you accommodate dietary restrictions?</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolutely. Our menu includes vegetarian, vegan, and gluten-free options. Please inform your server about any allergies or dietary restrictions, and our chefs will be happy to accommodate your needs.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What is your cancellation policy?</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>For regular reservations, we request at least 2 hours notice for cancellations. For large parties (6+ people) and private events, we require 24 hours notice. Late cancellations may be subject to a fee.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer gift cards?</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer physical and digital gift cards in any denomination. They can be purchased in-restaurant or through our website and never expire.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Is there a dress code?</span>
+                    <i class="fas fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We maintain a business casual dress code. While we don't require jackets, we do ask guests to avoid overly casual attire like tank tops, flip-flops, or athletic wear.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+   
+    <script>
+        // FAQ Accordion Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+                
+                const icon = question.querySelector('i');
+                if (item.classList.contains('active')) {
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                } else {
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                }
+            });
+        });
+        
+        // Form Submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+  <%-include('footer.ejs')%>
