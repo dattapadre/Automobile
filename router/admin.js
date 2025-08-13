@@ -32,6 +32,8 @@ router.get("/add_product",async function (req, res) {
 })
 router.post("/save_product",async function (req, res) {
     var d = req.body
+    console.log(d)
+    console.log(req.files)
     var filename = ""
     var filename1 = ""
     var filename2 = ""
@@ -64,6 +66,8 @@ router.post("/save_product",async function (req, res) {
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     var result =await exe(sql,[d.product_name,filename,filename1,filename2,d.product_price,d.product_market_price,d.product_part_type,d.product_sub_part,d.product_vehicle_type_id,d.product_availability,d.product_trending,d.product_added_date,d.product_description])
+    console.log(result)
+
     res.redirect("/admin/add_product")
 })
 

@@ -5,7 +5,7 @@ var exe = require('../connection')
 
 router.get("/", function (req, res) {
     res.render("user/home.ejs")
-})
+}) 
 router.get('/body-parts', async function (req, res) {
     var data = url.parse(req.url, true).query;
     let sql = "";
