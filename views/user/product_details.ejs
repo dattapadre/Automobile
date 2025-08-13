@@ -1,0 +1,114 @@
+<%-include('navbar.ejs')%>
+  <!--------------------- AOS CSS--------------- -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <!--------------------------css------------------------------->
+  <link rel="stylesheet" type="text/css" href="css/product.css">
+  <br>
+<div class="container-filud">
+  <div class="row">
+
+    <!-- Sidebar: Brand -->
+    <div class="col-lg-3 col-md-4 col-sm-12" data-aos="fade-right">
+      <div class="sidebar">
+        <h5>BRAND</h5>
+        <ul>
+          <li><a href="#">Audi</a></li>
+          <li><a href="#">BMW</a></li>
+          <li><a href="#">Mercedes</a></li>
+          <li><a href="#">Porsche</a></li>
+          <li><a href="#">Volkswagen</a></li>
+          <li><a href="#">Toyota</a></li>
+          <li><a href="#">Honda</a></li>
+        </ul>
+        <button class="btn btn-dark w-100">Apply Filters</button>
+      </div>
+
+      <!-- Sidebar: Price Range -->
+      <div class="sidebar">
+        <h5>Price Range</h5>
+        <div class="mb-3">
+          <input type="range" class="form-range" min="0" max="6000" step="500">
+          <div class="d-flex justify-content-between">
+            <span>₹0</span>
+            <span>₹6000</span>
+          </div>
+        </div>
+        <button class="btn btn-dark w-100">Apply Filters</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-lg-9 col-md-8 col-sm-12">
+      <div class="filter-controls" data-aos="fade-down">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+          <h4 class="section-title mb-0">Seat Pockets</h4>
+          <div class="view-options">
+            <span class="filter-label">View:</span>
+            <button class="btn btn-outline-secondary active">
+              <i class="bi bi-grid"></i> Grid
+            </button>
+            <button class="btn btn-outline-secondary">
+              <i class="bi bi-list-ul"></i> List
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <div class="filter-group">
+            <span class="filter-label">Sort by:</span>
+            <select class="form-select" style="width: 200px;">
+              <option>Best selling</option>
+              <option>Price: Low to High</option>
+              <option>Price: High to Low</option>
+              <option>Newest</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <span class="filter-label">Items per page:</span>
+            <select class="form-select" style="width: 100px;">
+              <option>12</option>
+              <option>24</option>
+              <option>36</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="row">
+        <!-- Product Items -->
+         <%if(result.length > 0){%>
+         <%for(var i=0;i<result.length;i++){%>
+        <div class="col-md-4 col-sm-6 col-12 mb-4" data-aos="zoom-in" data-aos-delay="100">
+          <div class="product-card">
+            <img src="/product/<%-result[i].product_image%>" alt="Seat Pocket" class="product-img">
+            <div class="product-body">
+              <div class="product-brand"></div>
+              <div class="product-title"><%-result[i].product_name%></div>
+              <div class="product-price">
+                <span class="old-price">₹<%-result[i].product_market_price%></span>
+                <span class="new-price">₹<%-result[i].product_price%></span>
+              </div>
+              <button class="btn-add-to-cart">ADD TO CART</button>
+            </div>
+          </div>
+        </div>
+        <%}%>
+        <%}else{%>
+            <h1 class="text-dark text-center ">Product Are No Available</h1>
+         <%}%>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AOS JS -->
+<script>
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
+<%-include('footer.ejs')%>

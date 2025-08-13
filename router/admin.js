@@ -37,15 +37,15 @@ router.post("/save_product",async function (req, res) {
     var filename2 = ""
     if (req.files && req.files.product_image) {
         var filename = new Date().getTime() + req.files.product_image.name;
-        req.files.product_image.mv('public/upload/' + filename)
+        req.files.product_image.mv('public/product/' + filename)
     }
     if (req.files && req.files.product_image1) {
         var filename1 = new Date().getTime() + req.files.product_image1.name;
-        req.files.product_image.mv('public/upload/' + filename1)
+        req.files.product_image.mv('public/product/' + filename1)
     }
     if (req.files && req.files.product_image2) {
         var filename2 = new Date().getTime() + req.files.product_image2.name;
-        req.files.product_image.mv('public/upload/' + filename2)
+        req.files.product_image.mv('public/product/' + filename2)
     }
     var sql = `INSERT INTO products (
             product_name,
