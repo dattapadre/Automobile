@@ -1,0 +1,160 @@
+<%- include('navbar.ejs') %>
+
+    <div class="container mt-4 p-5 pt-2">
+        <div class="card shadow-lg border-1 ">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0"><i class="bi bi-plus-circle"></i> Add New Product</h4>
+            </div>
+            <div class="card-body bg-light">
+                <form action="/admin/save_product" method="POST" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <!-- Product Name -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Product Name</label>
+                            <input type="text" name="product_name" class="form-control" placeholder="Enter product name"
+                                required>
+                        </div>
+
+                        <!-- Main Image -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Main Image</label>
+                            <input type="file" name="product_image" class="form-control" required>
+                        </div>
+
+                        <!-- Image 1 -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Image 1</label>
+                            <input type="file" name="product_image1" class="form-control">
+                        </div>
+
+                        <!-- Image 2 -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Image 2</label>
+                            <input type="file" name="product_image2" class="form-control">
+                        </div>
+
+                        <!-- Selling Price -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Selling Price</label>
+                            <input type="number" step="0.01" name="product_price" class="form-control" placeholder="₹"
+                                required>
+                        </div>
+
+                        <!-- Market Price -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Market Price</label>
+                            <input type="number" step="0.01" name="product_market_price" class="form-control"
+                                placeholder="₹">
+                        </div>
+
+                        <!-- Part Type -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Part Type</label>
+                            <select name="product_part_type" id="product_part_type" class="form-select" required>
+                                <option value="">Select</option>
+                                <option value="bodypart">Body Part</option>
+                                <option value="Interior">Interior Parts</option>
+                                <option value="Suspension">Suspension Parts</option>
+                                <option value="Air">Air Suspension</option>
+                                <option value="Electric">Electric Parts</option>
+                                <option value="Engine">Engine Parts</option>
+                                <option value="Sensors">Sensors</option>
+                                <option value="Brake">Brake Parts</option>
+                                <option value="AC">AC Parts</option>
+                                <option value="Maintenance">Maintenance Parts</option>
+                            </select>
+                        </div>
+
+                        <!-- Sub Part -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Sub Part</label>
+                            <select name="product_sub_part" id="product_sub_part" class="form-select">
+                                <option value="">Select Part Type First</option>
+                            </select>
+                        </div>
+
+                        <!-- Vehicle Type ID -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Select Vehicle</label>
+                            <select name="product_vehicle_type_id" class="form-select">
+                                <option value="">Select</option>
+                                <% for (var i=0; i < vehicle.length; i++) { %>
+                                    <option value="<%- vehicle[i].vehicle_id %>"><%- vehicle[i].vehicle_name %></option>
+                                    <% } %>
+                            </select>
+                        </div>
+
+                        <!-- Availability -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Availability</label>
+                            <select name="product_availability" class="form-select" required>
+                                <option value="in stock">In Stock</option>
+                                <option value="out stock">Out Stock</option>
+                            </select>
+                        </div>
+
+                        <!-- Trending Product -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Trending Product</label>
+                            <select name="product_trending" class="form-select">
+                                <option value="no">No</option>
+                                <option value="yes">Yes</option>
+                            </select>
+                        </div>
+
+                        <!-- Added Date -->
+                        <div class="col-md-4">
+                            <label class="form-label fw-bold">Added Date</label>
+                            <input type="date" name="product_added_date" class="form-control">
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-md-12">
+                            <label class="form-label fw-bold">Description</label>
+                            <textarea name="product_description" class="form-control" rows="3" id="editor"
+                                placeholder="Write product details..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Submit -->
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-save"></i> Save Product
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const subParts = {
+            bodypart: ["Front Bumper", "Rear Bumper", "Side Mirror", "Accessories", "Maintenance Body Parts"],
+            Interior: ["Seats", "Dashboard", "Ac Vents", "Air Bag Covers", "Seat Pockets", "Handle Set"],
+            Suspension: ["Front Wheel Suspension", "Rear Wheel Suspension", "All Shockers Parts"],
+            Air: ["Air Matic Shockers", "Electric Shockers", "Air Compressors", "Valve Blockers", "Air Compressor Repair Kit", "Air Balloons"],
+            Electric: ["Fuel Pumps", "Fuel Lid Motors", "Fuel Relays", "Ignition Coil", "Spark Plugs", "Door Latchs", "Glass Machines", "Fan Relays"],
+            Engine: ["Engine Suspension", "Timing Parts", "Engine Components"],
+            Sensors: ["ABS Sensors", "Air Mask Sensors", "Level Sensors", "Temperature Sensors", "Cam Sensors", "Break Pad Sensors", "Tire Pressure Sensor", "Packing Sensors"],
+            Brake: ["Front Brakes", "Rear Brakes", "Brake Calipers"],
+            AC: ["AC Filter", "Air Filter", "Radiator", "Raditor Fan Assembly", "Blower Motor", "Cooling Coil", "Cooling Valve", "AC Compressor", "AC Condenser"],
+            Maintenance: ["All Filters", "Auxilliary Battery", "Transmission Oil", "Towinf Washer Cap"]
+        };
+
+        document.getElementById("product_part_type").addEventListener("change", function () {
+            let partType = this.value;
+            let subPartSelect = document.getElementById("product_sub_part");
+            subPartSelect.innerHTML = "<option value=''>Select</option>";
+
+            if (partType && subParts[partType]) {
+                subParts[partType].forEach(function (item) {
+                    let option = document.createElement("option");
+                    option.value = item;
+                    option.textContent = item;
+                    subPartSelect.appendChild(option);
+                });
+            }
+        });
+    </script>
+
+    <%- include('footer.ejs') %>
