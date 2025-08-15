@@ -72,6 +72,13 @@ router.post("/save_product", async function (req, res) {
 })
 router.get("/slider", async function (req, res) {
     var sql = `SELECT * FROM slider`;
+router.get("/all_parts",async function(req,res){
+    var result =await exe(`SELECT * FROM products`)
+    // res.send(result)
+    res.render("admin/product_list.ejs",{result})
+})
+router.get("/slider",async function(req,res){
+      var sql = `SELECT * FROM slider`;
     var data = await exe(sql);
     var obj = { "list": data }
     res.render("admin/slider.ejs", { data })

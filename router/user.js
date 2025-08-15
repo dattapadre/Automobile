@@ -29,10 +29,11 @@ router.get('/body-parts', async function (req, res) {
             sql = `SELECT * FROM products WHERE product_part_type = bodypart`;
         }
     } else {
-        sql = `SELECT * FROM products WHERE product_part_type`;
+        sql = `SELECT * FROM products WHERE product_part_type = 'bodypart'`;
     }
     var result = await exe(sql);
-    res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    res.render('user/product_details.ejs',{result,categories})
 });
 router.get('/interior', async function (req, res) {
     var data = url.parse(req.url, true).query;
@@ -63,7 +64,9 @@ router.get('/interior', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Interior'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/Suspension', async function (req, res) {
@@ -86,7 +89,9 @@ router.get('/Suspension', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = "Suspension"`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/Air_Suspension', async function (req, res) {
@@ -118,7 +123,9 @@ router.get('/Air_Suspension', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Air'`;
     }
     var result = await exe(sql);
-       res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+       res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/Electric_partd', async function (req, res) {
@@ -156,7 +163,9 @@ router.get('/Electric_partd', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Electric'`;
     }
     var result = await exe(sql);
-       res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+       res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/Engine', async function (req, res) {
@@ -179,7 +188,9 @@ router.get('/Engine', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Engine'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/sensors', async function (req, res) {
@@ -217,7 +228,9 @@ router.get('/sensors', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Sensors'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/brake', async function (req, res) {
@@ -240,7 +253,9 @@ router.get('/brake', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Brake'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -281,7 +296,9 @@ router.get('/ac_part', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'AC'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -307,7 +324,9 @@ router.get('/maintenance', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Maintenance'`;
     }
     var result = await exe(sql);
-        res.render('user/product_details.ejs',{result})
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
+        res.render('user/product_details.ejs',{result,categories})
 });
 
 router.get("/product_list",function(res,res){
