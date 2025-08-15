@@ -70,5 +70,23 @@ router.post("/save_product",async function (req, res) {
 
     res.redirect("/admin/add_product")
 })
+router.get("/slider",async function(req,res){
+      var sql = `SELECT * FROM slider`;
+    var data = await exe(sql);
+    var obj = {"list":data}
+    res.render("admin/slider.ejs",{data})
+})
+router.post("/slider",async function(req,res){
+    var d = req.body;
+    if (req.files) {
+        var filename = new Date().getTime() + req.files.image.name;
+        req.files.image.mv("public/home/" + filename);
 
+    }
+
+    var sql = `INSERT INTO slider (name,image, description) VALUES (?,?, ?);`
+    var data = await exe(sql, [d.title,filename, d.description]);
+    console.log(data);
+    res.redirect("/admin/slider");
+});
 module.exports = router;
