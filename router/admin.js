@@ -66,5 +66,10 @@ router.post("/save_product",async function (req, res) {
     var result =await exe(sql,[d.product_name,filename,filename1,filename2,d.product_price,d.product_market_price,d.product_part_type,d.product_sub_part,d.product_vehicle_type_id,d.product_availability,d.product_trending,d.product_added_date,d.product_description])
     res.redirect("/admin/add_product")
 })
+router.get("/all_parts",async function(req,res){
+    var result =await exe(`SELECT * FROM products`)
+    // res.send(result)
+    res.render("admin/product_list.ejs",{result})
+})
 
 module.exports = router;

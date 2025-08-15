@@ -1,0 +1,45 @@
+<%-include('navbar.ejs')%>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">All Banners</h2>
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover align-middle shadow-sm">
+      <thead class="table-success text-center">
+        <tr>
+          <th>Action</th>
+          <th>Sr No</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th>Part Name</th>
+          <th>Sub Name</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (var i = 0; i < result.length; i++) { %>
+          <tr class="text-center">
+            <td width="100px">
+              <a href="/admin/edit_slider/<%- result[i].slider_id %>" class="btn btn-outline-primary btn-sm me-2 shadow-sm" title="Edit">
+                <i class="bi bi-pencil-fill"></i>
+              </a>
+              <a href="/admin/delete_slider/<%- result[i].slider_id %>" class="btn btn-outline-danger btn-sm shadow-sm" title="Delete">
+                <i class="bi bi-trash-fill"></i>
+              </a>
+            </td>
+            <td><%- i + 1 %></td>
+            <td><%- result[i].product_name %></td>
+            <td width="400px"><%- result[i].product_description %></td>
+            <td><%- result[i].product_price %></td>
+            <td><%- result[i].product_part_type %></td>
+            <td><%- result[i].product_sub_part %></td>
+            <td>
+              <!-- <img src="/banner/<%-result[i].banner_image%>" alt=""> -->
+              <img src="/product/<%-result[i].product_image%>" width="100" height="100" class="rounded shadow-sm">
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<%-include('footer.ejs')%>
