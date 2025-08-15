@@ -70,13 +70,11 @@ router.post("/save_product",async function (req, res) {
 
     res.redirect("/admin/add_product")
 })
-<<<<<<< HEAD
 router.get("/all_parts",async function(req,res){
     var result =await exe(`SELECT * FROM products`)
     // res.send(result)
     res.render("admin/product_list.ejs",{result})
 })
-=======
 router.get("/slider",async function(req,res){
       var sql = `SELECT * FROM slider`;
     var data = await exe(sql);
@@ -88,7 +86,6 @@ router.post("/slider",async function(req,res){
     if (req.files) {
         var filename = new Date().getTime() + req.files.image.name;
         req.files.image.mv("public/home/" + filename);
->>>>>>> 6e1bce7b59947c09bc62c21f7579b4e78dfaf942
 
     }
 
