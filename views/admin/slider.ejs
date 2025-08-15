@@ -37,30 +37,31 @@
     </div>
 </div>
 <div class="table-responsive">
-        <h1 class="text-center m-5">Slider</h1>
+        <h1 class="text-center m-5">Slider List</h1>
         <table class="table table-bordered table-hover table-striped table-sm  ">
             <tr class="table-success fs-6 fw-bold">
                 <th class="fs-6 text-center fw-bold">Action</th>
                 <th class="fs-6 text-center fw-bold">Sr No</th>
                 <th class="fs-6 text-center fw-bold">Brand Name</th>
+                <th class="fs-6 text-center fw-bold">Brand Description</th>
                 <th class="fs-6 text-center fw-bold">Brand Image</th>
             </tr>
-            <% for(var i=0;i<result.length;i++){%>
+            <% for(var i=0;i<data.length;i++){%>
                 <tr>
                     <td class="fs-6  text-center fw-bold">
-                        <a href="/admin/edit_slider/<%-result[i].product_brand_id%>" class="btn btn-outline-primary btn-sm me-2 shadow-sm mt-4" title="Edit">
-                            <i class="bi bi-pencil-fill"></i>
+                        <a href="/admin/edit_slider/<%-data[i].id%>" class="btn btn-outline-primary btn-sm me-2 shadow-sm mt-4" title="Edit">
+                            <i class="bi bi-pencil-fill">Edit</i>
                         </a>
-                        <a href="/admin/delete/<%-result[i].product_brand_id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
-                            <i class="bi bi-trash-fill"></i>
+                        <a href="/admin/delete/<%-data[i].id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
+                            <i class="bi bi-trash-fill">Delete</i>
                         </a>
                     </td>
                     <td class="fs-6 text-center fw-bold"><%- i+1 %></td>
-                    <td class="fs-6 text-center fw-bold"><%-data[i].title%></td>
-                    <td class="fs-6 text-center fw-bold"><%-data[i].description></td>
+                    <td class="fs-6 text-center fw-bold"><%-data[i].name%></td>
+                    <td class="fs-6 text-center fw-bold"><%-data[i].description%></td>
 
                     <td>
-                        <img src="/Brand/<%-data[i].image%>" width="100px" height="100px" class="rounded shadow">
+                        <img src="/home/<%-data[i].image%>" width="100px" height="100px" class="rounded shadow">
                     </td>
                 </tr>
                 <%}%>
