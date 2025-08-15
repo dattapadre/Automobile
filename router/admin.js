@@ -32,20 +32,22 @@ router.get("/add_product",async function (req, res) {
 })
 router.post("/save_product",async function (req, res) {
     var d = req.body
+    console.log(d)
+    console.log(req.files)
     var filename = ""
     var filename1 = ""
     var filename2 = ""
     if (req.files && req.files.product_image) {
         var filename = new Date().getTime() + req.files.product_image.name;
-        req.files.product_image.mv('public/upload/' + filename)
+        req.files.product_image.mv('public/product/' + filename)
     }
     if (req.files && req.files.product_image1) {
         var filename1 = new Date().getTime() + req.files.product_image1.name;
-        req.files.product_image.mv('public/upload/' + filename1)
+        req.files.product_image.mv('public/product/' + filename1)
     }
     if (req.files && req.files.product_image2) {
         var filename2 = new Date().getTime() + req.files.product_image2.name;
-        req.files.product_image.mv('public/upload/' + filename2)
+        req.files.product_image.mv('public/product/' + filename2)
     }
     var sql = `INSERT INTO products (
             product_name,
@@ -64,7 +66,27 @@ router.post("/save_product",async function (req, res) {
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
     var result =await exe(sql,[d.product_name,filename,filename1,filename2,d.product_price,d.product_market_price,d.product_part_type,d.product_sub_part,d.product_vehicle_type_id,d.product_availability,d.product_trending,d.product_added_date,d.product_description])
+    console.log(result)
+
     res.redirect("/admin/add_product")
 })
+router.get("/slider",async function(req,res){
+      var sql = `SELECT * FROM slider`;
+    var data = await exe(sql);
+    var obj = {"list":data}
+    res.render("admin/slider.ejs",{data})
+})
+router.post("/slider",async function(req,res){
+    var d = req.body;
+    if (req.files) {
+        var filename = new Date().getTime() + req.files.image.name;
+        req.files.image.mv("public/home/" + filename);
 
+    }
+
+    var sql = `INSERT INTO slider (name,image, description) VALUES (?,?, ?);`
+    var data = await exe(sql, [d.title,filename, d.description]);
+    console.log(data);
+    res.redirect("/admin/slider");
+});
 module.exports = router;
