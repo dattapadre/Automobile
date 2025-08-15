@@ -1,0 +1,33 @@
+<%- include("Navbar.ejs") %>
+    <div class="container mt-4 p-5 pt-2">
+        <div class="card shadow-lg border-1">
+            <div class="card-header bg-dark text-white">
+                <h4 class="mb-0">
+                    <i class="bi bi-plus-circle"></i> Category
+                </h4>
+            </div>
+            <div class="card-body bg-light">
+                <form action="/admin/category" method="POST" enctype="multipart/form-data">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Category Name</label>
+                            <input type="text" name="title" class="form-control" placeholder="Enter category name"
+                                required>
+
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Category Image</label>
+                            <input type="file" name="image" class="form-control" accept="image/*" required>
+                        </div>
+                        <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success px-4">
+                            <i class="bi bi-save"></i> Save Category
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include("footer.ejs") %>

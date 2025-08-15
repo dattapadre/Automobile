@@ -1,5 +1,5 @@
 var express = require('express')
-const exe = require('../connection')
+var exe = require('../connection')
 var router = express.Router()
 
 router.get("/", function (req, res) {
@@ -95,11 +95,10 @@ router.post("/slider", async function (req, res) {
     console.log(data);
     res.redirect("/admin/slider");
 });
-router.get("/slider/:id", async (req, res) => {
+router.get("/delete/:id", async (req, res) => {
   var id= req.params.id;
-  var sql = `DELETE  FROM slider WHERE id = ?`;
-  var data  = await exe(sql,[id]);
-  // res.send("delete successfull")
+  var sql = `DELETE FROM slider WHERE id = ?`;
+  await exe(sql,[id]);
   res.redirect("/admin/slider");
 });
 
@@ -109,7 +108,7 @@ router.get("/edit_slider/:id", async function(req, res) {
     try {
         var data = await exe(`SELECT * FROM slider WHERE id = '${id}'`);
         var obj = { list: data };
-        res.render("admin/edit_slider.ejs", obj);
+        res.render("admin/edit_slider",{slider:data[0]});
     } catch (err) {
         console.log("Error:", err);
         res.status(500).send("Database error");
@@ -132,6 +131,9 @@ router.post("/edit_slider/:id", async function (req, res) {
 
     res.redirect("/admin/slider");
 });
-
+router.get("/category", function(req,res){
+    
+    res.render("admin/category.ejs")
+});
 
 module.exports = router;
