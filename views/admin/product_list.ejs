@@ -42,4 +42,28 @@
     </table>
   </div>
 </div>
+<!-- Pagination -->
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <!-- Previous button -->
+   <!-- Previous -->
+<li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+  <a class="page-link" href="/admin/all_parts?page=<%= currentPage - 1 %>">Previous</a>
+</li>
+
+<!-- Pages -->
+<% for (let i = 1; i <= totalPages; i++) { %>
+  <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+    <a class="page-link" href="/admin/all_parts?page=<%= i %>"><%= i %></a>
+  </li>
+<% } %>
+
+<!-- Next -->
+<li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+  <a class="page-link" href="/admin/all_parts?page=<%= currentPage + 1 %>">Next</a>
+</li>
+
+  </ul>
+</nav>
+
 <%-include('footer.ejs')%>

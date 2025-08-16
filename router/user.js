@@ -328,9 +328,13 @@ router.get('/maintenance', async function (req, res) {
     
         res.render('user/product_details.ejs',{result,categories})
 });
-
 router.get("/product_list",function(res,res){
     res.render('user/product_details.ejs')
+})
+router.get("/add_to_cart/:id",function(req,res){
+    var id = req.params.id;
+
+    res.render("user/cart.ejs")
 })
 
 

@@ -39,15 +39,6 @@
                 <div class="filter-controls" data-aos="fade-down">
                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
                         <h4 class="section-title mb-0">Seat Pockets</h4>
-                        <div class="view-options">
-                            <span class="filter-label">View:</span>
-                            <button class="btn btn-outline-secondary active">
-                                <i class="bi bi-grid"></i> Grid
-                            </button>
-                            <button class="btn btn-outline-secondary">
-                                <i class="bi bi-list-ul"></i> List
-                            </button>
-                        </div>
                     </div>
 
                     <div class="filter-row">
@@ -88,7 +79,8 @@
                                             <span class="old-price">₹<%-result[i].product_market_price%></span>
                                             <span class="new-price">₹<%-result[i].product_price%></span>
                                         </div>
-                                        <button class="btn-add-to-cart">ADD TO CART</button>
+                                        <a href="/add_to_cart/<%-result[i].product_id%>">
+                                        <button class="btn-add-to-cart">ADD TO CART</button></a>
                                     </div>
                                 </div>
                             </div>
