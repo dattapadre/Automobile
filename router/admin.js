@@ -70,7 +70,6 @@ router.post("/save_product", async function (req, res) {
 
     res.redirect("/admin/add_product")
 })
-<<<<<<< HEAD
 router.get("/all_parts", async function (req, res) {
    let page = parseInt(req.query.page) || 1; // Default page 1
     let limit = 10; // एका पेजवर किती items दाखवायचे
@@ -89,15 +88,13 @@ router.get("/all_parts", async function (req, res) {
         totalPages
     });
 });
-
-=======
-
-router.get("/all_parts",async function(req,res){
-    var result =await exe(`SELECT * FROM products`)
-    // res.send(result)
-    res.render("admin/product_list.ejs",{result})
+router.get('/edit_product/:id',async function(req,res){
+    var sql =`SELECT * FROM products WHERE product_id ='${req.params.id}'`;
+    var result = await exe(sql)
+    var vehicle = await exe(`SELECT * FROM vehicle_brand`)
+    res.render("admin/edit_product.ejs",{result,vehicle})
 })
->>>>>>> 7091d062c9a036a1525d3bb526c98069130094d4
+
 router.get("/slider",async function(req,res){
       var sql = `SELECT * FROM slider`;
     var data = await exe(sql);
@@ -123,7 +120,6 @@ router.get("/delete/:id", async (req, res) => {
   await exe(sql,[id]);
   res.redirect("/admin/slider");
 });
-
 router.get("/edit_slider/:id", async function(req, res) {
     var id = req.params.id;
 
