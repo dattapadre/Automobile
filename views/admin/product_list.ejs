@@ -19,10 +19,10 @@
         <% for (var i = 0; i < result.length; i++) { %>
           <tr class="text-center">
             <td width="100px">
-              <a href="/admin/edit_slider/<%- result[i].slider_id %>" class="btn btn-outline-primary btn-sm me-2 shadow-sm" title="Edit">
+              <a href="/admin/edit_product/<%- result[i].product_id %>" class="btn btn-outline-primary btn-sm me-2 shadow-sm" title="Edit">
                 <i class="bi bi-pencil-fill"></i>
               </a>
-              <a href="/admin/delete_slider/<%- result[i].slider_id %>" class="btn btn-outline-danger btn-sm shadow-sm" title="Delete">
+              <a href="/admin/delete_product/<%- result[i].product_id %>" class="btn btn-outline-danger btn-sm shadow-sm" title="Delete">
                 <i class="bi bi-trash-fill"></i>
               </a>
             </td>
@@ -42,4 +42,28 @@
     </table>
   </div>
 </div>
+<!-- Pagination -->
+<nav aria-label="Page navigation" class="mt-4">
+  <ul class="pagination justify-content-center">
+    <!-- Previous button -->
+   <!-- Previous -->
+<li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+  <a class="page-link" href="/admin/all_parts?page=<%= currentPage - 1 %>">Previous</a>
+</li>
+
+<!-- Pages -->
+<% for (let i = 1; i <= totalPages; i++) { %>
+  <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+    <a class="page-link" href="/admin/all_parts?page=<%= i %>"><%= i %></a>
+  </li>
+<% } %>
+
+<!-- Next -->
+<li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+  <a class="page-link" href="/admin/all_parts?page=<%= currentPage + 1 %>">Next</a>
+</li>
+
+  </ul>
+</nav>
+
 <%-include('footer.ejs')%>

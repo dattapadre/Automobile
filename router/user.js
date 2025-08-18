@@ -5,7 +5,7 @@ var exe = require('../connection')
 
 router.get("/", function (req, res) {
     res.render("user/home.ejs")
-}) 
+})
 router.get('/body-parts', async function (req, res) {
     var data = url.parse(req.url, true).query;
     let sql = "";
@@ -33,7 +33,7 @@ router.get('/body-parts', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    res.render('user/product_details.ejs',{result,categories})
+    res.render('user/product_details.ejs', { result, categories })
 });
 router.get('/interior', async function (req, res) {
     var data = url.parse(req.url, true).query;
@@ -54,7 +54,7 @@ router.get('/interior', async function (req, res) {
         else if (data.cat == 'Seat') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Seat Pockets'`;
         }
-         else if (data.cat == 'Handle_Set') {
+        else if (data.cat == 'Handle_Set') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Handle Set'`;
         }
         else {
@@ -65,8 +65,7 @@ router.get('/interior', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/Suspension', async function (req, res) {
@@ -90,8 +89,7 @@ router.get('/Suspension', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/Air_Suspension', async function (req, res) {
@@ -113,7 +111,7 @@ router.get('/Air_Suspension', async function (req, res) {
         else if (data.cat == 'Air_repair_kit') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Air Compressor Repair Kit'`;
         }
-         else if (data.cat == 'Air_balloons') {
+        else if (data.cat == 'Air_balloons') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Air Balloons'`;
         }
         else {
@@ -124,8 +122,8 @@ router.get('/Air_Suspension', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-       res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/Electric_partd', async function (req, res) {
@@ -147,7 +145,7 @@ router.get('/Electric_partd', async function (req, res) {
         else if (data.cat == 'spark') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Spark Plugs'`;
         }
-         else if (data.cat == 'door_latchs') {
+        else if (data.cat == 'door_latchs') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Door Latchs'`;
         }
         else if (data.cat == 'glass_machines') {
@@ -164,8 +162,8 @@ router.get('/Electric_partd', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-       res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/Engine', async function (req, res) {
@@ -189,8 +187,8 @@ router.get('/Engine', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/sensors', async function (req, res) {
@@ -212,12 +210,12 @@ router.get('/sensors', async function (req, res) {
         else if (data.cat == 'cam_sensors') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Cam Sensors'`;
         }
-         else if (data.cat == 'break_pad_sensors') {
+        else if (data.cat == 'break_pad_sensors') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Break Pad Sensors'`;
         }
         else if (data.cat == 'tire_pressure_sensors') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Tire Pressure Sensor'`;
-        } 
+        }
         else if (data.cat == 'packing_sensors') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Packing Sensors'`;
         }
@@ -229,8 +227,8 @@ router.get('/sensors', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/brake', async function (req, res) {
@@ -254,8 +252,8 @@ router.get('/brake', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -277,16 +275,16 @@ router.get('/ac_part', async function (req, res) {
         else if (data.cat == 'blower_motor') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Blower Motor'`;
         }
-         else if (data.cat == 'cooling_coil') {
+        else if (data.cat == 'cooling_coil') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Cooling Coil'`;
         }
         else if (data.cat == 'cooling_valve') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Cooling Valve'`;
-        } 
+        }
         else if (data.cat == 'ac_compressor') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'AC Compressor'`;
         }
-         else if (data.cat == 'ac_condenser') {
+        else if (data.cat == 'ac_condenser') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'AC Condenser'`;
         }
         else {
@@ -297,8 +295,8 @@ router.get('/ac_part', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
+
+    res.render('user/product_details.ejs', { result, categories })
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -314,7 +312,7 @@ router.get('/maintenance', async function (req, res) {
         else if (data.cat == 'transmission_oil') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Transmission Oil'`;
         }
-         else if (data.cat == 'towinf_washer') {
+        else if (data.cat == 'towinf_washer') {
             sql = `SELECT * FROM products WHERE product_sub_part = 'Towinf Washer Cap'`;
         }
         else {
@@ -325,12 +323,88 @@ router.get('/maintenance', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
-    
-        res.render('user/product_details.ejs',{result,categories})
-});
 
-router.get("/product_list",function(res,res){
+    res.render('user/product_details.ejs', { result, categories })
+});
+router.get("/product_list", function (res, res) {
     res.render('user/product_details.ejs')
+})
+router.get("/add_to_cart/:id", function (req, res) {
+    var id = req.params.id;
+    res.render("user/cart.ejs")
+})
+router.get("/product_details/:id", async function (req, res) {
+    var id = req.params.id;
+    var sql = `SELECT * FROM products WHERE product_id ='${id}'`
+    var result = await exe(sql)
+    var is_login = (req.session.user_id) ? true : false;
+    console.log(is_login)
+    res.render('user/product_information.ejs', { result, is_login })
+})
+router.post("/signin", async function (req, res) {
+    var d = req.body;
+    var sql = `SELECT * FROM customers WHERE email = '${d.email}'`
+    var customers = await exe(sql)
+    if (customers.length > 0) {
+        req.session.user_id = customers[0].id;
+        console.log("custmores login id", req.session.user_id)
+        res.send({ status: 'success', new_user: false });
+    } else {
+        var sql = `INSERT INTO customers (name,mobile,email)VALUES(?,?,?)`
+        var result = await exe(sql, [d.name, d.mobile, d.email])
+        req.session.user_id = result.insertId;
+        console.log("inserted custmores id", req.session.user_id)
+        res.send({ status: 'success', new_user: true });
+    }
+})
+function checkLogin(req, res, next) {
+      req.session.user_id = 1
+    if (req.session.user_id) {
+        next();
+    } else {
+        res.redirect('/')
+    }
+}
+router.get("/buy_now/:id",checkLogin,async function (req, res) {
+    var url_data = url.parse(req.url, true).query;
+    var result = await exe(`SELECT * FROM products WHERE product_id ='${req.params.id}'`)
+    res.render("user/checkout.ejs", { result, url_data })
+})
+router.post("/checkout",checkLogin,async function (req, res) {
+    var d =req.body;
+    var customer_id = req.session.user_id;
+    var payment_status = "pending";
+    var order_date = new Date().toISOString().slice(0, 10);
+    var order_status = "placed";
+
+    var product = await exe(`SELECT * FROM products WHERE product_id = '${d.product_id}'`)
+    console.log(product)
+    var sql = `INSERT INTO orders(customer_id,country,state,city,area,pincode,total_amount,payment_method,payment_status,order_date,order_status)VALUES(?,?,?,?,?,?,?,?,?,?,?)`
+    var result = await exe(sql,[customer_id,d.country,d.state,d.city,d.area,d.pincode,d.product_total,d.payment_mode,payment_status,order_date,order_status])
+
+    var order_id = result.insertId;
+
+    var sql2 =`INSERT INTO order_products(order_id,customer_id,product_id,product_name,product_market_price,product_price,product_qty,product_total)VALUES(?,?,?,?,?,?,?,?)`
+    var data = await exe(sql2,[order_id,customer_id,d.product_id,product[0].product_name,product[0].product_market_price,product[0].product_price,d.qty,d.product_total])
+    res.redirect(`/payment/${order_id}`)
+})
+router.get("/payment/:id",async function(req,res){
+    var sql = `SELECT * FROM orders WHERE order_id = ${req.params.id}`
+    var result = await exe(sql)
+    res.render("user/payment.ejs",{result})
+})
+router.post('/payment_success/:id',async function(req,res){
+    var d = req.body;
+    var payment_status = "paid"
+    var sql =`UPDATE orders SET transaction_id = ?,payment_status = ? WHERE order_id = '${req.params.id}'`
+    var result = await exe(sql,[d.razorpay_payment_id,payment_status])
+    // res.send(result)
+    res.redirect(`/myorder/${req.params.id}`)
+})
+router.get("/myorder/:id",checkLogin,async function(req,res){
+    var sql = `SELECT * FROM orders WHERE order_id = ${req.params.id}`
+    var result = await exe(sql)
+    res.render('user/order_details.ejs',{result})
 })
 
 
