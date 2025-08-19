@@ -358,7 +358,6 @@ router.post("/signin", async function (req, res) {
     }
 })
 function checkLogin(req, res, next) {
-      req.session.user_id = 1
     if (req.session.user_id) {
         next();
     } else {
@@ -399,12 +398,20 @@ router.post('/payment_success/:id',async function(req,res){
     var sql =`UPDATE orders SET transaction_id = ?,payment_status = ? WHERE order_id = '${req.params.id}'`
     var result = await exe(sql,[d.razorpay_payment_id,payment_status])
     // res.send(result)
-    res.redirect(`/myorder/${req.params.id}`)
+    res.redirect(`/myorder`)
 })
-router.get("/myorder/:id",checkLogin,async function(req,res){
-    var sql = `SELECT * FROM orders WHERE order_id = ${req.params.id}`
+router.get("/myorder",checkLogin,async function(req,res){
+    console.log(req.session.user_id)
+    var sql = `SELECT * FROM orders WHERE customer_id = ${req.session.user_id}`
+    var result2 =await exe(`SELECT * FROM customers WHERE id = ${req.session.user_id}`)
     var result = await exe(sql)
-    res.render('user/order_details.ejs',{result})
+    res.render('user/order_details.ejs',{result,result2})
+})
+router.get("/print_order/:id",checkLogin,async function(req,res){
+    var data =await exe(`SELECT * FROM orders WHERE order_id = '${req.params.id}'`)
+    var result =await exe(`SELECT * FROM order_products WHERE order_id = '${req.params.id}'`)
+    var custmores =await exe(`SELECT * FROM customers WHERE id = '${req.session.user_id}'`)
+    res.render('user/order_print.ejs',{data,result,custmores})
 })
 
 

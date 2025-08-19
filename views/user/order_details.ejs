@@ -1,1 +1,62 @@
-<h1>welcome</h1>
+
+<%-include('navbar.ejs')%>
+  <style>
+    .table img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .order-table th, .order-table td {
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-5">
+  <h2 class="mb-4 text-center">My Orders</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover order-table align-middle">
+      <thead class="table-dark text-center">
+        <tr>
+          <th>Custmar Name</th>
+          <th>Mobile</th>
+          <th>State</th>
+          <th>Address</th>
+          <th>Total Amount</th>
+          <th>payment method</th>
+          <th>Payment Status</th>
+          <th>Order Date</th>
+          <th>Order Status</th>
+          <th>More Details</th>
+        </tr>
+      </thead>
+      <tbody class="text-center">
+        <% for(var i= 0;i<result.length;i++){%>
+        <tr>
+          <td><%-result2[0].name%></td>
+          <td><%-result2[0].mobile%></td>
+          <td><%-result[i].state%></td>
+          <td><%-result[i].city%>,<%-result[i].area%></td>
+          <td><%-result[i].total_amount%></td>
+          <td><%-result[i].payment_method%></td>
+          <td><%-result[i].payment_status%></td>
+          <td><%-result[i].order_date.toISOString().split('T')[0]%></td>
+          <td><%-result[i].order_status%></td>
+          <td>
+            <a href="/print_order/<%-result[i].order_id%>" >
+              <button class="btn btn-sm p-2   btn-outline-primary">Details</button>
+            </a>
+
+          </td>
+        </tr>
+        <%}%>
+        <!-- Order Row 2 -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%-include('footer.ejs')%>
