@@ -93,7 +93,81 @@ router.get('/edit_product/:id',async function(req,res){
     var result = await exe(sql)
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
     res.render("admin/edit_product.ejs",{result,vehicle})
-})
+});
+
+router.post("/update_product",async function (req,res) {
+   var d = req.body;
+console.log(d);
+console.log(req.files);
+
+var filename = d.old_image || "";   
+var filename1 = d.old_image1 || "";
+var filename2 = d.old_image2 || "";
+
+// Main Image
+if (req.files && req.files.product_image) {
+    filename = new Date().getTime() + req.files.product_image.name;
+    req.files.product_image.mv('public/product/' + filename);
+}
+
+// Image 1
+if (req.files && req.files.product_image1) {
+    filename1 = new Date().getTime() + req.files.product_image1.name;
+    req.files.product_image1.mv('public/product/' + filename1);
+}
+
+// Image 2
+if (req.files && req.files.product_image2) {
+    filename2 = new Date().getTime() + req.files.product_image2.name;
+    req.files.product_image2.mv('public/product/' + filename2);
+}
+
+
+var sql = `
+    UPDATE products SET
+        product_name = ?,
+        product_image = ?,
+        product_image1 = ?,
+        product_image2 = ?,
+        product_price = ?,
+        product_market_price = ?,
+        product_part_type = ?,
+        product_sub_part = ?,
+        product_vehicle_type_id = ?,
+        product_availability = ?,
+        product_trending = ?,
+        product_added_date = ?,
+        product_description = ?
+    WHERE product_id = ?
+`;
+
+var result = await exe(sql, [
+    d.product_name,
+    filename,
+    filename1,
+    filename2,
+    d.product_price,
+    d.product_market_price,
+    d.product_part_type,
+    d.product_sub_part,
+    d.product_vehicle_type_id,
+    d.product_availability,
+    d.product_trending,
+    d.product_added_date,
+    d.product_description,
+    d.product_id  
+]);
+
+console.log(result);
+res.redirect("/admin/all_parts");
+
+});
+router.get("/delete_product/:product_id", async (req, res) => {
+    var id = req.params.product_id;
+    var sql = `DELETE FROM products WHERE product_id = ?`;
+    await exe(sql, [id]);
+    res.redirect("/admin/all_parts");
+});
 
 router.get("/slider",async function(req,res){
       var sql = `SELECT * FROM slider`;
