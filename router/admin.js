@@ -149,9 +149,51 @@ router.post("/edit_slider/:id", async function (req, res) {
 
     res.redirect("/admin/slider");
 });
-router.get("/category", function(req,res){
-    
-    res.render("admin/category.ejs")
+router.get("/category", async function(req,res){
+    var sql = `SELECT * FROM category`;
+    var category = await exe(sql);
+    var obj = { "list": category }
+    res.render("admin/category.ejs", { category })
 });
+router.post("/category", async function (req, res) {
+    var d = req.body;
+    if (req.files) {
+        var filename = new Date().getTime() + req.files.image.name;
+        req.files.image.mv("public/home/" + filename);
+    }
 
+    var sql = `INSERT INTO category (title, image) VALUES (?, ?)`;
+    var data = await exe(sql, [d.title, filename]);
+    console.log(data);
+    res.redirect("/admin/category");
+});
+router.get("/delete/:id", async (req, res) => {
+  var id= req.params.id;
+  var sql = `DELETE FROM category WHERE id = ?`;
+  await exe(sql,[id]);
+  res.redirect("/admin/category");
+});
+router.get("/edit_category/:id", async function(req, res) {
+    var id = req.params.id;
+
+    try {
+        var data = await exe(`SELECT * FROM category WHERE id = '${id}'`);
+        var obj = { list: data };
+        res.render("admin/edit_category.ejs",{category:data[0]});
+    } catch (err) {
+        console.log("Error:", err);
+        res.status(500).send("Database error");
+    }
+});
+router.post("/edit_category", async function (req, res) {
+   var d= req.body;
+   var filename ="";
+   if(req.files){
+    var filename = new Date().getTime() + req.files.image.name;
+    req.files.image.mv("public/home/" + filename);
+   }
+   var sql = `UPDATE category SET title='${d.title}', image='${filename}' WHERE id='${d.id}'`;
+   var result = await exe(sql);
+   res.redirect("/admin/category");
+});
 module.exports = router;
