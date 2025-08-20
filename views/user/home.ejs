@@ -335,23 +335,4 @@
   </div>
 </section>
 
-<script>
-  document.querySelectorAll('.add-to-cart').forEach(button => {
-    const originalText = button.innerHTML;
-
-    button.addEventListener('click', () => {
-      button.innerHTML = 'ADDING...';
-      button.disabled = true;
-
-      setTimeout(() => {
-        button.innerHTML = '<i class="fas fa-check"></i> ADDED!';
-        
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.disabled = false;
-        }, 1500);
-      }, 1000);
-    });
-  });
-</script>
 <%-include('footer.ejs')%>

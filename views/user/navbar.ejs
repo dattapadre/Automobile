@@ -1,281 +1,461 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ShreeHari Automobiles</title>
-  <!-- bootstrap cdn -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- font awesome cdn -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ShreeHari Automobiles</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- font awesome cdn -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- Google Fonts for a modern look -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <!-- Google Fonts for a modern look -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+        <!-- Font Awesome for Icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 
-  <!-- external css -->
-  <link rel="stylesheet" href="/css/Navbar.css">
-  <link rel="stylesheet" href="/css/Home.css">
-  <link rel="stylesheet" href="/css/product_details.css">
+        <link rel="stylesheet" href="/css/Navbar.css">
+        <link rel="stylesheet" href="/css/Home.css">
+      <link rel="stylesheet" href="/css/product_details.css">
 
-</head>
+    </head>
 
-<body>
-  <!-- header section start -->
-  <header>
-    <nav class="navbar navbar-light bg-white border-bottom px-2 d-lg-none">
-      <div class="d-flex align-items-center">
-        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
-          <i class="fas fa-bars fa-lg"></i>
-        </button>
-        <button class="btn">
-          <i class="fas fa-search fa-lg"></i>
-        </button>
-      </div>
-      <a class="navbar-brand mx-auto" href="/">
-        <img src="" />
-      </a>
-      <div class="d-flex align-items-center" >
-        <button class="btn"><i class="far fa-user fa-lg"></i></button>
-        <button class="btn position-relative">
-          <i class="fas fa-shopping-cart fa-lg"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">0</span>
-        </button>
-      </div>
-    </nav>
+    <body>
+        <!-- header section start -->
+        <header>
+            <nav class="navbar navbar-light bg-white border-bottom px-2 d-lg-none">
+                <div class="d-flex align-items-center">
+                    <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu">
+                        <i class="fas fa-bars fa-lg"></i>
+                    </button>
+                    <button class="btn">
+                        <i class="fas fa-search fa-lg"></i>
+                    </button>
+                </div>
+                <a class="navbar-brand mx-auto" href="#">
+                    <img src="" alt="Logo" height="40">
+                </a>
+                <!-- updated -->
+                <div class="d-flex align-items-center me-2">
+                    <a href="/signup"><button class="btn"><i class="far fa-user fa-lg"></i></button></a>
+                    
+                    <a href="/add_to_cart"><button class="btn position-relative me-1">
+                        <i class="fas fa-shopping-cart fa-lg"></i>
+                    </button>
+                    </a>
+                </div>
+                <!-- updated -->
+            </nav>
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title fw-bold">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <nav class="nav flex-column">
+
+                        <a href="#categoriesSubmenu" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Categories <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- Categories Submenu -->
+                        <div class="collapse ms-3" id="categoriesSubmenu">
+                            <a href="#" class="d-block py-1">Audi</a>
+                            <a href="#" class="d-block py-1">Porsche</a>
+                            <a href="#" class="d-block py-1">Skoda</a>
+                            <a href="#" class="d-block py-1">Volkswagen</a>
+                            <a href="#" class="d-block py-1">BMW</a>
+                            <a href="#" class="d-block py-1">Mini Cooper</a>
+                            <a href="#" class="d-block py-1">Mercedes</a>
+                            <a href="#" class="d-block py-1">Land Rover</a>
+                            <a href="#" class="d-block py-1">Jaguar</a>
+                            <a href="#" class="d-block py-1">Volvo Car</a>
+                        </div>
 
 
-    <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu">
-      <div class="offcanvas-header">
-        <h5 class="offcanvas-title fw-bold">Menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-      </div>
-      <div class="offcanvas-body">
-        <nav class="nav flex-column">
-          <!-- Categories -->
-          <a href="#">Audi <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Porsche <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Skoda <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Volkswagen <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">BMW <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Mini Cooper <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Mercedes <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Land Rover <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Jaguar <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Volvo Car <i class="fas fa-chevron-right float-end"></i></a>
+                        <!-- Products navabar  -->
+                        <a href="#bodyPartsSubmenu" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Body Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
 
-          <!-- Products navabar  -->
-          <a href="#">Body Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Interior Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Suspension Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Air Suspension <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Engine Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Sensors <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Brake Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">AC Parts <i class="fas fa-chevron-right float-end"></i></a>
-          <a href="#">Maintenance Parts <i class="fas fa-chevron-right float-end"></i></a>
-        </nav>
-      </div>
-    </div>
+                        <!-- Submenu -->
+                        <div class="collapse ms-3" id="bodyPartsSubmenu">
+                            <a href="/body-parts?cat=front_bumper" class="d-block py-1">Front Bumper</a>
+                            <a href="/body-parts?cat=rear_bumper" class="d-block py-1">Rear Bumper</a>
+                            <a href="/body-parts?cat=side_mirror" class="d-block py-1">Side Mirror</a>
+                            <a href="/body-parts?cat=accessories" class="d-block py-1">Accessories</a>
+                            <a href="/body-parts?cat=maintenance" class="d-block py-1">Maintenance Body Parts</a>
+                        </div>
 
-    <div class="desktop-nav d-none d-lg-block">
-      <!-- First Row -->
-      <nav class="navbar navbar-expand-lg py-3 px-4 border-bottom">
-        <div class="container-fluid">
+                        <!-- Interior Parts link -->
+                        <a href="/interior" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Interior Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
 
-          <a class="navbar-brand" href="/">
-            <img src="/upload/logo2-removebg-preview.png" alt="Logo" height="50px">
-          </a>
+                        <div class="collapse ms-3" id="interiorPartsSubmenu">
+                            <a href="/interior?cat=Seats" class="d-block py-1">Seats</a>
+                            <a href="/interior?cat=Dashboard" class="d-block py-1">Dashboard</a>
+                            <a href="/interior?cat=Ac_Vents" class="d-block py-1">AC Vents</a>
+                            <a href="/interior?cat=Air_Bag" class="d-block py-1">Air Bag Covers</a>
+                            <a href="/interior?cat=Seat" class="d-block py-1">Seat Pockets</a>
+                            <a href="/interior?cat=Handle_Set" class="d-block py-1">Handle Set</a>
+                        </div>
 
-          <form class="d-flex flex-grow-1 mx-3 search-bar">
-            <input type="text" class="rounded-0" placeholder="Search the store">
-            <button class="btn btn-dark rounded-0" type="submit">
-              <i class="fas fa-search"></i>
-            </button>
-          </form>
+                        <!-- Suspension Parts link -->
+                        <a href="/Suspension" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Suspension Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
 
-          <div class="d-flex align-items-center">
-            <a href="" class="text-dark mx-3"data-bs-toggle="modal" data-bs-target="#signupModal"><i class="far fa-user"></i> Sign In</a>
-            <a href="/myorder" class="text-dark mx-3"><i class="far fa-order"></i> My Order</a>
-            <a href="#" class="text-dark mx-3"><i class="far fa-heart"></i> Wish Lists</a>
-            <a href="/add_to_cart" class="text-dark position-relative mx-3 px-4">
-              <i class="fas fa-shopping-cart"></i> Cart
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-            </a>
-          </div>
-        </div>
-      </nav>
+                        <div class="collapse ms-3" id="suspensionPartsSubmenu">
+                            <a href="/Suspension?cat=Front_Wheel" class="d-block py-1">Front Wheel Suspension</a>
+                            <a href="/Suspension?cat=Rear_Wheel" class="d-block py-1">Rear Wheel Suspension</a>
+                            <a href="/Suspension?cat=Shockers" class="d-block py-1">All Shockers Parts</a>
+                        </div>
 
-      <!-- Second Row -->
-      <div class="container-fluid py-2 d-flex align-items-center px-4">
-        <!-- Category Dropdown -->
-        <div class="dropdown mx-3">
-          <button class="btn category-btn dropdown-toggle" data-bs-toggle="dropdown">
-            <i class="fas fa-bars mx-2"></i> Category
-          </button>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Audi</a></li>
-            <li><a class="dropdown-item" href="#">Porsche</a></li>
-            <li><a class="dropdown-item" href="#">Skoda</a></li>
-            <li><a class="dropdown-item" href="#">Volkswagen</a></li>
-            <li><a class="dropdown-item" href="#">BMW</a></li>
-            <li><a class="dropdown-item" href="#">Mini Cooper</a></li>
-            <li><a class="dropdown-item" href="#">Mercedes</a></li>
-            <li><a class="dropdown-item" href="#">Land Rover</a></li>
-            <li><a class="dropdown-item" href="#">Jaguar</a></li>
-            <li><a class="dropdown-item" href="#">Volvo Car</a></li>
-          </ul>
-        </div>
+                        <!-- Air Suspension link -->
+                        <a href="/Air_Suspension" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Air Suspension <i class="fas fa-chevron-right float-end"></i>
+                        </a>
 
-        <!-- Product Links -->
-        <nav class="product-menu">
-          <!-- body parts -->
-          <div class="menu-item">
-            <a href="/body-parts">Body Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/body-parts?cat=front_bumper">Front Bumper</a>
-                <a href="/body-parts?cat=rear_bumper">Rear Bumper</a>
-                <a href="/body-parts?cat=side_mirror">Side Mirror</a>
-                <a href="/body-parts?cat=accessories">Accessories</a>
-                <a href="/body-parts?cat=maintenance">Maintenance Body Parts</a>
-              </div>
+                        <div class="collapse ms-3" id="airSuspensionSubmenu">
+                            <a href="/Air_Suspension?cat=AirMatic" class="d-block py-1">Air Matic Shockers</a>
+                            <a href="/Air_Suspension?cat=Electric_shoc" class="d-block py-1">Electric Shockers</a>
+                            <a href="/Air_Suspension?cat=Air_compressors" class="d-block py-1">Air Compressors</a>
+                            <a href="/Air_Suspension?cat=Valve" class="d-block py-1">Valve Blockers</a>
+                            <a href="/Air_Suspension?cat=Air_repair_kit" class="d-block py-1">Air Compressor Repair
+                                Kit</a>
+                            <a href="/Air_Suspension?cat=Air_balloons" class="d-block py-1">Air Balloons</a>
+                        </div>
+
+
+                        <!-- Electric Parts link -->
+                        <a href="/Electric_partd" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Electric Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- Submenu -->
+                        <div class="collapse ms-3" id="electricPartsSubmenu">
+                            <a href="/Electric_partd?=Fuel_pump" class="d-block py-1">Fuel Pumps</a>
+                            <a href="/Electric_partd?=Fuel_lidmotor" class="d-block py-1">Fuel Lid Motors</a>
+                            <a href="/Electric_partd?=Fuel_relay" class="d-block py-1">Fuel Relays</a>
+                            <a href="/Electric_partd?=ignition_coil" class="d-block py-1">Ignition Coil</a>
+                            <a href="/Electric_partd?=spark" class="d-block py-1">Spark Plugs</a>
+                            <a href="/Electric_partd?=door_latchs" class="d-block py-1">Door Latchs</a>
+                            <a href="/Electric_partd?=glass_machines" class="d-block py-1">Glass Machines</a>
+                            <a href="/Electric_partd?=Fan_relays" class="d-block py-1">Fan Relays</a>
+                        </div>
+
+                        <!-- Sensors link -->
+                        <a href="/sensors" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Sensors <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- Submenu -->
+                        <div class="collapse ms-3" id="sensorsSubmenu">
+                            <a href="/sensors?cat=abs_sensors" class="d-block py-1">ABS Sensors</a>
+                            <a href="/sensors?cat=air_mask_sensors" class="d-block py-1">Air Mask Sensors</a>
+                            <a href="/sensors?cat=level_sensors" class="d-block py-1">Level Sensors</a>
+                            <a href="/sensors?cat=tempeature_sensors" class="d-block py-1">Temperature Sensors</a>
+                            <a href="/sensors?cat=cam_sensors" class="d-block py-1">Cam Sensors</a>
+                            <a href="/sensors?cat=break_pad_sensors" class="d-block py-1">Break Pad Sensors</a>
+                            <a href="/sensors?cat=tire_pressure_sensors" class="d-block py-1">Tire Pressure Sensor</a>
+                            <a href="/sensors?cat=packing_sensors" class="d-block py-1">Packing Sensors</a>
+                        </div>
+
+                        <!-- Brake Parts link -->
+                        <a href="/brake" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Brake Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- Submenu -->
+                        <div class="collapse ms-3" id="brakePartsSubmenu">
+                            <a href="/brake?cat=front_brakes" class="d-block py-1">Front Brakes</a>
+                            <a href="/brake?cat=rear_brakes" class="d-block py-1">Rear Brakes</a>
+                            <a href="/brake?cat=brake_caplipers" class="d-block py-1">Brake Calipers</a>
+                        </div>
+
+                        <!-- AC Parts link -->
+                        <a href="/ac_part" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            AC Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- AC Parts Submenu -->
+                        <div class="collapse ms-3" id="acPartsSubmenu">
+                            <a href="/ac_part?cat=cabin_filter" class="d-block py-1">AC Filter / Cabin Filter</a>
+                            <a href="/ac_part?cat=air_filter" class="d-block py-1">Air Filter</a>
+                            <a href="/ac_part?cat=radiator" class="d-block py-1">Radiator</a>
+                            <a href="/ac_part?cat=radiator_fan" class="d-block py-1">Radiator Fan Assembly</a>
+                            <a href="/ac_part?cat=blower_motor" class="d-block py-1">Blower Motor</a>
+                            <a href="/ac_part?cat=cooling_coil" class="d-block py-1">Cooling Coil</a>
+                            <a href="/ac_part?cat=cooling_valve" class="d-block py-1">Cooling Valve</a>
+                            <a href="/ac_part?cat=ac_compressor" class="d-block py-1">AC Compressor</a>
+                            <a href="/ac_part?cat=ac_condenser" class="d-block py-1">AC Condenser</a>
+                        </div>
+
+                        <!-- Maintenance Parts link -->
+                        <a href="/maintenance" class="d-flex justify-content-between align-items-center py-2 px-0"
+                            data-bs-toggle="collapse" aria-expanded="false">
+                            Maintenance Parts <i class="fas fa-chevron-right float-end"></i>
+                        </a>
+
+                        <!-- Maintenance Parts Submenu -->
+                        <div class="collapse ms-3" id="maintenancePartsSubmenu">
+                            <a href="/maintenance?cat=all_filter" class="d-block py-1">All Filters</a>
+                            <a href="/maintenance?cat=auxilliary_battery" class="d-block py-1">Auxiliary Battery</a>
+                            <a href="/maintenance?cat=transmission_oil" class="d-block py-1">Transmission Oil</a>
+                            <a href="/maintenance?cat=towinf_washer" class="d-block py-1">Towing Washer Cap</a>
+                        </div>
+                    </nav>
+
+                    <!-- ADDED AUTH nad Whislist  -->
+                    <nav class="nav flex-column auth-links">
+                        <a href="/myorder" class="nav-link">
+                            <i class="far fa-user"></i>My Order
+                        </a>
+                        <a href="/signup" class="nav-link">
+                            <i class="fas fa-user-plus"></i> Create an Account
+                        </a>
+                        <a href="/wishlist" class="nav-link">
+                            <i class="far fa-heart"></i> My Wish List
+                        </a>
+                    </nav>
+                </div>
             </div>
-          </div>
 
-          <div class="menu-item">
-            <a href="/interior">Interior Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/interior?cat=Seats">Seats</a>
-                <a href="/interior?cat=Dashboard">Dashboard</a>
-                <a href="/interior?cat=Ac_Vents">Ac Vents</a>
-                <a href="/interior?cat=Air_Bag">Air Bag Covers</a>
-                <a href="/interior?cat=Seat">Seat Pockets</a>
-                <a href="/interior?cat=Handle_Set">Handle Set</a>
-              </div>
+
+
+            <!-- Bottom Navbar -->
+            <nav class="mobile-bottom-nav d-lg-none bg-white shadow-sm border-top">
+                <a href="/" class="nav-item text-center flex-fill">
+                    <i class="fas fa-home"></i>
+                    <span class="d-block small">Home</span>
+                </a>
+                <a href="#" class="nav-item text-center flex-fill">
+                    <i class="fas fa-search"></i>
+                    <span class="d-block small">Search</span>
+                </a>
+                <a href="/myorder" class="nav-item text-center flex-fill">
+                    <i class="fas fa-th-large"></i>
+                    <span class="d-block small">Collection</span>
+                </a>
+                <a href="/signup" class="nav-item text-center flex-fill">
+                    <i class="far fa-user"></i>
+                    <span class="d-block small">Account</span>
+                </a>
+                <a href="/add_to_cart" class="nav-item text-center flex-fill position-relative">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="d-block small">Cart</span>
+                    <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-dark">
+                        0
+                    </span>
+                </a>
+            </nav>
+
+
+            <div class="desktop-nav d-none d-lg-block">
+                <!-- First Row -->
+                <nav class="navbar navbar-expand-lg py-3 px-4 border-bottom">
+                    <div class="container-fluid">
+
+                        <a class="navbar-brand" href="#">
+                            <img src="" alt="Logo" height="50">
+                        </a>
+
+                        <form class="d-flex flex-grow-1 mx-3 search-bar">
+                            <input type="text" class="rounded-0" placeholder="Search the store">
+                            <button class="btn btn-dark rounded-0" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </form>
+
+                        <div class="d-flex align-items-center">
+                            <a href="/myorder" class="text-dark mx-3"><i class="far fa-user"></i> Sign In</a>
+                            <a href="#" class="text-dark mx-3"><i class="far fa-heart"></i> Wish Lists</a>
+                            <a href="/add_to_cart" class="text-dark position-relative mx-3 px-4">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+
+                <!-- Second Row -->
+                <div class="container-fluid py-2 d-flex align-items-center px-4">
+                    <!-- Category Dropdown -->
+                    <div class="dropdown mx-3">
+                        <button class="btn category-btn dropdown-toggle" data-bs-toggle="dropdown">
+                            <i class="fas fa-bars mx-2"></i> Category
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Audi</a></li>
+                            <li><a class="dropdown-item" href="#">Porsche</a></li>
+                            <li><a class="dropdown-item" href="#">Skoda</a></li>
+                            <li><a class="dropdown-item" href="#">Volkswagen</a></li>
+                            <li><a class="dropdown-item" href="#">BMW</a></li>
+                            <li><a class="dropdown-item" href="#">Mini Cooper</a></li>
+                            <li><a class="dropdown-item" href="#">Mercedes</a></li>
+                            <li><a class="dropdown-item" href="#">Land Rover</a></li>
+                            <li><a class="dropdown-item" href="#">Jaguar</a></li>
+                            <li><a class="dropdown-item" href="#">Volvo Car</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Product Links -->
+                    <nav class="product-menu">
+                        <div class="menu-item">
+                            <a href="/body-parts">Body Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/body-parts?cat=front_bumper">Front Bumper</a>
+                                    <a href="/body-parts?cat=rear_bumper">Rear Bumper</a>
+                                    <a href="/body-parts?cat=side_mirror">Side Mirror</a>
+                                    <a href="/body-parts?cat=accessories">Accessories</a>
+                                    <a href="/body-parts?cat=maintenance">Maintenance Body Parts</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/interior">Interior Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/interior?cat=Seats">Seats</a>
+                                    <a href="/interior?cat=Dashboard">Dashboard</a>
+                                    <a href="/interior?cat=Ac_Vents">Ac Vents</a>
+                                    <a href="/interior?cat=Air_Bag">Air Bag Covers</a>
+                                    <a href="/interior?cat=Seat">Seat Pockets</a>
+                                    <a href="/interior?cat=Handle_Set">Handle Set</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/Suspension">Suspension Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/Suspension?cat=Front_Wheel">Front Wheel Suspension</a>
+                                    <a href="/Suspension?cat=Rear_Wheel">Rear Wheel Suspension</a>
+                                    <a href="/Suspension?cat=Shockers">All Shockers Parts</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/Air_Suspension">Air Suspension</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/Air_Suspension?cat=AirMatic">Air Matic Shockers</a>
+                                    <a href="/Air_Suspension?cat=Electric_shoc">Electric Shockers</a>
+                                    <a href="/Air_Suspension?cat=Air_compressors">Air Compressors</a>
+                                    <a href="/Air_Suspension?cat=Valve">Valve Blockers</a>
+                                    <a href="/Air_Suspension?cat=Air_repair_kit">Air Compressor Repair Kit</a>
+                                    <a href="/Air_Suspension?cat=Air_balloons">Air Balloons</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/Electric_partd">Electric Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/Electric_partd?=Fuel_pump">Fuel Pumps</a>
+                                    <a href="/Electric_partd?=Fuel_lidmotor">Fuel Lid Motors</a>
+                                    <a href="/Electric_partd?=Fuel_relay">Fuel Relays</a>
+                                    <a href="/Electric_partd?=ignition_coil">Ignition Coil</a>
+                                    <a href="/Electric_partd?=spark">Spark Plugs</a>
+                                    <a href="/Electric_partd?=door_latchs">Door Latchs</a>
+                                    <a href="/Electric_partd?=glass_machines">Glass Machines</a>
+                                    <a href="/Electric_partd?=Fan_relays">Fan Relays</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/Engine">Engine Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/Engine?cat=engine_suspension">Engine Suspension</a>
+                                    <a href="/Engine?cat=timing_parts">Timing Parts</a>
+                                    <a href="/Engine?cat=engine_components">Engine Components</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/sensors">Sensors</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/sensors?cat=abs_sensors">ABS Sensors</a>
+                                    <a href="/sensors?cat=air_mask_sensors">Air Mask Sensors</a>
+                                    <a href="/sensors?cat=level_sensors">Level Sensors</a>
+                                    <a href="/sensors?cat=tempeature_sensors">Temperature Sensors</a>
+                                    <a href="/sensors?cat=cam_sensors">Cam Sensors</a>
+                                    <a href="/sensors?cat=break_pad_sensors">Break Pad Sensors</a>
+                                    <a href="/sensors?cat=tire_pressure_sensors">Tire Pressure Sensor</a>
+                                    <a href="/sensors?cat=packing_sensors">Packing Sensors</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/brake">Brake Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/brake?cat=front_brakes">Front Brakes</a>
+                                    <a href="/brake?cat=rear_brakes">Rear Brakes</a>
+                                    <a href="/brake?cat=brake_caplipers">Brake Calipers</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/ac_part">AC Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/ac_part?cat=cabin_filter">AC Filter/Cabin Filter</a>
+                                    <a href="/ac_part?cat=air_filter">Air Filter</a>
+                                    <a href="/ac_part?cat=radiator">Radiator</a>
+                                    <a href="/ac_part?cat=radiator_fan">Raditor Fan Assembly</a>
+                                    <a href="/ac_part?cat=blower_motor">Blower Motor</a>
+                                    <a href="/ac_part?cat=cooling_coil">Cooling Coil</a>
+                                    <a href="/ac_part?cat=cooling_valve">Cooling Valve</a>
+                                    <a href="/ac_part?cat=ac_compressor">AC Compressor</a>
+                                    <a href="/ac_part?cat=ac_condenser">AC Condenser</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-item">
+                            <a href="/maintenance">Maintenance Parts</a>
+                            <div class="dropdown-list">
+                                <div class="submenu-item">
+                                    <a href="/maintenance?cat=all_filter">All Filters</a>
+                                    <a href="/maintenance?cat=auxilliary_battery">Auxilliary Battery</a>
+                                    <a href="/maintenance?cat=transmission_oil">Transmission Oil</a>
+                                    <a href="/maintenance?cat=towinf_washer">Towinf Washer Cap</a>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
             </div>
-          </div>
+        </header>
+        <!-- header section ends -->
 
-          <div class="menu-item">
-            <a href="/Suspension">Suspension Parts</a>
-            <div class="dropdown-list">
-
-              <div class="submenu-item">
-                <a href="/Suspension?cat=Front_Wheel">Front Wheel Suspension</a>
-                <a href="/Suspension?cat=Rear_Wheel">Rear Wheel Suspension</a>
-                <a href="/Suspension?cat=Shockers">All Shockers Parts</a>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="menu-item">
-            <a href="/Air_Suspension">Air Suspension</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/Air_Suspension?cat=AirMatic">Air Matic Shockers</a>
-                <a href="/Air_Suspension?cat=Electric_shoc">Electric Shockers</a>
-                <a href="/Air_Suspension?cat=Air_compressors">Air Compressors</a>
-                <a href="/Air_Suspension?cat=Valve">Valve Blockers</a>
-                <a href="/Air_Suspension?cat=Air_repair_kit">Air Compressor Repair Kit</a>
-                <a href="/Air_Suspension?cat=Air_balloons">Air Balloons</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <a href="/Electric_partd">Electric Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/Electric_partd?=Fuel_pump">Fuel Pumps</a>
-                <a href="/Electric_partd?=Fuel_lidmotor">Fuel Lid Motors</a>
-                <a href="/Electric_partd?=Fuel_relay">Fuel Relays</a>
-                <a href="/Electric_partd?=ignition_coil">Ignition Coil</a>
-                <a href="/Electric_partd?=spark">Spark Plugs</a>
-                <a href="/Electric_partd?=door_latchs">Door Latchs</a>
-                <a href="/Electric_partd?=glass_machines">Glass Machines</a>
-                <a href="/Electric_partd?=Fan_relays">Fan Relays</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <a href="/Engine">Engine Parts</a>
-            <div class="dropdown-list">
-
-              <div class="submenu-item">
-                <a href="/Engine?cat=engine_suspension">Engine Suspension</a>
-                <a href="/Engine?cat=timing_parts">Timing Parts</a>
-                <a href="/Engine?cat=engine_components">Engine Components</a>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="menu-item">
-            <a href="/sensors">Sensors</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/sensors?cat=abs_sensors">ABS Sensors</a>
-                <a href="/sensors?cat=air_mask_sensors">Air Mask Sensors</a>
-                <a href="/sensors?cat=level_sensors">Level Sensors</a>
-                <a href="/sensors?cat=tempeature_sensors">Temperature Sensors</a>
-                <a href="/sensors?cat=cam_sensors">Cam Sensors</a>
-                <a href="/sensors?cat=break_pad_sensors">Break Pad Sensors</a>
-                <a href="/sensors?cat=tire_pressure_sensors">Tire Pressure Sensor</a>
-                <a href="/sensors?cat=packing_sensors">Packing Sensors</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <a href="/brake">Brake Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/brake?cat=front_brakes">Front Brakes</a>
-                <a href="/brake?cat=rear_brakes">Rear Brakes</a>
-                <a href="/brake?cat=brake_caplipers">Brake Calipers</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <a href="/ac_part">AC Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/ac_part?cat=cabin_filter">AC Filter/Cabin Filter</a>
-                <a href="/ac_part?cat=air_filter">Air Filter</a>
-                <a href="/ac_part?cat=radiator">Radiator</a>
-                <a href="/ac_part?cat=radiator_fan">Raditor Fan Assembly</a>
-                <a href="/ac_part?cat=blower_motor">Blower Motor</a>
-                <a href="/ac_part?cat=cooling_coil">Cooling Coil</a>
-                <a href="/ac_part?cat=cooling_valve">Cooling Valve</a>
-                <a href="/ac_part?cat=ac_compressor">AC Compressor</a>
-                <a href="/ac_part?cat=ac_condenser">AC Condenser</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="menu-item">
-            <a href="/maintenance">Maintenance Parts</a>
-            <div class="dropdown-list">
-              <div class="submenu-item">
-                <a href="/maintenance?cat=all_filter">All Filters</a>
-                <a href="/maintenance?cat=auxilliary_battery">Auxilliary Battery</a>
-                <a href="/maintenance?cat=transmission_oil">Transmission Oil</a>
-                <a href="/maintenance?cat=towinf_washer">Towinf Washer Cap</a>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
-    </div>
-  </header>
-  <!-- header section ends -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+        </script>
