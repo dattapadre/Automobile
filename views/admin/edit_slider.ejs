@@ -1,30 +1,34 @@
 <%- include("navbar.ejs") %>
-
+ <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Update Slider  </h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    </div>
 <div class="container mt-4 p-5 pt-2">
     <div class="card shadow-lg border-1">
-        <div class="card-header bg-dark text-white">
-            <h4 class="mb-0">
-                <i class="bi bi-plus-circle"></i> Welcome To Edit
-            </h4>
-        </div>
+       
         <div class="card-body bg-light">
-            <form action="/admin/edit_slider/<%= slider.id %>" method="POST" enctype="multipart/form-data">
-
+            <form action="/admin/update_slider" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%= slider.id %>">
                 <div class="row g-3">
                     
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Edit Slider Name</label>
-                        <input type="title" name="title" class="form-control" placeholder="Enter slider name" required>
+                        <input type="title" name="Slider_title" class="form-control" placeholder="Enter slider name" required value="<%= slider.Slider_title %>">
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Edit Image</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <input type="file" name="slider_image" class="form-control" accept="image/*" required value="<%= slider.slider_image %>">
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label fw-bold">Edit Slider Description</label>
-                        <textarea name="description" class="form-control" id="editor" placeholder="Enter Slider Description" rows="4" ></textarea>
+                        <textarea name="slider_description" class="form-control" id="editor" placeholder="Enter Slider Description" rows="4" > <%= slider.slider_description %> </textarea>
                     </div>
 
                     <div class="text-end mt-4">

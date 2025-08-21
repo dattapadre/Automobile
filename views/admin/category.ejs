@@ -1,11 +1,16 @@
 <%- include("Navbar.ejs") %>
+  <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Categories </h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    </div>
     <div class="container mt-4 p-5 pt-2">
         <div class="card shadow-lg border-1">
-            <div class="card-header bg-dark text-white">
-                <h4 class="mb-0">
-                    <i class="bi bi-plus-circle"></i> Category
-                </h4>
-            </div>
+           
             <div class="card-body bg-light">
                 <form action="/admin/category" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
@@ -28,8 +33,17 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <h1 class="text-center m-5">Category List</h1>
+
+      <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Categories  List</h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    <div class="table-responsive mt-5">
+        
         <table class="table table-bordered table-hover table-striped table-sm  ">
             <tr class="table-success fs-6 fw-bold">
                 <th class="fs-6 text-center fw-bold">Action</th>

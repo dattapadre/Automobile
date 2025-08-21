@@ -28,7 +28,9 @@ router.post("/search", async (req, res) => {
 
 
 router.get("/", function (req, res) {
-    res.render("user/home.ejs")
+    var data = `SELECT * FROM slider`;
+    var obj  = {"data": data}
+    res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {
     var data = url.parse(req.url, true).query;
