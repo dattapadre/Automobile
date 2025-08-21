@@ -37,7 +37,7 @@
       color: white;
       transition: all var(--transition-speed) ease;
       z-index: 1050;
-      overflow-y: auto;
+      /* overflow-y: auto; */
     }
 
     .sidebar-collapsed {
@@ -296,7 +296,12 @@
   overflow: hidden;
   border-left: 7px solid gold;
 }
-  </style>
+.logo {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+}
+</style>
 </head>
 <body>
 
@@ -304,8 +309,8 @@
 <div class="sidebar" id="sidebar">
 
   <div class="logo">
-    <i class="fas fa-car me-2"></i>
-    <h3 class="">Automobile</h3>
+  <img src="/product/logo.jpg" alt="User" class="logo" />
+
   </div>
 
   <div class="menu1">
@@ -468,12 +473,12 @@
     </li>
    
     <li>
-      <a class="dropdown-item" href="/student/profile">
+      <a class="dropdown-item" href="/admin/profile">
         <i class="fas fa-user"></i> Profile
       </a>
     </li>
     <li>
-      <a class="dropdown-item" href="/student/logout">
+      <a class="dropdown-item" href="/admin/logout">
         <i class="fas fa-sign-out-alt"></i> Logout
       </a>
     </li>

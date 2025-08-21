@@ -178,13 +178,13 @@ router.get("/slider",async function(req,res){
 router.post("/slider", async function (req, res) {
     var d = req.body;
     if (req.files) {
-        var filename = new Date().getTime() + req.files.image.name;
-        req.files.image.mv("public/home/" + filename);
+        var slider_image = new Date().getTime() + req.files.slider_image.name;
+        req.files.slider_image.mv("public/home/" + slider_image);
 
     }
 
-    var sql = `INSERT INTO slider (name,image, description) VALUES (?,?, ?);`
-    var data = await exe(sql, [d.title, filename, d.description]);
+    var sql = `INSERT INTO slider (Slider_title,slider_image, slider_description) VALUES (?,?, ?);`
+    var data = await exe(sql, [d.Slider_title, slider_image, d.slider_description]);
     console.log(data);
     res.redirect("/admin/slider");
 });
@@ -196,30 +196,20 @@ router.get("/delete/:id", async (req, res) => {
 });
 router.get("/edit_slider/:id", async function(req, res) {
     var id = req.params.id;
-
-    try {
-        var data = await exe(`SELECT * FROM slider WHERE id = '${id}'`);
-        var obj = { list: data };
-        res.render("admin/edit_slider",{slider:data[0]});
-    } catch (err) {
-        console.log("Error:", err);
-        res.status(500).send("Database error");
-    }
+    var sql = `SELECT * FROM slider WHERE id = ?`;
+    var data = await exe(sql, [id]);
+    res.render("admin/edit_slider.ejs", { slider: data[0] });
 });
-router.post("/edit_slider/:id", async function (req, res) {
-    var id = req.params.id;
-    var name = req.body.name;
-    var description = req.body.description;
-    var imageName = req.body.old_image; 
+router.post("/update_slider", async function (req, res) {
+      var d = req.body;
 
-    if (req.files && req.files.image) {
-        var newName = Date.now() + "_" + req.files.image.name;
-        req.files.image.mv("public/home/" + newName);
-        imageName = newName;
+    if (req.files && req.files.slider_image) {
+       var slider_image = new Date().getTime() + req.files.slider_image.name;
+       req.files.slider_image.mv("public/home/" + slider_image);
     }
 
-    var sql = `UPDATE slider SET name='${name}', description='${description}', image='${imageName}' WHERE id='${id}'`;
-    await exe(sql);
+    var sql = `UPDATE slider SET Slider_title= ?, slider_description= ?, slider_image= ? WHERE id= ?`;
+    await exe(sql, [d.Slider_title, d.slider_description, slider_image, d.id]);
 
     res.redirect("/admin/slider");
 });
