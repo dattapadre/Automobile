@@ -12,7 +12,7 @@
         <div class="card shadow-lg border-1">
            
             <div class="card-body bg-light">
-                <form action="/admin/category" method="POST" enctype="multipart/form-data">
+                <form action="/admin/save_category" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Category Name</label>
@@ -57,7 +57,7 @@
                         <a href="/admin/edit_category/<%-category[i].id%>" class="btn btn-outline-primary btn-sm me-2 shadow-sm mt-4" title="Edit">
                             <i class="bi bi-pencil-fill"></i>
                         </a>
-                        <a href="/admin/delete/<%-category[i].id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
+                        <a href="/admin/delete_category/<%-category[i].id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     </td>

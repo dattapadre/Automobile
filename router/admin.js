@@ -9,9 +9,15 @@ router.get("/parts_inventory", function (req, res) {
     res.render("admin/parts_inventory.ejs")
 })
 router.get("/vehicles", function (req, res) {
+  
     res.render("admin/vehicles.ejs")
 });
-router.post("/vehicles", async function (req, res) {
+router.get("/vehicle_list", async function (req, res) {
+    var data = `SELECT * FROM vehicle_brand`
+    var obj = { "data": data };
+    res.render("admin/vehicle_list.ejs",obj)
+});
+router.post("/save_vehicle", async function (req, res) {
     var d = req.body;
     if (req.files) {
         var vehicle_brand = new Date().getTime() + req.files.vehicle_brand.name;
@@ -24,7 +30,6 @@ router.post("/vehicles", async function (req, res) {
     console.log(result);
     res.redirect("/admin/vehicles");
 
-    // Execute SQL query with params
 });
 router.get("/add_product", async function (req, res) {
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
@@ -219,7 +224,7 @@ router.get("/category", async function(req,res){
     var obj = { "list": category }
     res.render("admin/category.ejs", { category })
 });
-router.post("/category", async function (req, res) {
+router.post("/save_category", async function (req, res) {
     var d = req.body;
     if (req.files) {
         var filename = new Date().getTime() + req.files.image.name;
@@ -231,7 +236,7 @@ router.post("/category", async function (req, res) {
     console.log(data);
     res.redirect("/admin/category");
 });
-router.get("/delete/:id", async (req, res) => {
+router.get("/delete_category/:id", async (req, res) => {
   var id= req.params.id;
   var sql = `DELETE FROM category WHERE id = ?`;
   await exe(sql,[id]);
@@ -249,7 +254,7 @@ router.get("/edit_category/:id", async function(req, res) {
         res.status(500).send("Database error");
     }
 });
-router.post("/edit_category", async function (req, res) {
+router.post("/update_category", async function (req, res) {
    var d= req.body;
    var filename ="";
    if(req.files){

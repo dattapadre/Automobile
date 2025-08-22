@@ -5,7 +5,8 @@ var exe = require('../connection')
 
 router.get("/", function (req, res) {
     var data = `SELECT * FROM slider`;
-    var obj  = {"data": data}
+    var category = `SELECT * FROM category`;
+    var obj  = {"data": data, "category": category}
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {
