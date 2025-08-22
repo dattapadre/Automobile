@@ -15,7 +15,7 @@
 
 /* header section */
 header {
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   background: white;
   z-index: 1000;

@@ -3,6 +3,30 @@ var router = express.Router()
 var url = require('url')
 var exe = require('../connection')
 
+router.get('/navbar',function(req,res){
+    res.render('navbar.ejs')
+})
+
+router.post("/search", async (req, res) => {
+    let keyword = req.body.q || "";    // जर काहीच नसेल तर रिकामं
+    keyword = keyword.toLowerCase();
+
+    let sql = `
+        SELECT * FROM products
+        WHERE LOWER(product_name) LIKE '%${keyword}%'
+           OR LOWER(product_price) LIKE '%${keyword}%'
+           OR LOWER(product_sub_part) LIKE '%${keyword}%'
+           OR LOWER(product_part_type) LIKE '%${keyword}%'
+    `;
+
+    console.log("Final SQL =>", sql);  // Debug
+
+    let data = await exe(sql);
+    res.json(data);
+});
+
+
+
 router.get("/", function (req, res) {
     var data = `SELECT * FROM slider`;
     var category = `SELECT * FROM category`;
@@ -37,7 +61,7 @@ router.get('/body-parts', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 });
 router.get('/interior', async function (req, res) {
     var data = url.parse(req.url, true).query;
@@ -70,7 +94,7 @@ router.get('/interior', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/Suspension', async function (req, res) {
@@ -95,7 +119,7 @@ router.get('/Suspension', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/Air_Suspension', async function (req, res) {
@@ -130,7 +154,7 @@ router.get('/Air_Suspension', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories,is_login })
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/Electric_partd', async function (req, res) {
@@ -171,7 +195,7 @@ router.get('/Electric_partd', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/Engine', async function (req, res) {
@@ -197,7 +221,7 @@ router.get('/Engine', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/sensors', async function (req, res) {
@@ -238,7 +262,7 @@ router.get('/sensors', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/brake', async function (req, res) {
@@ -264,7 +288,7 @@ router.get('/brake', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -308,7 +332,7 @@ router.get('/ac_part', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories ,is_login})
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -337,7 +361,7 @@ router.get('/maintenance', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories,is_login })
+    res.render('user/product_details.ejs', { result, categories, is_login })
 });
 router.get("/product_list", function (res, res) {
     res.render('user/product_details.ejs')
@@ -350,17 +374,50 @@ router.get("/product_details/:id", async function (req, res) {
     console.log(is_login)
     res.render('user/product_information.ejs', { result, is_login })
 })
+router.get('/login', function (req, res) {
+    res.render('user/login.ejs')
+})
+router.post("/login", async function (req, res) {
+    var d = req.body;
+    var result = await exe(`SELECT * FROM customers WHERE mobile = ${d.number} AND email = '${d.email}'`)
+    // res.send(d)
+    if (result.length > 0) {
+        req.session.user_id = result[0].id;
+        console.log(req.session.user_id)
+        res.redirect("/add_to_cart")
+    }
+})
 router.get('/signup', function (res, res) {
     res.render('user/sign_in.ejs')
 })
+async function transferData(req, res) {
+    var carts = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
+    console.log(carts)
+    for (var i = 0; i < carts.length; i++) {
+        var customer_id = req.session.user_id;
+        var product_id = carts[i].product_id;
+        var qty = carts[i].qty;
+
+        var data = await exe(`SELECT * FROM cart WHERE customer_id ='${customer_id}'AND product_id ='${product_id}' AND quantity ='${qty}'`)
+        if (data.length > 0) {
+            console.log("Match Data")
+        } else {
+            var sql = `INSERT INTO cart (customer_id, product_id, quantity) VALUES (?, ?, ?)`;
+            var result = await exe(sql, [customer_id, product_id, qty]);
+        }
+    }
+}
 router.post("/signin", async function (req, res) {
     var d = req.body;
-    var sql = `SELECT * FROM customers WHERE email = '${d.email}'`
+    var sql = `SELECT * FROM customers WHERE email = '${d.email}' AND mobile ='${d.mobile}'`
     var customers = await exe(sql)
+
     if (customers.length > 0) {
         req.session.user_id = customers[0].id;
         console.log("custmores login id", req.session.user_id)
-        res.send({ status: 'success', new_user: false });
+        await transferData(req, res);
+        // 
+        res.redirect("/login")
     } else {
         var filename = ""
         if (req.files) {
@@ -371,7 +428,9 @@ router.post("/signin", async function (req, res) {
         var result = await exe(sql, [d.name, d.mobile, d.email, filename])
         req.session.user_id = result.insertId;
         console.log("inserted custmores id", req.session.user_id)
-        res.send({ status: 'success', new_user: true });
+        await transferData(req, res);
+        res.redirect("/")
+
     }
 })
 function checkLogin(req, res, next) {
@@ -393,17 +452,53 @@ router.post("/checkout", checkLogin, async function (req, res) {
     var order_date = new Date().toISOString().slice(0, 10);
     var order_status = "placed";
 
-    var product = await exe(`SELECT * FROM products WHERE product_id = '${d.product_id}'`)
-    console.log(product)
-    var sql = `INSERT INTO orders(customer_id,country,state,city,area,pincode,total_amount,payment_method,payment_status,order_date,order_status)VALUES(?,?,?,?,?,?,?,?,?,?,?)`
-    var result = await exe(sql, [customer_id, d.country, d.state, d.city, d.area, d.pincode, d.product_total, d.payment_mode, payment_status, order_date, order_status])
+    // Insert order master record
+    var sql = `INSERT INTO orders
+        (customer_id, country, state, city, area, pincode, total_amount, payment_method, payment_status, order_date, order_status) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+
+    var result = await exe(sql, [
+        customer_id,
+        d.country,
+        d.state,
+        d.city,
+        d.area,
+        d.pincode,
+        d.product_total,
+        d.payment_mode,
+        payment_status,
+        order_date,
+        order_status
+    ]);
 
     var order_id = result.insertId;
 
-    var sql2 = `INSERT INTO order_products(order_id,customer_id,product_id,product_name,product_market_price,product_price,product_qty,product_total)VALUES(?,?,?,?,?,?,?,?)`
-    var data = await exe(sql2, [order_id, customer_id, d.product_id, product[0].product_name, product[0].product_market_price, product[0].product_price, d.qty, d.product_total])
-    res.redirect(`/payment/${order_id}`)
-})
+    // Loop through products
+    for (var i = 0; i < d.product_id.length; i++) {
+        var product_info = await exe(`SELECT * FROM products WHERE product_id = '${d.product_id[i]}'`);
+
+        if (product_info.length > 0) {
+            var sql2 = `INSERT INTO order_products
+                (order_id, customer_id, product_id, product_name, product_price, product_market_price, product_qty, product_total)
+                VALUES (?,?,?,?,?,?,?,?)`;
+
+            await exe(sql2, [
+                order_id,
+                customer_id,
+                d.product_id[i],
+                product_info[0].product_name,
+                product_info[0].product_price,
+                product_info[0].product_market_price,
+                d.qty[i],
+                d.product_total[i]
+            ]);
+        }
+    }
+
+     var carts =await exe( `DELETE FROM carts WHERE customer_id = '${customer_id}'`)
+    res.redirect(`/payment/${order_id}`);
+});
+
 router.get("/payment/:id", async function (req, res) {
     var sql = `SELECT * FROM orders WHERE order_id = ${req.params.id}`
     var result = await exe(sql)
@@ -415,6 +510,8 @@ router.post('/payment_success/:id', async function (req, res) {
     var sql = `UPDATE orders SET transaction_id = ?,payment_status = ? WHERE order_id = '${req.params.id}'`
     var result = await exe(sql, [d.razorpay_payment_id, payment_status])
     // res.send(result)
+    
+
     res.redirect(`/myorder`)
 })
 router.get("/myorder", checkLogin, async function (req, res) {
@@ -430,28 +527,26 @@ router.get("/print_order/:id", checkLogin, async function (req, res) {
     var custmores = await exe(`SELECT * FROM customers WHERE id = '${req.session.user_id}'`)
     res.render('user/order_print.ejs', { data, result, custmores })
 })
-
-
-
 router.get("/add_to_cart/:id", async function (req, res) {
     var product_id = req.params.id;
     var url_data = url.parse(req.url, true).query;
-    var qty = url_data.qty;
+    var qty = (url_data.qty) ? url_data.qty : 1;
 
     if (req.session.user_id) {
-    var customer_id = req.session.user_id;
-    var sql = `SELECT * FROM cart WHERE customer_id = ? AND product_id = ?`;
-    var info = await exe(sql, [customer_id, product_id]);
+        var customer_id = req.session.user_id;
+        var sql = `SELECT * FROM cart WHERE customer_id = ? AND product_id = ?`;
+        var info = await exe(sql, [customer_id, product_id]);
 
-    if (info.length > 0) {
-        console.log(info);
-    } else {
-        var sql = `INSERT INTO cart (customer_id, product_id, quantity) VALUES (?, ?, ?)`;
-        var result = await exe(sql, [customer_id, product_id, qty]);
-    }
+        if (info.length > 0) {
+            console.log(info);
+        } else {
+            var sql = `INSERT INTO cart (customer_id, product_id, quantity) VALUES (?, ?, ?)`;
+            var result = await exe(sql, [customer_id, product_id, qty]);
+        }
 
-    res.redirect(`/add_to_cart/${product_id}`);
+        res.redirect(`/add_to_cart`);
     } else {
+
         var cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
         var obj = {
             product_id: product_id,
@@ -460,7 +555,7 @@ router.get("/add_to_cart/:id", async function (req, res) {
         };
         var already = false;
         for (var i = 0; i < cart.length; i++) {
-            if (cart[i].product_id == product_id ) {
+            if (cart[i].product_id == product_id) {
                 already = true;
                 break;
             }
@@ -470,22 +565,24 @@ router.get("/add_to_cart/:id", async function (req, res) {
             cart.push(obj);
         }
         res.cookie("cart", JSON.stringify(cart), { maxAge: 3600000 });
-    res.redirect('/add_to_cart');
+        res.redirect('/add_to_cart');
     }
 
 });
 router.get('/add_to_cart', async function (req, res) {
+
     var carts = [];
 
     if (req.session.user_id) {
         const customer_id = req.session.user_id;
         const sql = `SELECT * FROM cart WHERE customer_id = ?`;
         carts = await exe(sql, [customer_id]);
+
     }
-     else {
+    else {
         if (req.cookies.cart) {
             try {
-                carts = JSON.parse(req.cookies.cart);  // ✅ JSON.parse added
+                carts = JSON.parse(req.cookies.cart);
             } catch (err) {
                 console.error("❌ Error parsing cart cookie:", err);
                 carts = [];
@@ -494,6 +591,7 @@ router.get('/add_to_cart', async function (req, res) {
             carts = [];
         }
     }
+
 
     var cart_data = [];
     for (var i = 0; i < carts.length; i++) {
@@ -531,7 +629,7 @@ router.get('/delete_cart/:id', function (req, res) {
         res.redirect("/add_to_cart");  // Or any page you want
 
     }
-     else {
+    else {
         let carts = JSON.parse(req.cookies.cart || '[]');
         let id = parseInt(req.params.id);
         if (!isNaN(id)) carts.splice(id, 1);
@@ -542,14 +640,34 @@ router.get('/delete_cart/:id', function (req, res) {
 
 
 });
-
 router.get("/updateqty/:id", async function (req, res) {
     var qty = url.parse(req.url, true).query;
-    var sql = `UPDATE cart SET quantity='${qty.qty}' WHERE cart_id = '${req.params.id}'`;
-    var data = await exe(sql)
-    console.log(data)
+    if (req.session.user_id) {
+        var sql = `UPDATE cart SET quantity='${qty.qty}' WHERE cart_id = '${req.params.id}'`;
+        var data = await exe(sql)
+    } else {
+        res.cookie(`cart_${req.params.id}_qty`, qty, { maxAge: 24 * 60 * 60 * 1000 })
+
+    }
+
     res.redirect("/add_to_cart");
 })
+router.get('/buy_cart/:id', checkLogin, async function (req, res) {
+    var total = req.params.id;
+    var result = await exe(`SELECT 
+    cart.cart_id,
+    cart.quantity,
+    products.product_id,
+    products.product_name,
+    products.product_price,
+    products.product_image
+    FROM cart
+    INNER JOIN products
+    ON cart.product_id = products.product_id;`)
+
+    res.render('user/cart_data.ejs', { result, total })
+})
+
 
 
 module.exports = router;
