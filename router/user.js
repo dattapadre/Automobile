@@ -33,6 +33,33 @@ router.get("/product_list/:name", async function (req, res) {
     res.render("user/product_details.ejs", {result,categories,is_login });
 });
 
+router.get("/like/:product_id", async (req, res) => {
+    const productId = req.params.product_id;
+    const redirectUrl = req.query.redirect || "/"; // default root if not sent
+
+    try {
+        await exe("UPDATE products SET like_wish='like' WHERE product_id=?", [productId]);
+        res.redirect(redirectUrl); // user current page वर redirect
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Database error");
+    }
+});
+
+router.get("/dislike/:product_id", async (req, res) => {
+    const productId = req.params.product_id;
+    const redirectUrl = req.query.redirect || "/";
+
+    try {
+        await exe("UPDATE products SET like_wish='deslike' WHERE product_id=?", [productId]);
+        res.redirect(redirectUrl);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Database error");
+    }
+});
+
+
 
 
 router.get("/", function (req, res) {

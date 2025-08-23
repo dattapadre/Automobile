@@ -73,11 +73,29 @@
                   </div>
                 </a>
 
-                <div class="p-2">
-                  <button class="btn btn-primary w-100 btn-add-to-cart"
+                <div class="p-2 d-flex gap-2">
+                  <!-- Add to Cart -->
+                  <button class="btn btn-primary flex-fill btn-add-to-cart"
                     onclick="my_cart('<%-result[i].product_id%>')">
                     ADD TO CART
                   </button>
+
+                  <!-- Wishlist -->
+
+                  <% if(result[i].like_wish=='like'){ %>
+                    <button class="btn btn-danger text-white border-danger flex-fill btn-wishlist"
+                    onclick="dislike('<%-result[i].product_id%>')">
+                    ❤ 
+                  </button>
+                     
+                  <% }else{ %>
+                     <button class="btn btn-white text-danger border-danger flex-fill btn-wishlist"
+                    onclick="like('<%-result[i].product_id%>')">
+                    ❤ 
+                  </button>
+                  <% } %>
+
+                 
                 </div>
               </div>
             </div>
@@ -108,12 +126,28 @@
   AOS.init({ duration: 800, once: true });
 </script>
 
-<!------------------- Cart Script ------------------->
+<!------------------- Cart & Wishlist Script ------------------->
 <script>
   function my_cart(id){
     location.href = `/add_to_cart/${id}`;
-    console.log("Redirecting to:", location.href);
+    console.log("Redirecting to cart:", location.href);
   }
 </script>
+
+<script>
+function like(id) {
+    const currentPage = encodeURIComponent(window.location.href);
+
+    location.href = `/like/${id}?redirect=${currentPage}`;
+}
+
+function dislike(id) {
+    const currentPage = encodeURIComponent(window.location.href);
+    location.href = `/dislike/${id}?redirect=${currentPage}`;
+}
+
+
+</script>
+
 
 <%- include('footer.ejs') %>
