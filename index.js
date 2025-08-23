@@ -6,6 +6,7 @@ var admin_router = require('./router/admin')
 var user_router = require('./router/user')
 const cookieParser = require('cookie-parser');
 var app =express()
+app.use(express.static('public'));
 app.use(cookieParser());
 
 app.use(bodyparser.urlencoded({extended:true}))
