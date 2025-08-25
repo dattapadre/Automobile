@@ -276,12 +276,24 @@
                             <img src="" alt="Logo" height="50">
                         </a>
 
-                        <form class="d-flex flex-grow-1 mx-3 search-bar" action="/search" method="post">
-                            <input type="text" class="rounded-0" id="search" placeholder="Search the store" name="search">
-                            <button class="btn btn-dark rounded-0" type="submit">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </form>
+                       <form class="d-flex flex-grow-1 mx-3 search-bar" onsubmit="return false">
+  <div style="position: relative; width: 100%;">
+    <input 
+      onkeyup="searchproducts(event)" 
+      type="text" 
+      class="rounded-0 form-control" 
+      id="search" 
+      placeholder="Search the store" 
+      name="search"
+      autocomplete="off"
+    >
+    <div id="suggestions" 
+         style="position: absolute; background: #fff; border: 1px solid #ccc; width: 100%; z-index: 1000;"></div>
+  </div>
+  <button class="btn btn-dark rounded-0" type="submit">
+    <i class="fas fa-search"></i>
+  </button>
+</form>
 
                         <div class="d-flex align-items-center">
                             <a href="/signup" class="text-dark mx-3"><i class="far fa-user"></i> Sign In</a>
@@ -459,11 +471,43 @@
         </header>
         <!-- header section ends -->
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-        </script>
+<script>
+async function searchproducts(e) {
+  const value = e.target.value.trim();
+  const suggestionsBox = document.getElementById("suggestions");
 
-        <script>
-            var search = document.getElementById('search').value;
-                console.log(search)
-            
-        </script>
+  if (!value) {
+    suggestionsBox.innerHTML = "";
+    return;
+  }
+
+  try {
+    const res = await fetch(`/search_products/${encodeURIComponent(value)}`);
+    const data = await res.json();
+
+    if (data.length === 0) {
+      suggestionsBox.innerHTML = "<div class='p-2 text-muted'>No products found</div>";
+      return;
+    }
+
+    // suggestions render
+    suggestionsBox.innerHTML = data
+      .map(item => `
+        <div class="p-2 suggestion-item" 
+             onclick="selectProduct('${item.product_name}')">
+          ${item.product_name}
+        </div>`
+      )
+      .join("");
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+function selectProduct(name) {
+  document.getElementById("search").value = name;
+  document.getElementById("suggestions").innerHTML = "";
+  // Redirect to product list/details page
+  window.location.href = `/product_list/${encodeURIComponent(name)}`;
+}
+</script>

@@ -7,23 +7,58 @@ router.get('/navbar',function(req,res){
     res.render('navbar.ejs')
 })
 
-router.post("/search", async (req, res) => {
-    let keyword = req.body.q || "";    // जर काहीच नसेल तर रिकामं
-    keyword = keyword.toLowerCase();
 
-    let sql = `
-        SELECT * FROM products
-        WHERE LOWER(product_name) LIKE '%${keyword}%'
-           OR LOWER(product_price) LIKE '%${keyword}%'
-           OR LOWER(product_sub_part) LIKE '%${keyword}%'
-           OR LOWER(product_part_type) LIKE '%${keyword}%'
-    `;
+router.get("/search_products/:text", async function (req, res) {
+    try {
+        let text = req.params.text;
+        let sql = `SELECT product_name FROM products WHERE product_name LIKE ? LIMIT 10`;
+        let result = await exe(sql, [`%${text}%`]);
 
-    console.log("Final SQL =>", sql);  // Debug
-
-    let data = await exe(sql);
-    res.json(data);
+        res.json(result); // suggestions परत करायच्या
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Server Error" });
+    }
 });
+
+router.get("/product_list/:name", async function (req, res) {
+
+    let name = req.params.name;
+    let sql = `SELECT * FROM products WHERE product_name LIKE ?`;
+    let result = await exe(sql, [`%${name}%`]);
+
+    let categories = await exe(`SELECT * FROM vehicle_brand`);
+    let is_login = req.session.user_id ? true : false;
+
+    res.render("user/product_details.ejs", {result,categories,is_login });
+});
+
+router.get("/like/:product_id", async (req, res) => {
+    const productId = req.params.product_id;
+    const redirectUrl = req.query.redirect || "/"; // default root if not sent
+
+    try {
+        await exe("UPDATE products SET like_wish='like' WHERE product_id=?", [productId]);
+        res.redirect(redirectUrl); // user current page वर redirect
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Database error");
+    }
+});
+
+router.get("/dislike/:product_id", async (req, res) => {
+    const productId = req.params.product_id;
+    const redirectUrl = req.query.redirect || "/";
+
+    try {
+        await exe("UPDATE products SET like_wish='deslike' WHERE product_id=?", [productId]);
+        res.redirect(redirectUrl);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Database error");
+    }
+});
+
 
 
 
@@ -304,7 +339,7 @@ router.get('/brake', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    res.render('user/product_details.ejs', { result, categories,is_login })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -348,7 +383,7 @@ router.get('/ac_part', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    res.render('user/product_details.ejs', { result,categories, is_login })
 
 });
 router.get('/maintenance', async function (req, res) {
