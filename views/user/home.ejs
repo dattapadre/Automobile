@@ -16,44 +16,31 @@
 
   <!-- Section 1: Hero Carousel -->
   <div id="autoCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="0" class="active"></button>
-      <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="1"></button>
-      <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="2"></button>
-    </div>
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="slide-box">
-          <img src="https://atozautopartsindia.com/cdn/shop/files/home-4-slider-2.jpg?v=1692432431&width=1880" alt="Rear Lights">
-          <div class="slide-text">
-            <h1>FIND THE RIGHT</h1>
-            <p>Your One step Destination for The Perfect Auto Spare Parts.</p>
-            <a href="#" class="btn btn-light">SHOP NOW</a>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="slide-box">
-          <img src="https://atozautopartsindia.com/cdn/shop/files/home-4-slider-1.webp?v=1692440557&width=1880" alt="Engine Parts">
-          <div class="slide-text">
-            <h1>ALL TYPES OF WIDE RANGE OF SPARE PARTS</h1>
-            <p>Explore The Diverse Selection of Quality Automotive Components.</p>
-            <a href="#" class="btn btn-light">SHOP NOW</a>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="slide-box">
-          <img src="https://atozautopartsindia.com/cdn/shop/files/home-4-slider-3.webp?v=1692440558&width=1880" alt="Accessories">
-          <div class="slide-text">
-            <h1>LUXURY INTERIOR AND EXTERIOR PARTS</h1>
-            <p>Elevate Your Vehicle's Aesthetics With Our Premium Range.</p>
-            <a href="#" class="btn btn-light">SHOP NOW</a>
-          </div>
-        </div>
-      </div>
-    </div>
+  <!-- Indicators -->
+  <div class="carousel-indicators">
+    <% for (let i = 0; i < data.length; i++) { %>
+      <button type="button" data-bs-target="#autoCarousel" data-bs-slide-to="<%= i %>" 
+        class="<%= i === 0 ? 'active' : '' %>"></button>
+    <% } %>
   </div>
+
+  <!-- Carousel Items -->
+  <div class="carousel-inner">
+    <% for (let i = 0; i < data.length; i++) { %>
+      <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+        <div class="slide-box">
+          <img src="/home/<%- data[i].slider_image %>" alt="Slide <%= i+1 %>">
+          <div class="slide-text">
+            <h1><%- data[i].Slider_title %></h1>
+            <p><%- data[i].slider_description %></p>
+            <a href="#" class="btn btn-light">SHOP NOW</a>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
 
   <!-- Section 2: Categories with Icons -->
   <section class="py-5 bg-white"> 
@@ -105,23 +92,24 @@
   <!-- Section 3: Image Banners -->
   <div class="container-fluid p-0">
     <section class="auto-section">
-      <div class="auto-card" style="--bg: url('https://atozautopartsindia.com/cdn/shop/files/h4c2-sc-spotlight-1_640x_6fe9fd35-6a37-4de3-b613-6cef245b9879_640x.webp?v=1692432978')">
+      
+      <div class="auto-card" style="--bg: url('/home/<%= result[2].image %>')">
         <div class="auto-card-content">
-          <h2>HAMMER TAILS</h2>
+          <h2><%= result[2].title %></h2>
           <p>Unleash the Power of Precision Engineering for Your Auto Needs.</p>
           <a href="#" class="shop-btn">SHOP NOW</a>
         </div>
       </div>
-      <div class="auto-card" style="--bg: url('https://atozautopartsindia.com/cdn/shop/files/h4c2-sc-spotlight-2_640x_c1d6f224-780e-4ecb-aeb8-6e701ac439e6_640x.webp?v=1692432999')">
+      <div class="auto-card" style="--bg: url('/home/<%= result[5].image %>')">
         <div class="auto-card-content">
-          <h2>SOPHISTICATED MUSCLE</h2>
+          <h2><%= result[5].title %></h2>
           <p>Elevate Your Vehicle's Performance with Our Premium Auto Parts.</p>
           <a href="#" class="shop-btn">SHOP NOW</a>
         </div>
       </div>
-      <div class="auto-card" style="--bg: url('https://atozautopartsindia.com/cdn/shop/files/h4c2-sc-spotlight-3_640x_08c49205-0440-4d03-b03f-1a920b296472_640x.webp?v=1692433093')">
+      <div class="auto-card" style="--bg: url('/home/<%= result[4].image %>')">
         <div class="auto-card-content">
-          <h2>HYPERCARS</h2>
+          <h2><%= result[4].title %></h2>
           <p>Where Cutting-Edge Innovation Meets Top-Notch Auto Spare Parts.</p>
           <a href="#" class="shop-btn">SHOP NOW</a>
         </div>
@@ -136,28 +124,35 @@
         <h2 class="section-title-main">Flash Sale</h2>
       </div>
       <div class="row g-4">
+        <% for (let i = 0; i < product.length; i++) { %>
         <div class="col-sm-6 col-md-4 col-lg-3">
+           
           <div class="card product-card">
+             
             <div class="position-relative">
-              <img src="upload/spark.jpg" class="card-img-top" alt="Spark Plug">
+              <img src="/product/<%-product[i].product_image%>" class="card-img-top" alt="Spark Plug">
               <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
             </div>
             <div class="card-body">
-              <h5 class="card-title">A to Z Auto Parts</h5>
+              <h5 class="card-title"><%- product[i].product_name %></h5>
               <div class="card-title-main">
-                <p>Enhance the look and safety of your Audi A4, A3, or A6 with this A4 Mirror Glass....</p>
+                <p><%- product[i].product_description %></p>
               </div>
               <p class="price">
-                <del>₹3,500</del> 
-                <span class="text-danger">₹2,000</span>
+                <del><%- product[i].product_market_price %></del> 
+                <span class="text-danger"><%- product[i].product_price %></span>
               </p>
-              <button class="btn btn-add-to-cart w-100">
-                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-              </button>
+               <button class="btn btn-primary btn-add-to-cart mt-2" 
+                    onclick="my_cart('<%-product[i].product_id%>')">
+                    ADD TO CART
+                  </button>
             </div>
           </div>
+          
+
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
+        <% } %>
+        <!-- <div class="col-sm-6 col-md-4 col-lg-3">
           <div class="card product-card">
             <div class="position-relative">
               <img src="upload/Bowden.jpg" class="card-img-top" alt="Bowden Cable">
@@ -219,7 +214,7 @@
               </button>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="col-12 text-center mt-5">
           <a href="#" class="design_btn">Show More</a>
         </div>
@@ -234,66 +229,23 @@
         <h2 class="section-title-main">Top Categories</h2>
       </div>
       <div class="row g-0">
+         <% for (var i = 0; i < result.length; i++) { %>
         <div class="col-md-4">
-          <a href="interior.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/interior.jpg" alt="Interior">
-              <div class="category-overlay">
-                <h5>INTERIOR</h5>
+
+         
+            <a href="interior.html" class="text-decoration-none">
+              <div class="image-category-card">
+                <img src="/home/<%= result[i].image %>" alt="Interior">
+                <div class="category-overlay">
+                  <h5><%= result[i].title %></h5>
+                </div>
               </div>
-            </div>
-          </a>
+            </a>
+          
         </div>
-        <div class="col-md-4">
-          <a href="exterior.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/EXTERIOR.jpg" alt="Exterior">
-              <div class="category-overlay">
-                <h5>EXTERIOR</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="performance.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/PERFORMANCE.jpg" alt="Performance">
-              <div class="category-overlay">
-                <h5>PERFORMANCE</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="lighting.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/LIGHTING.jpg" alt="Lighting">
-              <div class="category-overlay">
-                <h5>LIGHTING</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="wheels.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/WHEELS.jpg" alt="Wheels">
-              <div class="category-overlay">
-                <h5>WHEELS & TIRES</h5>
-              </div>
-            </div>
-          </a>
-        </div>
-        <div class="col-md-4">
-          <a href="bodyparts.html" class="text-decoration-none">
-            <div class="image-category-card">
-              <img src="upload/bodyparts.jpg" alt="Body Parts">
-              <div class="category-overlay">
-                <h5>BODY PARTS</h5>
-              </div>
-            </div>
-          </a>
-        </div>
+          <% } %>
+       
+     
       </div>
       <div class="text-center mt-5">
         <a href="#" class="view-all-link"><i class="fas fa-angle-double-right me-2"></i>View All</a>
@@ -323,444 +275,158 @@
 
   <!-- Section 7: Brands Section -->
   <section id="brands" class="py-5 bg-light">
-    <div class="container-fluid">
-      <div class="section-title-wrapper">
-        <h2 class="section-title-main">Shop by Popular Brands</h2>
-      </div>
-    
-      <div class="row g-3 justify-content-center">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/bmw.png" class="img-fluid" alt="BMW">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/audi.png" class="img-fluid" alt="Audi">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/benz.png" class="img-fluid" alt="Mercedes-Benz">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/jaguar.png" class="img-fluid" alt="Jaguar">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/lr.png" class="img-fluid" alt="Land Rover">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/mini.png" class="img-fluid" alt="Mini Cooper">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/TVS.png" class="img-fluid" alt="TVS">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/suzuki.png" class="img-fluid" alt="Suzuki">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/Yamaha.png" class="img-fluid" alt="Yamaha">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/Kawasaki.png" class="img-fluid" alt="Kawasaki">
-            </a>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/KTM.png" class="img-fluid" alt="KTM">
-            </a>
-            </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-2">
-            <a href="#" class="brand-logo">
-                <img src="upload/bajaj.png" class="img-fluid" alt="Bajaj">
-            </a>
-        </div>
-      </div>
+  <div class="container-fluid">
+    <div class="section-title-wrapper">
+      <h2 class="section-title-main">Shop by Popular Brands</h2>
     </div>
-  </section>
+
+    <div class="row g-3 justify-content-center">
+      <% for (var i = 0; i < vehicle.length; i++) { %>
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+        <a href="#" class="brand-logo">
+          <img src="/categories/<%= vehicle[i].vehicle_image %>" class="img-fluid" alt="<%= vehicle[i].vehicle_name %>">
+        </a>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</section>
+
 
   <!-- Section 8: Most Popular Products -->
   <section class="popular-products-section">
-    <div class="container-fluid">
-      <div class="section-title-wrapper">
-        <h2 class="section-title-main">Most Popular</h2>
+  <div class="container-fluid">
+    <div class="section-title-wrapper">
+      <h2 class="section-title-main">Most Popular</h2>
+    </div>
+
+    <!-- Category Nav (Ye static hi reh sakta hai) -->
+    <nav class="category-filter-nav mb-4">
+      <ul class="nav justify-content-center flex-wrap">
+        <li class="nav-item"><a class="nav-link active" href="#">All</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Interior</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Exterior</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Performance</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Lighting</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Body Parts</a></li>
+      </ul>
+    </nav>
+
+    <!-- Swiper Product Carousel -->
+    <div class="swiper product-carousel position-relative">
+      <div class="swiper-wrapper">
+
+        <% for (let i = 0; i < products.length; i++) { %>
+          <div class="swiper-slide">
+            <div class="product-card-new">
+              <div class="card-img-container">
+                <img src="/product/<%- products[i].product_image %>" class="img-fluid" alt="<%- products[i].product_name %>"/>
+                <button class="wishlist-btn" aria-label="Add to wishlist">
+                  <i class="fa-regular fa-heart"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title"><%- products[i].product_name %></h5>
+                <h3 class="card-title-main"><%- products[i].product_description %></h3>
+                <p class="price">
+                  <span class="original-price me-2">₹<%- products[i].product_market_price %></span>
+                  <span class="sale-price">₹<%- products[i].product_price %></span>
+                </p>
+                <a href="<%- products[i].product_id %>" class="btn btn-add-to-cart">
+                  <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
+                </a>
+              </div>
+            </div>
+          </div>
+        <% } %>
+
       </div>
-      <nav class="category-filter-nav mb-4">
-        <ul class="nav justify-content-center flex-wrap">
-          <li class="nav-item"><a class="nav-link active" href="#">All</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Interior</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Exterior</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Performance</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Lighting</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Body Parts</a></li>
-        </ul>
-      </nav>
-      <div class="swiper product-carousel position-relative">
+
+      <!-- Swiper Controls -->
+      <div class="swiper-pagination"></div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Section 9: INTERIOR SLIDER -->
+  <div class="container-fluid" style="background-color: white;">
+  <section class="interior-section">
+    <h2 class="section-title"><%- result[0].title %></h2>
+    <div class="side-image">
+      <img src="/home/<%- result[0].image %>" alt="Car Interior">
+    </div>
+    <div class="main-content">
+      <div class="swiper interior-slider">
         <div class="swiper-wrapper">
+          <% for (let i = 0; i < interior.length; i++) {  %>
           <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/61q7scyYQBL._AC_UF894_1000_QL80.jpg?v=1740738364" class="product-image" alt="Bumper"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <i class="fa-regular fa-heart"></i>
+            <div class="product-card-final">
+              <div class="card-image-wrapper">
+                <img src="/product/<%- interior[i].product_image %>" alt="Product Image">
+                <button class="wishlist-icon-final" aria-label="Add to wishlist">
+                  <i class="fa-regular fa-heart"></i>
                 </button>
               </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹6,500</span>
-                    <span class="sale-price">₹5,000</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
+              <div class="card-content">
+                <div class="card-brand"><%- interior[i].product_name%></div>
+                <h3 class="card-title-main"><%- interior[i].product_description %></h3>
+                <div class="card-pricing">
+                  <span class="original-price">Rs. <%- interior[i].product_market_price %></span>
+                  <span class="sale-price">Rs. <%- interior[i].product_price %></span>
+                </div>
+                <button class="card-add-to-cart">
+                  <a href="<%-interior[i].product_id %>"></a>
+                  Add to Cart</button>
               </div>
             </div>
           </div>
-          <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/24_f0eccedb-20bd-4a24-a40c-3ac13fd65f58.jpg?v=1729587015" class="product-image" alt="Headlight"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹19,500</span>
-                    <span class="sale-price">₹16,000</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/5_201619cb-3405-40c9-aa01-ba0829b69412.jpg?v=1719812761" class="product-image" alt="Mirror"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹4,000</span>
-                    <span class="sale-price">₹3,000</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/4141F4DFVSL.jpg?v=1753081174" class="product-image" alt="LED Bulb"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹6,500</span>
-                    <span class="sale-price">₹5,000</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/save_2024-06-29T14_10_58.056Z.png?v=1719670270" class="product-image" alt="Vent"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹4,500</span>
-                    <span class="sale-price">₹3,500</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <div class="product-card-new">
-              <div class="card-img-container">
-                <img src="https://atozautopartsindia.com/cdn/shop/files/l21.jpg?v=1719578224" class="product-image" alt="Gear Knob"/>
-                <button class="wishlist-btn" aria-label="Add to wishlist">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">ALBRO OEM SPARES</h5>
-                <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                <p class="price">
-                    <span class="original-price me-2">₹4,500</span>
-                    <span class="sale-price">₹4,200.00</span>
-                </p>
-                <a href="#" class="btn btn-add-to-cart">
-                    <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-                </a>
-              </div>
-            </div>
-          </div>
+          <% } %>
         </div>
+        <!-- Swiper Controls -->
         <div class="swiper-pagination"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- Section 9: INTERIOR SLIDER -->
-  <div class="container-fluid" style="background-color: white;">
-    <section class="interior-section">
-      <h2 class="section-title">INTERIOR</h2>
-      <div class="side-image">
-        <img src="upload/I Handle.jpg" alt="Car Interior">
-      </div>
-      <div class="main-content">
-        <div class="swiper interior-slider">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Ass H.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Inner Door Handle Assembly (Without Leather Set Of 4) Compatible With BMW 3 Series F34 GT</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 8,500</span>
-                            <span class="sale-price">Rs. 5,999</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Rear.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Front/Rear Exterior Door Handle 4L0837207A Compatible with 2010-2015 Audi Q7</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 6,500</span>
-                            <span class="sale-price">Rs. 4,299</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Inner.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Inner Door Handle Outer Cover Set 51416999879 51416999880 Compatible With BMW X3 & X4 & G01 & G08 & F97</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 18,000</span>
-                            <span class="sale-price">Rs. 14,999</span>
-                        </div><button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Innwe cover.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Upgrade your Land Rover Discovery's interior with our LR076101 & LR076102 compatible door handle surrounding cover trim....</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 12,893</span>
-                            <span class="sale-price">Rs. 10,000</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Innwe cover.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Upgrade your Land Rover Discovery's interior with our LR076101 & LR076102 compatible door handle surrounding cover trim....</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 12,893</span>
-                            <span class="sale-price">Rs. 10,000</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-          </div>
-          <div class="swiper-pagination"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
-        </div>
-      </div>
-    </section>
-  </div>
   
   <!-- Section 10: EXTERIOR SLIDER -->
   <div class="container-fluid" style="background-color: white;">
     <section class="interior-section">
-      <h2 class="section-title">EXTERIOR</h2>
+      <h2 class="section-title"><%-result[1].title%></h2>
       <div class="side-image">
-        <img src="upload/Exte.jpg" alt="Car Exterior">
+        <img src="/home/<%-result[1].image%>" alt="Car Exterior">
     </div>
       <div class="main-content">
         <div class="swiper exterior-slider">
           <div class="swiper-wrapper">
+            <% for (let i = 0; i < exterior.length; i++) { %>
             <div class="swiper-slide">
                 <div class="product-card-final">
                     <div class="card-image-wrapper">
-                        <img src="upload/Show w.jpg" alt="Product Image">
+                        <img src="/product/<%- exterior[i].product_image %>" alt="Product Image">
                         <button class="wishlist-icon-final" aria-label="Add to wishlist">
                             <i class="fa-regular fa-heart"></i>
                         </button>
                     </div>
                     <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Show Grill With Camera Hole 2068804205 Compatible With Mercedes-Benz C-CLASS W206 (2022-2025)</h3>
+                        <div class="card-brand"><%- exterior[i].product_name%></div>
+                        <h3 class="card-title-main"><%- exterior[i].product_description %></h3>
                         <div class="card-pricing">
-                            <span class="original-price">Rs. 25,500</span>
-                            <span class="sale-price">Rs. 12,500</span>
+                            <span class="original-price">Rs.<%- exterior[i].product_market_price %></span>
+                            <span class="sale-price">Rs.  <%- exterior[i].product_price %></span>
                         </div>
                         <button class="card-add-to-cart">Add to Cart</button>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Show w.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Show Grill Without Camera 1178809700 Compatible With Mercedes-Benz CLA-CLASS W117 (2013-2019)</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 6,000</span>
-                            <span class="sale-price">Rs. 5,299</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Show h.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Show Grill With Camera Hole 1778807903 Compatible With Mercedes-Benz A-CLASS W177 (2019-2023)</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 10,000</span>
-                            <span class="sale-price">Rs. 8,999</span>
-                        </div><button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/brkn.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                            <div class="card-brand">ALBRO OEM SPARES</div>
-                            <h3 class="card-title-main">Show Grill With Camera Hole (Brkn) 2138802003 Compatible With Mercedes-Benz E-CLASS W213 (2016-2019)</h3>
-                            <div class="card-pricing">
-                                <span class="original-price">Rs. 24,000</span>
-                                <span class="sale-price">Rs. 13,999</span>
-                            </div>
-                            <button class="card-add-to-cart">Add to Cart</button>
-                        </div>
-                    </div>
-                </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Show b.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Show Grill With Camera Hole 2138880223 Compatible With Mercedes-Benz E-CLASS W213 (2016-2019)</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 24,000</span>
-                            <span class="sale-price">Rs. 13,999</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <% } %>
+         
           </div>
           <div class="swiper-pagination"></div>
           <div class="swiper-button-next"></div>
@@ -773,106 +439,34 @@
   <!-- Section 11: PERFORMANCE SLIDER -->
   <div class="container-fluid" style="background-color: white;">
     <section class="interior-section">
-      <h2 class="section-title">PERFORMANCE</h2>
+      <h2 class="section-title"><%-result[2].title%></h2>
       <div class="side-image">
-        <img src="upload/Perfomance.jpg" alt="Car Performance">
+        <img src="/home/<%-result[2].image%>" alt="Car Performance">
       </div>
       <div class="main-content">
         <div class="swiper performance-slider">
           <div class="swiper-wrapper">
+            <% for (let i = 0; i < performance.length; i++) { %>
             <div class="swiper-slide">
                 <div class="product-card-final">
                     <div class="card-image-wrapper">
-                        <img src="upload/oilfilter.jpg" alt="Product Image">
+                        <img src="/product/<%- performance[i].product_image %>" alt="Product Image">
                         <button class="wishlist-icon-final" aria-label="Add to wishlist">
                             <i class="fa-regular fa-heart"></i>
                         </button>
                     </div>
                     <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Oil Filter: E122HD187 11427807177 high-quality oil filter for optimal engine performance...</h3>
+                        <div class="card-brand"><%- performance[i].product_name %></div>
+                        <h3 class="card-title-main"><%- performance[i].product_description %></h3>
                         <div class="card-pricing">
-                            <span class="original-price">Rs. 5,500</span>
-                            <span class="sale-price">Rs. 4,000</span>
+                            <span class="original-price">Rs. <%- performance[i].product_market_price %></span>
+                            <span class="sale-price">Rs. <%- performance[i].product_price %></span>
                         </div><button class="card-add-to-cart">Add to Cart</button>
                     </div>
                 </div>
             </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Airfilter.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">E1004L: A high-quality cabin air filter crafted for BMW vehicles OE number 13717797465...</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs.16,00</span>
-                            <span class="sale-price">Rs. 15,00</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Airfilter1.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">1. Genuine BMW air filter part number 13718605164. 2. Designed to effectively filter air...</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 20,000</span>
-                            <span class="sale-price">Rs. 15,999</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Airfilter2.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Cabin Filter Part No: 97030-H1726, designed for superior interior air quality...</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 16,00</span>
-                            <span class="sale-price">Rs. 15,00</span>
-                        </div><button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="swiper-slide">
-                <div class="product-card-final">
-                    <div class="card-image-wrapper">
-                        <img src="upload/Airfilter2.jpg" alt="Product Image">
-                        <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                            <i class="fa-regular fa-heart"></i>
-                        </button>
-                    </div>
-                    <div class="card-content">
-                        <div class="card-brand">ALBRO OEM SPARES</div>
-                        <h3 class="card-title-main">Cabin Filter Part No: 97030-H1726, designed for superior interior air quality...</h3>
-                        <div class="card-pricing">
-                            <span class="original-price">Rs. 16,00</span>
-                            <span class="sale-price">Rs. 15,00</span>
-                        </div>
-                        <button class="card-add-to-cart">Add to Cart</button>
-                    </div>
-                </div>
-            </div>
+            <% } %>
+           
           </div>
           <div class="swiper-pagination"></div>
           <div class="swiper-button-next"></div>
@@ -883,7 +477,7 @@
   </div>
 
   <!-- Section 12: After Market Brands -->
-  <div class="container-fluid brand-section ">
+  <!-- <div class="container-fluid brand-section ">
     <h2 class="brand-title">SHOP BY AFTER MARKET BRAND</h2>
     <div class="row g-4 justify-content-center">
       <div class="col-lg-2 col-md-4 col-sm-6">
@@ -911,7 +505,7 @@
       </a>
   </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- Section 13: REVIEWS SECTION -->
   <section class="reviews-section">

@@ -13,23 +13,50 @@ router.get("/vehicles", function (req, res) {
     res.render("admin/vehicles.ejs")
 });
 router.get("/vehicle_list", async function (req, res) {
-    var data = `SELECT * FROM vehicle_brand`
-    var obj = { "data": data };
+      var vehicle = await exe(`SELECT * FROM vehicle_brand`)
+    var obj = { "vehicle": vehicle };
     res.render("admin/vehicle_list.ejs",obj)
 });
 router.post("/save_vehicle", async function (req, res) {
     var d = req.body;
     if (req.files) {
-        var vehicle_brand = new Date().getTime() + req.files.vehicle_brand.name;
-        req.files.vehicle_brand.mv("public/categories/" + vehicle_brand);
+        var vehicle_image = new Date().getTime() + req.files.vehicle_image.name;
+        req.files.vehicle_image.mv("public/categories/" + vehicle_image);
 
     }
 
-    var sql = `INSERT INTO vehicle_brand (vehicle_brand, vehicle_name) VALUES (?, ?)`;
-    var result = await exe(sql, [vehicle_brand, d.vehicle_name]);
+    var sql = `INSERT INTO vehicle_brand (vehicle_image, vehicle_name) VALUES (?, ?)`;
+    var result = await exe(sql, [vehicle_image, d.vehicle_name]);
     console.log(result);
     res.redirect("/admin/vehicles");
 
+});
+
+router.get("/delete_vehicle/:vehicle_id", async (req, res) => {
+    var sql = `DELETE FROM vehicle_brand WHERE vehicle_id = ?`;
+    var result = await exe(sql,[req.params.vehicle_id]);
+    res.redirect("/admin/vehicle_list");
+});
+router.get("/edit_vehicle/:vehicle_id", async function (req, res) {
+    var sql = `SELECT * FROM vehicle_brand WHERE vehicle_id = ?`;
+    var result = await exe(sql, [req.params.vehicle_id]);
+    res.render("admin/edit_vehicle.ejs", { vehicle: result[0] });
+});
+
+router.post("/update_vehicle", async function (req, res) {
+    var d = req.body;
+    var vehicle_image = d.old_image || "";
+
+    if (req.files && req.files.vehicle_image) {
+        vehicle_image = new Date().getTime() + req.files.vehicle_image.name;
+        req.files.vehicle_image.mv('public/categories/' + vehicle_image);
+    }
+
+    var sql = `UPDATE vehicle_brand SET vehicle_image = ?, vehicle_name = ? WHERE vehicle_id = ?`;
+    var result = await exe(sql, [vehicle_image, d.vehicle_name, d.vehicle_id]);
+    console.log(result);
+
+    res.redirect("/admin/vehicle_list");
 });
 router.get("/add_product", async function (req, res) {
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
