@@ -27,10 +27,26 @@ router.post("/search", async (req, res) => {
 
 
 
-router.get("/", function (req, res) {
-    var data = `SELECT * FROM slider`;
-    var category = `SELECT * FROM category`;
-    var obj  = {"data": data, "category": category}
+router.get("/", async function (req, res) {
+    
+    var vehicle = await exe(`SELECT * FROM vehicle_brand`);
+  
+    
+    var data = await exe(`SELECT * FROM slider`);
+
+    var result = await exe(`SELECT * FROM category`);
+
+    var product = await exe(`SELECT * FROM products  LIMIT 4`);
+
+    var products = await exe(`SELECT * FROM products ORDER BY product_id DESC LIMIT 6`);
+
+   var   interior = await exe(`SELECT * FROM products WHERE product_part_type = 'Interior' LIMIT 4`);
+
+   var   exterior = await exe(`SELECT * FROM products WHERE product_part_type = 'bodypart' LIMIT 4`);
+
+   var   performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
+
+    var obj  = {"data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle};
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {

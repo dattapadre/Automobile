@@ -9,4 +9,32 @@
       </div>
     </div>
    
+     <table class="table table-bordered table-hover table-striped table-sm  ">
+            <tr class="table-success fs-6 fw-bold">
+                <th class="fs-6 text-center fw-bold">Action</th>
+                <th class="fs-6 text-center fw-bold">Sr No</th>
+                <th class="fs-6 text-center fw-bold">Vehicle Name</th>
+
+                <th class="fs-6 text-center fw-bold">Vehicle Image</th>
+            </tr>
+            <% for(var i=0;i <vehicle.length; i++){%>
+                <tr>
+                    <td class="fs-6  text-center fw-bold">
+                        <a href="/admin/edit_vehicle/<%-vehicle[i].vehicle_id%>" class="btn btn-outline-primary btn-sm me-2 shadow-sm mt-4" title="Edit">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="/admin/delete_vehicle/<%-vehicle[i].vehicle_id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                    <td class="fs-6 text-center "><%- i+1 %></td>
+                    <td class="fs-6 text-center "><%-vehicle[i].vehicle_name%></td>
+                    
+
+                    <td>
+                        <img src="/categories/<%-vehicle[i].vehicle_image%>" width="100px" height="100px" class="rounded shadow">
+                    </td>
+                </tr>
+                <%}%>
+        </table>
 <%-include('footer.ejs')%>

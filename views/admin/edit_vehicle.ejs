@@ -3,7 +3,7 @@
     <div class="row mb-4">
       <div class="col-md-12">
             <div class="banner d-flex align-items-center rounded-3">
-            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> vehicle </h3>
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Update Vehicle </h3>
             <div class="stripes"></div>
            </div>
       </div>
@@ -12,19 +12,20 @@
     
 
 
-       <form action="/admin/save_vehicle" method="POST" enctype="multipart/form-data" >
+       <form action="/admin/update_vehicle" method="POST" enctype="multipart/form-data" >
+        <input type="hidden" name="vehicle_id" value="<%= vehicle.vehicle_id %>">
         <div class="row">
            <div class="col-md-6">
                <label for="vehicle" class="form-label fw-bold">Vehicle Brand</label>
-               <input type="file" class="form-control " id="vehicleName" name="vehicle_image" required>
+               <input type="file" class="form-control " id="vehicleName" name="vehicle_image" required value="<%= vehicle.vehicle_image %>">
            </div>
            <div class="col-md-6">
                <label for="vehicle_name" class="form-label fw-bold">Vehicle Name</label>
-               <input type="text" class="form-control" id="vehicleName" name="vehicle_name" required>
+               <input type="text" class="form-control" id="vehicleName" name="vehicle_name" required value="<%= vehicle.vehicle_name %>">
            </div>
           <div class="col-md-12 text-center mt-5">
              <button type="submit" class="btn btn-success px-4">
-                            <i class="bi bi-save"></i> Add Vehicle
+                            <i class="bi bi-save"></i> Update Vehicle
                         </button>
           </div>
             </div>
