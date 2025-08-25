@@ -60,6 +60,12 @@ router.get("/dislike/:product_id", async (req, res) => {
 });
 
 
+router.get("/wish_list",async function(req,res){
+    var data = await exe(`SELECT * FROM products WHERE like_wish='like'`);
+    res.send(data);
+})
+
+
 
 
 router.get("/", function (req, res) {
