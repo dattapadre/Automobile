@@ -9,22 +9,54 @@ router.get("/parts_inventory", function (req, res) {
     res.render("admin/parts_inventory.ejs")
 })
 router.get("/vehicles", function (req, res) {
+  
     res.render("admin/vehicles.ejs")
 });
-router.post("/vehicles", async function (req, res) {
+router.get("/vehicle_list", async function (req, res) {
+      var vehicle = await exe(`SELECT * FROM vehicle_brand`)
+    var obj = { "vehicle": vehicle };
+    res.render("admin/vehicle_list.ejs",obj)
+});
+router.post("/save_vehicle", async function (req, res) {
     var d = req.body;
     if (req.files) {
-        var vehicle_brand = new Date().getTime() + req.files.vehicle_brand.name;
-        req.files.vehicle_brand.mv("public/categories/" + vehicle_brand);
+        var vehicle_image = new Date().getTime() + req.files.vehicle_image.name;
+        req.files.vehicle_image.mv("public/categories/" + vehicle_image);
 
     }
 
-    var sql = `INSERT INTO vehicle_brand (vehicle_brand, vehicle_name) VALUES (?, ?)`;
-    var result = await exe(sql, [vehicle_brand, d.vehicle_name]);
+    var sql = `INSERT INTO vehicle_brand (vehicle_image, vehicle_name) VALUES (?, ?)`;
+    var result = await exe(sql, [vehicle_image, d.vehicle_name]);
     console.log(result);
     res.redirect("/admin/vehicles");
 
-    // Execute SQL query with params
+});
+
+router.get("/delete_vehicle/:vehicle_id", async (req, res) => {
+    var sql = `DELETE FROM vehicle_brand WHERE vehicle_id = ?`;
+    var result = await exe(sql,[req.params.vehicle_id]);
+    res.redirect("/admin/vehicle_list");
+});
+router.get("/edit_vehicle/:vehicle_id", async function (req, res) {
+    var sql = `SELECT * FROM vehicle_brand WHERE vehicle_id = ?`;
+    var result = await exe(sql, [req.params.vehicle_id]);
+    res.render("admin/edit_vehicle.ejs", { vehicle: result[0] });
+});
+
+router.post("/update_vehicle", async function (req, res) {
+    var d = req.body;
+    var vehicle_image = d.old_image || "";
+
+    if (req.files && req.files.vehicle_image) {
+        vehicle_image = new Date().getTime() + req.files.vehicle_image.name;
+        req.files.vehicle_image.mv('public/categories/' + vehicle_image);
+    }
+
+    var sql = `UPDATE vehicle_brand SET vehicle_image = ?, vehicle_name = ? WHERE vehicle_id = ?`;
+    var result = await exe(sql, [vehicle_image, d.vehicle_name, d.vehicle_id]);
+    console.log(result);
+
+    res.redirect("/admin/vehicle_list");
 });
 router.get("/add_product", async function (req, res) {
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
@@ -93,7 +125,81 @@ router.get('/edit_product/:id',async function(req,res){
     var result = await exe(sql)
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
     res.render("admin/edit_product.ejs",{result,vehicle})
-})
+});
+
+router.post("/update_product",async function (req,res) {
+   var d = req.body;
+console.log(d);
+console.log(req.files);
+
+var filename = d.old_image || "";   
+var filename1 = d.old_image1 || "";
+var filename2 = d.old_image2 || "";
+
+// Main Image
+if (req.files && req.files.product_image) {
+    filename = new Date().getTime() + req.files.product_image.name;
+    req.files.product_image.mv('public/product/' + filename);
+}
+
+// Image 1
+if (req.files && req.files.product_image1) {
+    filename1 = new Date().getTime() + req.files.product_image1.name;
+    req.files.product_image1.mv('public/product/' + filename1);
+}
+
+// Image 2
+if (req.files && req.files.product_image2) {
+    filename2 = new Date().getTime() + req.files.product_image2.name;
+    req.files.product_image2.mv('public/product/' + filename2);
+}
+
+
+var sql = `
+    UPDATE products SET
+        product_name = ?,
+        product_image = ?,
+        product_image1 = ?,
+        product_image2 = ?,
+        product_price = ?,
+        product_market_price = ?,
+        product_part_type = ?,
+        product_sub_part = ?,
+        product_vehicle_type_id = ?,
+        product_availability = ?,
+        product_trending = ?,
+        product_added_date = ?,
+        product_description = ?
+    WHERE product_id = ?
+`;
+
+var result = await exe(sql, [
+    d.product_name,
+    filename,
+    filename1,
+    filename2,
+    d.product_price,
+    d.product_market_price,
+    d.product_part_type,
+    d.product_sub_part,
+    d.product_vehicle_type_id,
+    d.product_availability,
+    d.product_trending,
+    d.product_added_date,
+    d.product_description,
+    d.product_id  
+]);
+
+console.log(result);
+res.redirect("/admin/all_parts");
+
+});
+router.get("/delete_product/:product_id", async (req, res) => {
+    var id = req.params.product_id;
+    var sql = `DELETE FROM products WHERE product_id = ?`;
+    await exe(sql, [id]);
+    res.redirect("/admin/all_parts");
+});
 
 router.get("/slider",async function(req,res){
       var sql = `SELECT * FROM slider`;
@@ -104,13 +210,13 @@ router.get("/slider",async function(req,res){
 router.post("/slider", async function (req, res) {
     var d = req.body;
     if (req.files) {
-        var filename = new Date().getTime() + req.files.image.name;
-        req.files.image.mv("public/home/" + filename);
+        var slider_image = new Date().getTime() + req.files.slider_image.name;
+        req.files.slider_image.mv("public/home/" + slider_image);
 
     }
 
-    var sql = `INSERT INTO slider (name,image, description) VALUES (?,?, ?);`
-    var data = await exe(sql, [d.title, filename, d.description]);
+    var sql = `INSERT INTO slider (Slider_title,slider_image, slider_description) VALUES (?,?, ?);`
+    var data = await exe(sql, [d.Slider_title, slider_image, d.slider_description]);
     console.log(data);
     res.redirect("/admin/slider");
 });
@@ -122,36 +228,68 @@ router.get("/delete/:id", async (req, res) => {
 });
 router.get("/edit_slider/:id", async function(req, res) {
     var id = req.params.id;
+    var sql = `SELECT * FROM slider WHERE id = ?`;
+    var data = await exe(sql, [id]);
+    res.render("admin/edit_slider.ejs", { slider: data[0] });
+});
+router.post("/update_slider", async function (req, res) {
+      var d = req.body;
+
+    if (req.files && req.files.slider_image) {
+       var slider_image = new Date().getTime() + req.files.slider_image.name;
+       req.files.slider_image.mv("public/home/" + slider_image);
+    }
+
+    var sql = `UPDATE slider SET Slider_title= ?, slider_description= ?, slider_image= ? WHERE id= ?`;
+    await exe(sql, [d.Slider_title, d.slider_description, slider_image, d.id]);
+
+    res.redirect("/admin/slider");
+});
+router.get("/category", async function(req,res){
+    var sql = `SELECT * FROM category`;
+    var category = await exe(sql);
+    var obj = { "list": category }
+    res.render("admin/category.ejs", { category })
+});
+router.post("/save_category", async function (req, res) {
+    var d = req.body;
+    if (req.files) {
+        var filename = new Date().getTime() + req.files.image.name;
+        req.files.image.mv("public/home/" + filename);
+    }
+
+    var sql = `INSERT INTO category (title, image) VALUES (?, ?)`;
+    var data = await exe(sql, [d.title, filename]);
+    console.log(data);
+    res.redirect("/admin/category");
+});
+router.get("/delete_category/:id", async (req, res) => {
+  var id= req.params.id;
+  var sql = `DELETE FROM category WHERE id = ?`;
+  await exe(sql,[id]);
+  res.redirect("/admin/category");
+});
+router.get("/edit_category/:id", async function(req, res) {
+    var id = req.params.id;
 
     try {
-        var data = await exe(`SELECT * FROM slider WHERE id = '${id}'`);
+        var data = await exe(`SELECT * FROM category WHERE id = '${id}'`);
         var obj = { list: data };
-        res.render("admin/edit_slider",{slider:data[0]});
+        res.render("admin/edit_category.ejs",{category:data[0]});
     } catch (err) {
         console.log("Error:", err);
         res.status(500).send("Database error");
     }
 });
-router.post("/edit_slider/:id", async function (req, res) {
-    var id = req.params.id;
-    var name = req.body.name;
-    var description = req.body.description;
-    var imageName = req.body.old_image; 
-
-    if (req.files && req.files.image) {
-        var newName = Date.now() + "_" + req.files.image.name;
-        req.files.image.mv("public/home/" + newName);
-        imageName = newName;
-    }
-
-    var sql = `UPDATE slider SET name='${name}', description='${description}', image='${imageName}' WHERE id='${id}'`;
-    await exe(sql);
-
-    res.redirect("/admin/slider");
+router.post("/update_category", async function (req, res) {
+   var d= req.body;
+   var filename ="";
+   if(req.files){
+    var filename = new Date().getTime() + req.files.image.name;
+    req.files.image.mv("public/home/" + filename);
+   }
+   var sql = `UPDATE category SET title='${d.title}', image='${filename}' WHERE id='${d.id}'`;
+   var result = await exe(sql);
+   res.redirect("/admin/category");
 });
-router.get("/category", function(req,res){
-    
-    res.render("admin/category.ejs")
-});
-
 module.exports = router;

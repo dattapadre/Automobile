@@ -1,13 +1,18 @@
 <%- include("Navbar.ejs") %>
+  <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Categories </h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    </div>
     <div class="container mt-4 p-5 pt-2">
         <div class="card shadow-lg border-1">
-            <div class="card-header bg-dark text-white">
-                <h4 class="mb-0">
-                    <i class="bi bi-plus-circle"></i> Category
-                </h4>
-            </div>
+           
             <div class="card-body bg-light">
-                <form action="/admin/category" method="POST" enctype="multipart/form-data">
+                <form action="/admin/save_category" method="POST" enctype="multipart/form-data">
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="form-label fw-bold">Category Name</label>
@@ -29,5 +34,41 @@
         </div>
     </div>
 
+      <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Categories  List</h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    <div class="table-responsive mt-5">
+        
+        <table class="table table-bordered table-hover table-striped table-sm  ">
+            <tr class="table-success fs-6 fw-bold">
+                <th class="fs-6 text-center fw-bold">Action</th>
+                <th class="fs-6 text-center fw-bold">Sr No</th>
+                <th class="fs-6 text-center fw-bold">Category Name</th>
+                <th class="fs-6 text-center fw-bold">Category Image</th>
+            </tr>
+            <% for(var i=0;i<category.length;i++){%>
+                <tr>
+                    <td class="fs-6  text-center fw-bold">
+                        <a href="/admin/edit_category/<%-category[i].id%>" class="btn btn-outline-primary btn-sm me-2 shadow-sm mt-4" title="Edit">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+                        <a href="/admin/delete_category/<%-category[i].id%>" class="btn btn-outline-danger btn-sm shadow-sm mt-4" title="Delete">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                    <td class="fs-6 text-center "><%- i+1 %></td>
+                    <td class="fs-6 text-center "><%-category[i].title%></td>
+
+                    <td>
+                        <img src="/home/<%-category[i].image%>" width="100px" height="100px" class="rounded shadow">
+                    </td>
+                </tr>
+                <%}%>
+        </table>
 
     <%- include("footer.ejs") %>

@@ -124,19 +124,4 @@
     
     <%-include('footer.ejs')%>
 
-    <script>
-         function searchArea() {
-            var pincode = document.getElementById('pincode').value
-            $.ajax({
-                url: `https://api.postalpincode.in/pincode/${pincode}`
-            }).done(function (result) {
-                if (result[0].Status == 'Success') {
-                    document.getElementById('country').value = result[0].PostOffice[0].Country;
-                    document.getElementById('state').value = result[0].PostOffice[0].State;
-                    document.getElementById('city').value = result[0].PostOffice[0].District;
-                    document.getElementById('area').value = result[0].PostOffice[0].Block;
-                }
-            })
-
-        }
-    </script>
+  

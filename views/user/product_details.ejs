@@ -15,14 +15,16 @@
 
     <!-- Sidebar: Brand -->
     <div class="col-lg-3 col-md-4 col-sm-12" data-aos="fade-right">
-      <div class="sidebar">
+      <div class="sidebar mb-4">
         <h5>BRAND</h5>
-        <ul>
-          <% for(var i=0;i<categories.length;i++){ %>
-            <li><a href="<%-categories[i].vehicle_id%>"><%-categories[i].vehicle_name%></a></li>
+        <ul class="list-unstyled">
+          <% for (var i=0; i<categories.length; i++){ %>
+            <li>
+              <a href="<%-categories[i].vehicle_id%>"><%-categories[i].vehicle_name%></a>
+            </li>
           <% } %>
         </ul>
-        <button class="btn btn-dark w-100">Apply Filters</button>
+        <button class="btn btn-dark w-100 mt-2">Apply Filters</button>
       </div>
 
       <!-- Sidebar: Price Range -->
@@ -41,8 +43,8 @@
 
     <!-- Main Content -->
     <div class="col-lg-9 col-md-8 col-sm-12">
-      <div class="filter-controls" data-aos="fade-down">
-        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+      <div class="filter-controls mb-3" data-aos="fade-down">
+        <div class="d-flex justify-content-between align-items-center flex-wrap">
           <h4 class="section-title mb-0">Seat Pockets</h4>
         </div>
       </div>
@@ -52,30 +54,54 @@
         <% if(result.length > 0){ %>
           <% for(var i=0; i<result.length; i++){ %>
             <div class="col-md-4 col-sm-6 col-12 mb-4" data-aos="zoom-in" data-aos-delay="100">
-              <div class="product-card">
+              <div class="product-card shadow-sm h-100">
                 <img src="/product/<%-result[i].product_image%>" alt="Seat Pocket" class="product-img">
-                <a href="/product_details/<%-result[i].product_id%>">
-                <div class="product-body">
-                  <div class="product-title"><%-result[i].product_name%></div>
-                  <div class="product-price">
-                    <span class="old-price">₹<%-result[i].product_market_price%></span>
-                    <span class="new-price">₹<%-result[i].product_price%></span>
+                
+                <a href="/product_details/<%-result[i].product_id%>" class="text-decoration-none text-dark">
+                  <div class="product-body p-2">
+                    <div class="product-title fw-semibold">
+                      <%- (result[i].product_name || "").split(/\s+/).slice(0,5).join(" ") %> ...
+                    </div>
+                    <div class="product-price">
+                      <span class="old-price text-muted text-decoration-line-through">
+                        ₹<%-result[i].product_market_price%>
+                      </span>
+                      <span class="new-price text-success fw-bold ms-2">
+                        ₹<%-result[i].product_price%>
+                      </span>
+                    </div>
                   </div>
-                  </a>
-                  <button 
-                    class="btn btn-primary btn-add-to-cart mt-2"
-                    data-name="<%-result[i].product_name%>"
-                    data-price="<%-result[i].product_price%>"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#cartOffcanvas">
+                </a>
+
+                <div class="p-2 d-flex gap-2">
+                  <!-- Add to Cart -->
+                  <button class="btn btn-primary flex-fill btn-add-to-cart"
+                    onclick="my_cart('<%-result[i].product_id%>')">
                     ADD TO CART
                   </button>
+
+                  <!-- Wishlist -->
+
+                  <% if(result[i].like_wish=='like'){ %>
+                    <button class="btn btn-danger text-white border-danger flex-fill btn-wishlist"
+                    onclick="dislike('<%-result[i].product_id%>')">
+                    ❤ 
+                  </button>
+                     
+                  <% }else{ %>
+                     <button class="btn btn-white text-danger border-danger flex-fill btn-wishlist"
+                    onclick="like('<%-result[i].product_id%>')">
+                    ❤ 
+                  </button>
+                  <% } %>
+
+                 
                 </div>
               </div>
             </div>
           <% } %>
         <% } else { %>
-          <div class="card text-center shadow-sm p-4" style="max-width: 350px; margin-left: 300px;">
+          <div class="card text-center shadow-sm p-4 mx-auto" style="max-width: 350px;">
             <div class="mb-3">
               <div class="bg-danger rounded-circle d-flex justify-content-center align-items-center mx-auto"
                 style="width:60px; height:60px;">
@@ -83,10 +109,10 @@
               </div>
             </div>
             <h5 class="text-danger fw-bold">No Products Available</h5>
-            <p class="text-muted mb-4">We’re sorry, but there are currently no products to display. Please check back later!</p>
-            <a href="/" class="btn btn-success">
-              &larr; Back to Home
-            </a>
+            <p class="text-muted mb-4">
+              We’re sorry, but there are currently no products to display. Please check back later!
+            </p>
+            <a href="/" class="btn btn-success">&larr; Back to Home</a>
           </div>
         <% } %>
       </div>
@@ -94,59 +120,34 @@
   </div>
 </div>
 
-<!-- Offcanvas Cart -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title">Your Cart 🛒</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body">
-    <ul class="list-group" id="cart-items">
-      <!-- Products will appear here -->
-    </ul>
-    <hr>
-    <h6>Total: ₹<span id="cart-total">0</span></h6>
-    <button class="btn btn-success mt-2 w-100">Checkout</button>
-  </div>
-</div>
-
-<!-------------------------- AOS JS ------------------------------->
+<!------------------- AOS JS ------------------->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({ duration: 800, once: true });
 </script>
 
-<!-------------------------- Bootstrap Bundle (JS + Popper) ------------------------------->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-------------------------- Custom Cart Script ------------------------------->
+<!------------------- Cart & Wishlist Script ------------------->
 <script>
-  let cart = [];
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
-
-  document.querySelectorAll(".btn-add-to-cart").forEach(button => {
-    button.addEventListener("click", function () {
-      let product = {
-        name: this.getAttribute("data-name"),
-        price: parseFloat(this.getAttribute("data-price"))
-      };
-
-      cart.push(product);
-
-      // Update UI
-      cartItems.innerHTML = "";
-      let total = 0;
-      cart.forEach(item => {
-        total += item.price;
-        cartItems.innerHTML += `
-          <li class="list-group-item d-flex justify-content-between m-2">
-            ${item.name} <span>₹${item.price}</span>
-          </li>`;
-      });
-      cartTotal.textContent = total;
-    });
-  });
+  function my_cart(id){
+    location.href = `/add_to_cart/${id}`;
+    console.log("Redirecting to cart:", location.href);
+  }
 </script>
+
+<script>
+function like(id) {
+    const currentPage = encodeURIComponent(window.location.href);
+
+    location.href = `/like/${id}?redirect=${currentPage}`;
+}
+
+function dislike(id) {
+    const currentPage = encodeURIComponent(window.location.href);
+    location.href = `/dislike/${id}?redirect=${currentPage}`;
+}
+
+
+</script>
+
 
 <%- include('footer.ejs') %>

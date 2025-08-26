@@ -1,131 +1,177 @@
 <%-include('navbar.ejs')%>
-    <link rel="stylesheet" href="/css/cart.css" />
+  <link rel="stylesheet" href="/css/cart.css" />
 
-    <div class="container py-4">
-      <div class="row header-section">
-        <div class="col-12">
-          <p class="text-muted small mb-1">Home &gt; Your Cart</p>
-          <h1 class="cart-title">YOUR CART</h1>
-         
-          <p class="free-shipping-bar mt-2">You qualify for free shipping!</p>
-        </div>
+  <div class="container py-4">
+    <div class="row header-section">
+      <div class="col-12">
+        <p class="text-muted small mb-1">Home &gt; Your Cart</p>
+        <h1 class="cart-title">YOUR CART</h1>
+
+        <p class="free-shipping-bar mt-2">You qualify for free shipping!</p>
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col-lg-8">
-          <div class="d-none d-md-block">
-            <div class="row cart-table-header">
-              <div class="col-5">PRODUCT</div>
-              <div class="col-2 text-center">PRICE</div>
-              <div class="col-2 text-center">QUANTITY</div>
-              <div class="col-3 text-end">TOTAL</div>
-            </div>
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="d-none d-md-block">
+          <div class="row cart-table-header">
+            <div class="col-5">PRODUCT</div>
+            <div class="col-2 text-center">PRICE</div>
+            <div class="col-2 text-center">QUANTITY</div>
+            <div class="col-3 text-end">TOTAL</div>
           </div>
-
-          <div class="row border-bottom py-3" id="product-item-row">
-            <div class="col-md-5 d-flex">
-              <div class="product-item">
-                <img
-                  src="https://placehold.co/100x100/EEEEEE/333333?text=Product"
-                  alt="Product Image"
-                />
-                <div class="product-details">
-                  <h5 class="product-title">
-                    Headlight Switch Roller Knob 61316803P65 Compatible With BMW
-                    5 Series (F10) 5 Gran Turismo (F07) F01, F02, F03, F04) X3
-                    (F25)/ (F01, F02, F03, F04) X3 (F25
-                  </h5>
-                  <p class="product-brand">ALBRO OEM SPARES</p>
+        </div>
+        <%if(result.length>0){%>
+          <%for(var i=0;i<result.length;i++){%>
+            <div class="row border-bottom py-3" id="product-item-row">
+              <div class="col-md-5 d-flex">
+                <div class="product-item">
+                  <img src="/product/<%-result[i].product_image%>" alt="Product Image" />
+                  <div class="product-details">
+                    <h5 class="product-title">
+                      <%-result[i].product_name%>
+                    </h5>
+                    <p class="product-brand"><%-result[i].product_part_type%></p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div
-              class="col-md-2 d-flex align-items-center justify-content-center"
-            >
-              <div class="text-center">
-                <span class="old-price">Rs. 2,400.00</span>
-                <br class="d-md-none" />
-                <span class="product-price" id="product-price" data-price="1800"
-                  >Rs. 1,800.00</span
-                >
+              <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <div class="text-center">
+                  <br class="d-md-none" />
+                  <span class="product-price" id="product-price">Rs. <%-result[i].product_price%></span>
+                </div>
+              </div>
+              <div class="col-md-2 d-flex align-items-center justify-content-center">
+                <div class="quantity-control">
+                  <button onclick="decrese(this, '<%-result[i].cart_id%>')">-</button>
+                  <span><%-result[i].qty%></span>
+                  <button onclick="increse(this, '<%-result[i].cart_id%>')">+</button>
+                </div>
+              </div>
+              <div class="col-md-3 d-flex align-items-center justify-content-end" style="position: relative">
+                <span class="total-price">
+                  <% var total=Number(result[i].product_price) * result[i].qty%>
+                    <%- total %>
+
+                </span>
+                <a href="/delete_cart/<%-result[i].cart_id%>">
+                  <button class="remove-btn" title="Remove item">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </a>
               </div>
             </div>
-            <div
-              class="col-md-2 d-flex align-items-center justify-content-center"
-            >
-              <div class="quantity-control">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
+            <%}%>
+              <div class="text-center mt-5" style="display: none">
+                <h3>Your cart is empty.</h3>
               </div>
-            </div>
-            <div
-              class="col-md-3 d-flex align-items-center justify-content-end"
-              style="position: relative"
-            >
-              <span class="total-price">Rs. 1,800.00</span>
-              <button class="remove-btn" title="Remove item">
-                <i class="fas fa-times"></i>
-              </button>
-            </div>
+              <label for="couponCode" class="form-label fw-bold">Coupon Code</label>
+              <div class="input-group mb-1">
+                <input type="text" class="form-control" placeholder="Enter Coupon Code" />
+                <button class="btn btn-secondary" type="button">
+                  Apply
+                </button>
+              </div>
+              <p class="text-muted small" id="coupon-message">
+                Coupon code will be applied on the checkout page
+              </p>
+              <%}else{%>
+
+                <div class="container my-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-12">
+                      <div
+                        class="d-flex align-items-center justify-content-center p-3 bg-info bg-opacity-25 rounded shadow-sm">
+                        <i class="bi bi-cart-x fs-2 text-info me-2"></i>
+                        <span class="fs-4 fw-bold text-dark">Your Cart is Empty</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <%}%>
+                  <hr />
+                  <div class="guarantee">
+                    <p>
+                      secure shop gurantee
+                      <i class="bi bi-shield-lock-fill text-dark me-2" style="font-size: 1.5rem">
+                      </i>
+                    </p>
+                  </div>
+      </div>
+
+      <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="order-summary">
+          <h5 class="summary-title">ORDER SUMMARY</h5>
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span class="fw-bold">Rs.
+              <% var allsum=0;  for(var i=0; i<result.length; i++){ var
+                total=Number(result[i].product_price) * result[i].qty; allsum +=total; 
+                }%>
+          <%-allsum%>
+            </span>
           </div>
-          <div class="text-center mt-5" style="display: none">
-            <h3>Your cart is empty.</h3>
+          <div class="summary-row">
+            <span>Shipping Tax</span>
+            <span class="fw-bold"> Free/-</span>
           </div>
-          <label for="couponCode" class="form-label fw-bold">Coupon Code</label>
-          <div class="input-group mb-1">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Enter Coupon Code"
-            />
-            <button class="btn btn-secondary" type="button">
-              Apply
-            </button>
+          <div class="summary-row" style="display: none">
+            <span>Discount</span>
+            <span class="fw-bold text-success"></span>
           </div>
-          <p class="text-muted small" id="coupon-message">
-            Coupon code will be applied on the checkout page
-          </p>
           <hr />
-          <div class="guarantee">
-            <p>
-              secure shop gurantee
-              <i
-                class="bi bi-shield-lock-fill text-dark me-2"
-                style="font-size: 1.5rem"
-              >
-              </i>
-            </p>
-          </div>
-        </div>
 
-        <div class="col-lg-4 mt-4 mt-lg-0">
-          <div class="order-summary">
-            <h5 class="summary-title">ORDER SUMMARY</h5>
-            <div class="summary-row">
-              <span>Subtotal</span>
-              <span class="fw-bold">Rs. 1,800.00</span>
-            </div>
-            <div class="summary-row" style="display: none">
-              <span>Discount</span>
-              <span class="fw-bold text-success"></span>
-            </div>
-            <hr />
-
-            <div class="summary-row">
-              <span class="fs-5 fw-bold">TOTAL</span>
-              <span class="fs-5 fw-bold">Rs. 1,800.00</span>
-            </div>
-            <p class="text-muted small">
-              Tax included and shipping calculated at checkout
-            </p>
-            <button class="btn proceed-btn mt-3 ">PROCEED TO CHECKOUT</button>
-            <a href="/"><button class="btn proceed-btn mt-3 bg-primary ">
-              CONTINUE SHOPPING
-            </button>
-            </a>
+          <div class="summary-row">
+            <span class="fs-5 fw-bold">TOTAL</span>
+            <span class="fs-5 fw-bold">Rs. <%-allsum%></span>
           </div>
+          <p class="text-muted small">
+            Tax included and shipping calculated at checkout
+          </p>
+          <%if(is_login){%>
+            <button class="btn proceed-btn mt-3" onclick="add_to_cart_data('<%-allsum%>')">PROCEED TO CHECKOUT</button>
+            <%}else{%>
+             <button class="btn proceed-btn mt-3 " data-bs-toggle="modal" data-bs-target="#loginModal">PROCEED TO
+                CHECKOUT</button></a>
+              <%}%>
+                <a href="/"><button class="btn proceed-btn mt-3 bg-primary ">
+                    CONTINUE SHOPPING
+                  </button>
+                </a>
         </div>
       </div>
     </div>
-<%-include('footer.ejs')%>
+  </div>
+
+
+  <script>
+    function increse(btn, id) {
+      let span = btn.parentElement.querySelector("span");
+      let newQty = parseInt(span.innerText) + 1;
+      span.innerText = newQty;
+      updateqty(id, newQty);
+    }
+
+    function decrese(btn, id) {
+      let span = btn.parentElement.querySelector("span");
+      let current = parseInt(span.innerText);
+      if (current > 1) {
+        let newQty = current - 1;
+        span.innerText = newQty;
+        updateqty(id, newQty);
+      }
+    }
+
+    function updateqty(product_id, qty) {
+      var url = `/updateqty/${product_id}?qty=${qty}`;
+      console.log("Product ID:", product_id, "Qty:", qty, "URL:", url);
+      location.href = url;
+    }
+
+    function add_to_cart_data(total){
+      var url = `/buy_cart/${total}`
+      location.href = url
+    }
+  </script>
+
+  <%-include('footer.ejs')%>

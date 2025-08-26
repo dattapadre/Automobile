@@ -1,0 +1,136 @@
+<%-include('navbar.ejs')%>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .invoice-card {
+            border-radius: 12px;
+        }
+
+        .company-logo {
+            font-weight: bold;
+            font-size: 24px;
+            color: red;
+        }
+
+        .table th {
+            background: #f1f5f9;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: #fff;
+            }
+
+            .invoice-card {
+                box-shadow: none;
+                border: none;
+            }
+        }
+    </style>
+    <div class="container py-5">
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center mb-4 no-print">
+            <h2 class="m-0 text-dark h2 ">Shree Automobile</h2>
+            <button class="btn btn-outline-primary" onclick="window.print()">🖨 Print</button>
+        </div>
+
+        <!-- Invoice Card -->
+        <div class="card shadow-lg invoice-card">
+            <div class="card-body p-5">
+
+                <!-- Company + Client Info -->
+                <div class="row mb-5">
+                    <div class="col-md-6">
+                        <h5 class="company-logo mb-2">Shree Automobile</h5>
+
+                        <p class="mb-0 fw-bold">
+                            <%-custmores[0].name%>
+                        </p>
+                        <p class="mb-0 fw-bold">Phone: <%-custmores[0].mobile%></p>
+                        <p class="mb-0 fw-bold">Email:<%-custmores[0].email%></p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <h6 class="company-logo h4">Invoice To</h6>
+                        <p class="fw-bold mb-0 fw-bold"> <%-data[0].area%>,<%-data[0].city%> </p>
+                        <p class="mb-0 fw-bold"><%-data[0].state%></p>
+                        <p class="mb-0 fw-bold"><%-data[0].country%></p>
+                    </div>
+                </div>
+
+                <!-- Invoice Details -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <p class="mb-1 fw-bold"><strong>Invoice No:</strong> <%-data[0].order_id%></p>
+                        <p class="mb-1 fw-bold"><strong>Invoice Date:</strong><%= new Date().toLocaleDateString("en-IN") %> </p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <p class="mb-1"><strong>Payment Mode :&nbsp;&nbsp;&nbsp;&nbsp;</strong><%-data[0].payment_method%></p>
+                        <p class="mb-1"><strong>Payment Status :&nbsp;&nbsp;</strong><%-data[0].payment_status%></p>
+                    </div>
+                </div>
+
+                <!-- Items Table -->
+                <div class="table-responsive mb-4">
+                    <table class="table table-bordered align-middle">
+                        <thead>
+                            <tr>
+                                <th>Sr No.</th>
+                                <th>Description</th>
+                                <th class="text-end">Qty</th>
+                                <th class="text-end">Rate (₹)</th>
+                                <th class="text-end">Amount (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% let subtotal=0; %>
+                                <%for(var i=0;i<result.length;i++){subtotal +=result[i].product_total;%>
+                                    <tr>
+                                        <td><%- i+1 %></td>
+                                        <td><%-result[i].product_name%></td>
+                                        <td class="text-end"><%-result[i].product_qty%></td>
+                                        <td class="text-end"><%-result[i].product_price%></td>
+                                        <td class="text-end"><%-result[i].product_total%></td>
+                                    </tr>
+                                    <%}%>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Summary -->
+                <div class="row justify-content-end">
+                    <div class="col-md-6 col-lg-4">
+                        <div class="border rounded p-3">
+                            <h6 class="text-muted">Invoice Summary</h6>
+                            <div class="d-flex justify-content-between">
+                                <span>Subtotal</span><strong>₹ <%-subtotal.toFixed(2) %>
+                                </strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>GST (18%)</span><strong>₹ /-Free</strong>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fs-5">
+                                <span>Total</span><strong class="text-primary">₹ <%-subtotal.toFixed(2) %>
+</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="mt-5 text-center text-muted small">
+                    <p class="mb-1">Thank you for choosing Shree Automobile!</p>
+                    <p class="mb-0">For queries contact: support@shreeauto.com</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <%-include('footer.ejs')%>

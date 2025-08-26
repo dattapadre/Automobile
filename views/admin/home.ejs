@@ -2,39 +2,343 @@
  
       
 
-        <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-6 col-lg-3">
-                <div class="card stat-card">
-                    <i class="fas fa-car"></i>
-                    <h2>142</h2>
-                    <p>Total Vehicles</p>
+     <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPartsPro - Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: var(--dark-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .icon-primary {
+            background-color: rgba(44, 62, 80, 0.1);
+            color: var(--primary);
+        }
+        
+        .icon-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+        
+        .icon-warning {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+        }
+        
+        .icon-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--secondary);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .badge-pending {
+            background-color: #ffeaa7;
+            color: #d35400;
+        }
+        
+        .badge-completed {
+            background-color: #d1f7c4;
+            color: #27ae60;
+        }
+        
+        .badge-processing {
+            background-color: #cce5ff;
+            color: #2980b9;
+        }
+        
+        .btn-order {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        
+        .btn-order:hover {
+            background-color: #c0392b;
+        }
+        
+        .navbar-custom {
+            background-color: var(--primary);
+        }
+        
+        .footer-custom {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .table th {
+            font-weight: 600;
+            color: var(--light-text);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .table td {
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (to be included from external file) -->
+    
+
+    <div class="container-fluid py-4">
+        <!-- Dashboard Header -->
+        
+
+        <!-- Stats Cards -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-3">
+                <div class="dashboard-card p-4">
+                    <div class="card-icon icon-primary">
+                        <i class="fas fa-cogs fa-2x"></i>
+                    </div>
+                    <h5 class="stat-number">12,345</h5>
+                    <p class="stat-label">Total Parts</p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card stat-card">
-                    <i class="fas fa-users"></i>
-                    <h2>86</h2>
-                    <p>New Customers</p>
+            <div class="col-md-3">
+                <div class="dashboard-card p-4">
+                    <div class="card-icon icon-success">
+                        <i class="fas fa-shopping-cart fa-2x"></i>
+                    </div>
+                    <h5 class="stat-number">128</h5>
+                    <p class="stat-label">Pending Orders</p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card stat-card">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    <h2>₹12.5L</h2>
-                    <p>Monthly Sales</p>
+            <div class="col-md-3">
+                <div class="dashboard-card p-4">
+                    <div class="card-icon icon-warning">
+                        <i class="fas fa-truck fa-2x"></i>
+                    </div>
+                    <h5 class="stat-number">42</h5>
+                    <p class="stat-label">Deliveries Today</p>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-3">
-                <div class="card stat-card">
-                    <i class="fas fa-tools"></i>
-                    <h2>64</h2>
-                    <p>Service Requests</p>
+            <div class="col-md-3">
+                <div class="dashboard-card p-4">
+                    <div class="card-icon icon-danger">
+                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                    </div>
+                    <h5 class="stat-number">17</h5>
+                    <p class="stat-label">Low Stock Items</p>
                 </div>
             </div>
         </div>
 
-    </div>
-    
+        <!-- Charts Section -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-8">
+                <div class="dashboard-card p-4">
+                    <h5 class="card-title">Sales Trend</h5>
+                    <canvas id="salesChart" height="250"></canvas>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="dashboard-card p-4">
+                    <h5 class="card-title">Top Categories</h5>
+                    <canvas id="categoryChart" height="250"></canvas>
+                </div>
+            </div>
+        </div>
 
-<%-include('footer.ejs')%>
+        <!-- Tables Section -->
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="dashboard-card p-4">
+                    <h5 class="card-title">Recent Orders</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Customer</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#AP-101</td>
+                                    <td>John Smith</td>
+                                    <td>$245.99</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#AP-102</td>
+                                    <td>Emily Johnson</td>
+                                    <td>$189.50</td>
+                                    <td><span class="badge badge-processing">Processing</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#AP-103</td>
+                                    <td>Michael Brown</td>
+                                    <td>$512.75</td>
+                                    <td><span class="badge badge-completed">Completed</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#AP-104</td>
+                                    <td>Sarah Williams</td>
+                                    <td>$98.25</td>
+                                    <td><span class="badge badge-pending">Pending</span></td>
+                                </tr>
+                                <tr>
+                                    <td>#AP-105</td>
+                                    <td>David Miller</td>
+                                    <td>$326.40</td>
+                                    <td><span class="badge badge-processing">Processing</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Initialize charts
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sales Trend Chart
+            const salesCtx = document.getElementById('salesChart').getContext('2d');
+            const salesChart = new Chart(salesCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Monthly Sales ($)',
+                        data: [12500, 19000, 18000, 22000, 19500, 24000, 26000, 31000, 28500, 29500, 33200, 35800],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            const categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Engine Parts', 'Braking System', 'Electrical', 'Suspension', 'Exhaust'],
+                    datasets: [{
+                        data: [35, 25, 15, 12, 13],
+                        backgroundColor: [
+                            '#2c3e50',
+                            '#3498db',
+                            '#e74c3c',
+                            '#2ecc71',
+                            '#f39c12'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+    <%-include('footer.ejs')%>

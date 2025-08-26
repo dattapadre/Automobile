@@ -1,29 +1,33 @@
 <%- include("navbar.ejs") %>
-
+ <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Slider  </h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    </div>
 <div class="container mt-4 p-5 pt-2">
     <div class="card shadow-lg border-1">
-        <div class="card-header bg-dark text-white">
-            <h4 class="mb-0">
-                <i class="bi bi-plus-circle"></i> Welcome To Slider
-            </h4>
-        </div>
+        
         <div class="card-body bg-light">
             <form action="/admin/slider" method="POST" enctype="multipart/form-data">
                 <div class="row g-3">
                     
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Slider Name</label>
-                        <input type="title" name="title" class="form-control" placeholder="Enter slider name" required>
+                        <input type="title" name="Slider_title" class="form-control" placeholder="Enter slider name" required>
                     </div>
 
                     <div class="col-md-6">
                         <label class="form-label fw-bold">Image</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <input type="file" name="slider_image" class="form-control" accept="image/*" required>
                     </div>
 
                     <div class="col-md-12">
                         <label class="form-label fw-bold">Slider Description</label>
-                        <textarea name="description" class="form-control" id="editor" placeholder="Enter Slider Description" rows="4" ></textarea>
+                        <textarea name="slider_description" class="form-control" id="editor" placeholder="Enter Slider Description" rows="4" ></textarea>
                     </div>
 
                     <div class="text-end mt-4">
@@ -56,12 +60,12 @@
                             <i class="bi bi-trash-fill"></i>
                         </a>
                     </td>
-                    <td class="fs-6 text-center fw-bold"><%- i+1 %></td>
-                    <td class="fs-6 text-center fw-bold"><%-data[i].name%></td>
-                    <td class="fs-6 text-center fw-bold"><%-data[i].description%></td>
+                    <td class="fs-6 text-center "><%- i+1 %></td>
+                    <td class="fs-6 text-center "><%-data[i].Slider_title%></td>
+                    <td class="fs-6 text-center "><%-data[i].slider_description %></td>
 
                     <td>
-                        <img src="/home/<%-data[i].image%>" width="100px" height="100px" class="rounded shadow">
+                        <img src="/home/<%-data[i].slider_image%>" width="100px" height="100px" class="rounded shadow">
                     </td>
                 </tr>
                 <%}%>
