@@ -3,8 +3,12 @@ var router = express.Router()
 var url = require('url')
 var exe = require('../connection')
 
-router.get('/navbar',function(req,res){
-    res.render('navbar.ejs')
+router.get('/navbar', async function (req, res) {
+ if(req.session.user_id){
+        var sql = `SELECT * FROM customers WHERE id = ${req.session.user_id}`
+        var result = await exe(sql)
+    }
+    res.render('navbar.ejs', { result })
 })
 
 
@@ -19,6 +23,7 @@ router.get("/search_products/:text", async function (req, res) {
         console.error(err);
         res.status(500).json({ error: "Server Error" });
     }
+
 });
 
 router.get("/product_list/:name", async function (req, res) {
@@ -30,7 +35,7 @@ router.get("/product_list/:name", async function (req, res) {
     let categories = await exe(`SELECT * FROM vehicle_brand`);
     let is_login = req.session.user_id ? true : false;
 
-    res.render("user/product_details.ejs", {result,categories,is_login });
+    res.render("user/product_details.ejs", { result, categories, is_login });
 });
 
 router.get("/like/:product_id", async (req, res) => {
@@ -60,7 +65,7 @@ router.get("/dislike/:product_id", async (req, res) => {
 });
 
 
-router.get("/wish_list",async function(req,res){
+router.get("/wish_list", async function (req, res) {
     var data = await exe(`SELECT * FROM products WHERE like_wish='like'`);
     res.send(data);
 })
@@ -69,10 +74,10 @@ router.get("/wish_list",async function(req,res){
 
 
 router.get("/", async function (req, res) {
-    
+
     var vehicle = await exe(`SELECT * FROM vehicle_brand`);
-  
-    
+
+
     var data = await exe(`SELECT * FROM slider`);
 
     var result = await exe(`SELECT * FROM category`);
@@ -81,13 +86,13 @@ router.get("/", async function (req, res) {
 
     var products = await exe(`SELECT * FROM products ORDER BY product_id DESC LIMIT 6`);
 
-   var   interior = await exe(`SELECT * FROM products WHERE product_part_type = 'Interior' LIMIT 4`);
+    var interior = await exe(`SELECT * FROM products WHERE product_part_type = 'Interior' LIMIT 4`);
 
-   var   exterior = await exe(`SELECT * FROM products WHERE product_part_type = 'bodypart' LIMIT 4`);
+    var exterior = await exe(`SELECT * FROM products WHERE product_part_type = 'bodypart' LIMIT 4`);
 
-   var   performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
+    var performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
 
-    var obj  = {"data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle};
+    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle };
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {
@@ -345,7 +350,7 @@ router.get('/brake', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories,is_login })
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -389,7 +394,7 @@ router.get('/ac_part', async function (req, res) {
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result,categories, is_login })
+    res.render('user/product_details.ejs', { result, categories, is_login })
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -441,6 +446,7 @@ router.post("/login", async function (req, res) {
     if (result.length > 0) {
         req.session.user_id = result[0].id;
         console.log(req.session.user_id)
+        await transferData(req, res);
         res.redirect("/add_to_cart")
     }
 })
@@ -552,7 +558,7 @@ router.post("/checkout", checkLogin, async function (req, res) {
         }
     }
 
-     var carts =await exe( `DELETE FROM carts WHERE customer_id = '${customer_id}'`)
+    var carts = await exe(`DELETE FROM carts WHERE customer_id = '${customer_id}'`)
     res.redirect(`/payment/${order_id}`);
 });
 
@@ -567,7 +573,7 @@ router.post('/payment_success/:id', async function (req, res) {
     var sql = `UPDATE orders SET transaction_id = ?,payment_status = ? WHERE order_id = '${req.params.id}'`
     var result = await exe(sql, [d.razorpay_payment_id, payment_status])
     // res.send(result)
-    
+
 
     res.redirect(`/myorder`)
 })
@@ -640,6 +646,7 @@ router.get('/add_to_cart', async function (req, res) {
         if (req.cookies.cart) {
             try {
                 carts = JSON.parse(req.cookies.cart);
+
             } catch (err) {
                 console.error("❌ Error parsing cart cookie:", err);
                 carts = [];
@@ -655,17 +662,19 @@ router.get('/add_to_cart', async function (req, res) {
         var result = await exe(`SELECT * FROM products WHERE product_id = ?`, [carts[i].product_id]);
         if (result.length > 0) {
             const obj = {
-                cart_id: (carts[i].cart_id) ? carts[i].cart_id : i,
+                cart_id: (carts[i].product_id),
                 product_name: result[0].product_name,
                 product_image: result[0].product_image,
                 product_price: result[0].product_price,
                 product_part: result[0].product_part_type,
                 product_part_type: result[0].product_sub_part,
-                qty: (carts[i].quantity) ? carts[i].quantity : 1,
+                qty: carts[i].quantity || carts[i].qty || 1,
             };
             cart_data.push(obj);
         } else {
-            console.log(`⚠️ Product not found for ID: ${carts[i].product_id}`);
+            console.log(`⚠️ Product not found for ID: ${carts[i].product_id}`
+
+            );
         }
     }
     const is_login = req.session.user_id ? true : false;
@@ -674,41 +683,60 @@ router.get('/add_to_cart', async function (req, res) {
         is_login
     });
 });
-router.get('/delete_cart/:id', function (req, res) {
+router.get('/delete_cart/:id',async function (req, res) {
     const id = req.params.id;
-    console.log("Deleting cart item with ID:", id);
 
     if (req.session.user_id) {
         var customer_id = req.session.user_id;
         var sql = `DELETE FROM cart WHERE cart_id = ? AND customer_id = ?`;
-        console.log(sql)
-        exe(sql, [id, customer_id]);
-        res.redirect("/add_to_cart");  // Or any page you want
+        var result =await exe(sql,[id,customer_id]);
+        console.log("Deleting cart item with ID:", id,customer_id,result);
+        res.redirect("/add_to_cart");
 
-    }
-    else {
-        let carts = JSON.parse(req.cookies.cart || '[]');
-        let id = parseInt(req.params.id);
-        if (!isNaN(id)) carts.splice(id, 1);
-        res.cookie("cart", JSON.stringify(carts), { path: "/" });
-        res.redirect("/add_to_cart");  // Or any page you want
-
-    }
-
-
-});
-router.get("/updateqty/:id", async function (req, res) {
-    var qty = url.parse(req.url, true).query;
-    if (req.session.user_id) {
-        var sql = `UPDATE cart SET quantity='${qty.qty}' WHERE cart_id = '${req.params.id}'`;
-        var data = await exe(sql)
     } else {
-        res.cookie(`cart_${req.params.id}_qty`, qty, { maxAge: 24 * 60 * 60 * 1000 })
+        let carts = JSON.parse(req.cookies.cart || '[]');
+        console.log("Before Delete:", carts);
 
+        // filter करून फक्त तो product काढून टाक
+        carts = carts.filter(item => item.product_id != id);
+
+        console.log("After Delete:", carts);
+
+        res.cookie("cart", JSON.stringify(carts), { path: "/" });
+        res.redirect("/add_to_cart");
+    }
+});
+
+router.get("/updateqty/:id", (req, res) => {
+    var id = req.params.id
+    var qty = parseInt(req.query.qty);
+
+    var cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
+
+    console.log("Before Update:", cart, "New Qty:", qty, "Id:", id);
+
+    let updated = false;
+
+    for (var i = 0; i < cart.length; i++) {
+        console.log("Checking:", cart[i].product_id, "==", id);
+        if (String(cart[i].product_id) === id) {
+            cart[i].qty = qty;   // ✅ update qty
+            updated = true;
+            console.log("Qty Updated for product:", id);
+            break;
+        }
     }
 
+    if (!updated) {
+        console.log("❌ Product not found in cart, nothing updated.");
+    }
+
+    res.cookie("cart", JSON.stringify(cart), { maxAge: 3600000 });
+
+    console.log("After Update:", cart);
     res.redirect("/add_to_cart");
-})
+});
+
 router.get('/buy_cart/:id', checkLogin, async function (req, res) {
     var total = req.params.id;
     var result = await exe(`SELECT 

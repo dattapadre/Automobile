@@ -292,4 +292,17 @@ router.post("/update_category", async function (req, res) {
    var result = await exe(sql);
    res.redirect("/admin/category");
 });
+router.get('/pending_order',async function(req,res){
+    var sql =` SELECT * FROM orders`
+    var result = await exe(sql)
+    res.render('admin/pending_order.ejs',{result})
+})
+router.get('/order_details/:id',async function(req,res){
+    var sql = `SELECT * FROM orders WHERE order_id = '${req.params.id}'`
+    var order = await exe(sql) 
+    var sql2 = `SELECT * FROM order_products WHERE order_id = '${req.params.id}'`
+    var products = await exe(sql2)
+    console.log(products, order)
+    res.render('admin/order_details.ejs',{order,products})
+})
 module.exports = router;
