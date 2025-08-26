@@ -41,6 +41,7 @@
                   <span class="product-price" id="product-price">Rs. <%-result[i].product_price%></span>
                 </div>
               </div>
+
               <div class="col-md-2 d-flex align-items-center justify-content-center">
                 <div class="quantity-control">
                   <button onclick="decrese(this, '<%-result[i].cart_id%>')">-</button>
@@ -149,12 +150,14 @@
       let span = btn.parentElement.querySelector("span");
       let newQty = parseInt(span.innerText) + 1;
       span.innerText = newQty;
+      console.log(id)
       updateqty(id, newQty);
     }
 
     function decrese(btn, id) {
       let span = btn.parentElement.querySelector("span");
       let current = parseInt(span.innerText);
+      console.log(id)
       if (current > 1) {
         let newQty = current - 1;
         span.innerText = newQty;

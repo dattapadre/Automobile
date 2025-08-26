@@ -73,10 +73,10 @@
                             <button type="submit" class="btn btn-primary btn-lg w-100">Place Order</button>
                         </div>
                         <input type="hidden" name="product_total" value="<%= total %>">
-                    <% for(var i=0;i<result.length;i++){ %>
-                        <input type="number" name="product_id" value="<%- result[i].product_id %>">
-                        <input type="number" name="qty" value="<%- result[i].quantity %>">
-                        <%}%>
+                        <% for(var i=0;i<result.length;i++){ %>
+                            <input type="hidden" name="product_id" value="<%- result[i].product_id %>">
+                            <input type="hidden" name="qty" value="<%- result[i].quantity %>">
+                            <%}%>
                     </form>
 
                 </div>
@@ -96,7 +96,8 @@
                                 <h5 class="mb-2 fw-semibold">
                                     <%= result[i].product_name %>
                                 </h5>
-                                <p class="mb-1">Qty:<%=  result[i].quantity %></p>
+                                <p class="mb-1">Qty:<%= result[i].quantity %>
+                                </p>
                                 <p class="mb-1">Price: &#8377;<%= result[i].product_price %>/-</p>
                             </div>
                         </div>
