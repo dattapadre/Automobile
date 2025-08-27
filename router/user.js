@@ -3,13 +3,6 @@ var router = express.Router()
 var url = require('url')
 var exe = require('../connection')
 
-router.get('/navbar', async function (req, res) {
- if(req.session.user_id){
-        var sql = `SELECT * FROM customers WHERE id = ${req.session.user_id}`
-        var result = await exe(sql)
-    }
-    res.render('navbar.ejs', { result })
-})
 
 
 router.get("/search_products/:text", async function (req, res) {
@@ -510,6 +503,7 @@ router.get("/buy_now/:id", checkLogin, async function (req, res) {
 })
 router.post("/checkout", checkLogin, async function (req, res) {
     var d = req.body;
+    console.log(d)
     var customer_id = req.session.user_id;
     var payment_status = "pending";
     var order_date = new Date().toISOString().slice(0, 10);
@@ -517,10 +511,12 @@ router.post("/checkout", checkLogin, async function (req, res) {
 
     // Insert order master record
     var sql = `INSERT INTO orders
-        (customer_id, country, state, city, area, pincode, total_amount, payment_method, payment_status, order_date, order_status) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+        (fullname,mobile,customer_id, country, state, city, area, pincode, total_amount, payment_method, payment_status, order_date, order_status) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
     var result = await exe(sql, [
+        d.fullname,
+        d.mobile,
         customer_id,
         d.country,
         d.state,
@@ -558,7 +554,7 @@ router.post("/checkout", checkLogin, async function (req, res) {
         }
     }
 
-    var carts = await exe(`DELETE FROM carts WHERE customer_id = '${customer_id}'`)
+    var carts = await exe(`DELETE FROM cart WHERE customer_id = '${customer_id}'`)
     res.redirect(`/payment/${order_id}`);
 });
 
@@ -690,17 +686,14 @@ router.get('/delete_cart/:id',async function (req, res) {
         var customer_id = req.session.user_id;
         var sql = `DELETE FROM cart WHERE cart_id = ? AND customer_id = ?`;
         var result =await exe(sql,[id,customer_id]);
-        console.log("Deleting cart item with ID:", id,customer_id,result);
         res.redirect("/add_to_cart");
 
     } else {
         let carts = JSON.parse(req.cookies.cart || '[]');
-        console.log("Before Delete:", carts);
 
         // filter करून फक्त तो product काढून टाक
         carts = carts.filter(item => item.product_id != id);
 
-        console.log("After Delete:", carts);
 
         res.cookie("cart", JSON.stringify(carts), { path: "/" });
         res.redirect("/add_to_cart");
