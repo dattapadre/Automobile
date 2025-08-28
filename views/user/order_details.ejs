@@ -42,7 +42,12 @@
           <td><%-result[i].city%>,<%-result[i].area%></td>
           <td><%-result[i].total_amount%></td>
           <td><%-result[i].payment_method%></td>
-          <td><%-result[i].payment_status%></td>
+          <td><% if(result[i].payment_status =='paid'){%>
+                paid
+             <%}else{%>
+              <a href="/payment/<%-result[i].order_id%>"><button class=" btn btn-primary">Pay Now</button></a>
+              <%}%>
+            </td>
           <td><%-result[i].order_date.toISOString().split('T')[0]%></td>
           <td><%-result[i].order_status%></td>
           <td>
