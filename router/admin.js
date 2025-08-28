@@ -263,22 +263,21 @@ router.get("/delete_product/:product_id", async (req, res) => {
     res.redirect("/admin/all_parts");
 });
 
-router.get("/slider", authMiddleware,noCache, async function(req,res){
+router.get("/slider",authMiddleware,noCache, async function(req,res){
       var sql = `SELECT * FROM slider`;
     var data = await exe(sql);
     var obj = { "list": data }
     res.render("admin/slider.ejs", { data })
 })
-router.post("/slider", async function (req, res) {
+router.post("/save_slider", async function (req, res) {
     var d = req.body;
     if (req.files) {
         var slider_image = new Date().getTime() + req.files.slider_image.name;
         req.files.slider_image.mv("public/home/" + slider_image);
-
     }
 
-    var sql = `INSERT INTO slider (Slider_title,slider_image, slider_description) VALUES (?,?, ?);`
-    var data = await exe(sql, [d.Slider_title, slider_image, d.slider_description]);
+    var sql = `INSERT INTO slider (Slider_title, slider_description, slider_image) VALUES (?, ?, ?)`;
+    var data = await exe(sql, [d.Slider_title, d.slider_description, slider_image]);
     console.log(data);
     res.redirect("/admin/slider");
 });
