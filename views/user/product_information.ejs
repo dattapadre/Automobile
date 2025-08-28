@@ -14,7 +14,7 @@
       <!-- Product Image -->
       <div class="col-lg-6 text-center">
         <img id="mainImage" src="/product/<%-result[0].product_image%>" class="img-fluid main-img mb-3"
-          alt="Main Product Image">
+          alt="Main Product Image" >
 
         <!-- Thumbnails -->
         <div class="row g-2 justify-content-center">
@@ -203,16 +203,9 @@ const mainImage = document.getElementById("mainImage");
 // Loop through thumbnails
 thumbs.forEach(thumb => {
   thumb.addEventListener("click", function () {
-    // Get clicked thumbnail src
     let newSrc = thumb.getAttribute("src") || thumb.getAttribute("data-src");
-    
-    // Change main image src
     mainImage.setAttribute("src", newSrc);
-
-    // Remove 'active' class from all thumbnails
     thumbs.forEach(t => t.classList.remove("active"));
-
-    // Add 'active' to current thumb
     thumb.classList.add("active");
   });
 });

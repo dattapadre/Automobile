@@ -85,7 +85,9 @@ body {
 
   .main-img {
     height: 380px;
+    width: 100%;
     object-fit: contain;
+    display: flex;
     background-color: #fff;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease;
     opacity: 1;
