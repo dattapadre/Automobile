@@ -14,7 +14,7 @@ var conn = mysql.createPool({
 //     host:'localhost',
 //     user:'root',
 //     password:'',
-//     database:'automobile'
+//     database:'automobile1'
 // })
 var exe = util.promisify(conn.query).bind(conn);
 

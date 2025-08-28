@@ -366,5 +366,6 @@ router.get('/order_details/:id',authMiddleware,noCache, async function(req,res){
     var products = await exe(sql2)
     console.log(products, order)
     res.render('admin/order_details.ejs',{order,products})
-})
+});
+
 module.exports = router;

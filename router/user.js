@@ -3,13 +3,6 @@ var router = express.Router()
 var url = require('url')
 var exe = require('../connection')
 
-router.get('/navbar', async function (req, res) {
- if(req.session.user_id){
-        var sql = `SELECT * FROM customers WHERE id = ${req.session.user_id}`
-        var result = await exe(sql)
-    }
-    res.render('navbar.ejs', { result })
-})
 
 
 router.get("/search_products/:text", async function (req, res) {
@@ -123,7 +116,8 @@ router.get('/body-parts', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Body Parts'
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 });
 router.get('/interior', async function (req, res) {
     var data = url.parse(req.url, true).query;
@@ -156,7 +150,8 @@ router.get('/interior', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Interior Parts'
+    res.render('user/product_details.ejs', { result, categories, is_login,data})
 
 });
 router.get('/Suspension', async function (req, res) {
@@ -181,7 +176,8 @@ router.get('/Suspension', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Suspension'
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 
 });
 router.get('/Air_Suspension', async function (req, res) {
@@ -215,8 +211,8 @@ router.get('/Air_Suspension', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Air_Suspension '
+    res.render('user/product_details.ejs', { result, categories, is_login,data })
 
 });
 router.get('/Electric_partd', async function (req, res) {
@@ -255,9 +251,10 @@ router.get('/Electric_partd', async function (req, res) {
     }
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
+    var data = 'Electric Parts '
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 
 });
 router.get('/Engine', async function (req, res) {
@@ -282,8 +279,8 @@ router.get('/Engine', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Engine '
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 
 });
 router.get('/sensors', async function (req, res) {
@@ -323,8 +320,8 @@ router.get('/sensors', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Sensors '
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 
 });
 router.get('/brake', async function (req, res) {
@@ -349,8 +346,8 @@ router.get('/brake', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Break '
+    res.render('user/product_details.ejs', { result, categories, is_login,data })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -393,8 +390,8 @@ router.get('/ac_part', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'AC Parts '
+    res.render('user/product_details.ejs', { result, categories, is_login,data })
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -422,9 +419,19 @@ router.get('/maintenance', async function (req, res) {
     var result = await exe(sql);
     var categories = await exe(`SELECT * FROM vehicle_brand`)
     var is_login = (req.session.user_id) ? true : false;
-
-    res.render('user/product_details.ejs', { result, categories, is_login })
+    var data = 'Maintenance Parts '
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
 });
+router.get("/vehicle/:id",async function(req,res){
+    var sql = `SELECT * FROM products WHERE product_vehicle_type_id = '${req.params.id}'`
+    var result = await exe(sql)
+    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    var is_login = (req.session.user_id) ? true : false;
+    var data3 =await exe(`SELECT * FROM vehicle_brand WHERE vehicle_id = '${req.params.id}'`)
+    var data = data3[0].vehicle_name
+    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+
+})
 router.get("/product_list", function (res, res) {
     res.render('user/product_details.ejs')
 })
@@ -433,7 +440,6 @@ router.get("/product_details/:id", async function (req, res) {
     var sql = `SELECT * FROM products WHERE product_id ='${id}'`
     var result = await exe(sql)
     var is_login = (req.session.user_id) ? true : false;
-    console.log(is_login)
     res.render('user/product_information.ejs', { result, is_login })
 })
 router.get('/login', function (req, res) {
@@ -510,6 +516,7 @@ router.get("/buy_now/:id", checkLogin, async function (req, res) {
 })
 router.post("/checkout", checkLogin, async function (req, res) {
     var d = req.body;
+    console.log(d)
     var customer_id = req.session.user_id;
     var payment_status = "pending";
     var order_date = new Date().toISOString().slice(0, 10);
@@ -517,10 +524,12 @@ router.post("/checkout", checkLogin, async function (req, res) {
 
     // Insert order master record
     var sql = `INSERT INTO orders
-        (customer_id, country, state, city, area, pincode, total_amount, payment_method, payment_status, order_date, order_status) 
-        VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+        (fullname,mobile,customer_id, country, state, city, area, pincode, total_amount, payment_method, payment_status, order_date, order_status) 
+        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`;
 
     var result = await exe(sql, [
+        d.fullname,
+        d.mobile,
         customer_id,
         d.country,
         d.state,
@@ -558,7 +567,7 @@ router.post("/checkout", checkLogin, async function (req, res) {
         }
     }
 
-    var carts = await exe(`DELETE FROM carts WHERE customer_id = '${customer_id}'`)
+    var carts = await exe(`DELETE FROM cart WHERE customer_id = '${customer_id}'`)
     res.redirect(`/payment/${order_id}`);
 });
 
@@ -690,17 +699,13 @@ router.get('/delete_cart/:id',async function (req, res) {
         var customer_id = req.session.user_id;
         var sql = `DELETE FROM cart WHERE cart_id = ? AND customer_id = ?`;
         var result =await exe(sql,[id,customer_id]);
-        console.log("Deleting cart item with ID:", id,customer_id,result);
         res.redirect("/add_to_cart");
 
     } else {
         let carts = JSON.parse(req.cookies.cart || '[]');
-        console.log("Before Delete:", carts);
-
         // filter करून फक्त तो product काढून टाक
         carts = carts.filter(item => item.product_id != id);
 
-        console.log("After Delete:", carts);
 
         res.cookie("cart", JSON.stringify(carts), { path: "/" });
         res.redirect("/add_to_cart");
@@ -708,21 +713,25 @@ router.get('/delete_cart/:id',async function (req, res) {
 });
 
 router.get("/updateqty/:id", (req, res) => {
-    var id = req.params.id
-    var qty = parseInt(req.query.qty);
+    let id = String(req.params.id);
+    let qty = parseInt(req.query.qty);
 
-    var cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
+    let cart = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
 
     console.log("Before Update:", cart, "New Qty:", qty, "Id:", id);
 
     let updated = false;
 
-    for (var i = 0; i < cart.length; i++) {
-        console.log("Checking:", cart[i].product_id, "==", id);
+    for (let i = 0; i < cart.length; i++) {
         if (String(cart[i].product_id) === id) {
-            cart[i].qty = qty;   // ✅ update qty
+            if (qty <= 0) {
+                cart.splice(i, 1);   // remove item if qty <= 0
+                console.log("Removed product:", id);
+            } else {
+                cart[i].qty = qty;   // update qty
+                console.log("Qty Updated for product:", id);
+            }
             updated = true;
-            console.log("Qty Updated for product:", id);
             break;
         }
     }
@@ -731,7 +740,7 @@ router.get("/updateqty/:id", (req, res) => {
         console.log("❌ Product not found in cart, nothing updated.");
     }
 
-    res.cookie("cart", JSON.stringify(cart), { maxAge: 3600000 });
+    res.cookie("cart", JSON.stringify(cart), { maxAge: 3600000, httpOnly: true, path: "/" });
 
     console.log("After Update:", cart);
     res.redirect("/add_to_cart");

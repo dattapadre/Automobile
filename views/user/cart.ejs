@@ -106,10 +106,9 @@
           <div class="summary-row">
             <span>Subtotal</span>
             <span class="fw-bold">Rs.
-              <% var allsum=0;  for(var i=0; i<result.length; i++){ var
-                total=Number(result[i].product_price) * result[i].qty; allsum +=total; 
-                }%>
-          <%-allsum%>
+              <% var allsum=0; for(var i=0; i<result.length; i++){ var total=Number(result[i].product_price) *
+                result[i].qty; allsum +=total; }%>
+                <%-allsum%>
             </span>
           </div>
           <div class="summary-row">
@@ -132,7 +131,7 @@
           <%if(is_login){%>
             <button class="btn proceed-btn mt-3" onclick="add_to_cart_data('<%-allsum%>')">PROCEED TO CHECKOUT</button>
             <%}else{%>
-             <button class="btn proceed-btn mt-3 " data-bs-toggle="modal" data-bs-target="#loginModal">PROCEED TO
+              <button class="btn proceed-btn mt-3 " data-bs-toggle="modal" data-bs-target="#loginModal">PROCEED TO
                 CHECKOUT</button></a>
               <%}%>
                 <a href="/"><button class="btn proceed-btn mt-3 bg-primary ">
@@ -171,7 +170,7 @@
       location.href = url;
     }
 
-    function add_to_cart_data(total){
+    function add_to_cart_data(total) {
       var url = `/buy_cart/${total}`
       location.href = url
     }

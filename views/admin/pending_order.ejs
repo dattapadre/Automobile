@@ -1,45 +1,20 @@
 <%-include('navbar.ejs')%>
-<style>
+  <style>
     .filter-box {
       background: #fff;
       padding: 20px;
       border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       margin-bottom: 25px;
     }
   </style>
-<br>
-<br>
-  <!-- Filter/Search Container -->
-  <!-- <div class="container">
-    <div class="filter-box">
-      <h4 class="mb-3 text-center">Filter Orders</h4>
-      <div class="row g-3">
-        <div class="col-md-5">
-          <select name="" id="" class="form-control">
-            <option value="">Data</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-            <select name="" id="" class="form-control">
-            <option value="">Data</option>
-          </select>
-        </div>
-        <div class="col-md-3">
-          <button class="btn btn-primary px-4">Search</button>
-          <button class="btn btn-secondary px-4">Reset</button>
-        </div>
-      </div>
-      <div class="text-center mt-3">
-        
-        
-      </div>
-    </div>
-  </div> -->
+  <br>
+  <br>
+
 
   <!-- Order Table -->
   <div class="container">
-    <h2 class="mb-4 text-center">Order System</h2>
+    <h2 class="mb-4 text-center fw-bold">Pending Order</h2>
 
     <div class="table-responsive shadow rounded">
       <table class="table table-bordered table-hover align-middle mb-0">
@@ -55,23 +30,38 @@
           </tr>
         </thead>
         <tbody>
-        <% for(var i=0;i<result.length;i++){%>
-          <tr>
-            <td><%- i+ 1 %></td>
-            <td><%= result[i].order_date.toISOString().slice(0,10) %></td>
-            <td><%-result[i].payment_status%></td>
-            <td><%-result[i].area%>,<%-result[i].city %> ,<%-result[i].state %> <%-result[i].pincode %></td>
-            <td><%-result[i].total_amount %> </td>
-            <td><%-result[i].order_status%></td>
-            <td>
-             <a href="/admin/order_details/<%-result[i].order_id %>"><button class="btn btn-sm btn-success">View</button></a> 
-            </td>
-          </tr>
-          <%}%>
+          <% for(var i=0;i<result.length;i++){%>
+            <tr>
+              <td><%- i+ 1 %></td>
+              <td>
+                <%= result[i].order_date.toISOString().slice(0,10) %>
+              </td>
+              <td><%-result[i].payment_status%></td>
+              <td><%-result[i].area%>,<%-result[i].city %> ,<%-result[i].state %> <%-result[i].pincode %></td>
+              <td><%-result[i].total_amount %> </td>
+              <td><%-result[i].order_status%></td>
+              <td>
+                <a href="/admin/order_details/<%-result[i].order_id %>"><button
+                    class="btn btn-sm btn-success">View</button></a>
+              </td>
+            </tr>
+            <%}%>
         </tbody>
+
       </table>
+      <br>
+      <br>
+      <%if(result.length==0){%>
+        <div class="col-md-12">
+          <div
+            class="d-flex align-items-center ml-5 justify-content-center p-3 bg-info bg-opacity-25 rounded shadow-sm">
+            <i class="bi bi-cart-x fs-2 text-info me-2"></i>
+            <span class="fs-4 fw-bold text-dark">Your Orders is Empty</span>
+          </div>
+        </div>
+        <%}%>
     </div>
   </div>
 
   <!-- Bootstrap JS -->
-<%-include('footer.ejs')%>
+  <%-include('footer.ejs')%>
