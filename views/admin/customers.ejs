@@ -1,0 +1,38 @@
+<%-include('navbar.ejs')%>
+ <div class="container bg-white  p-4 mb-5 mt-5">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3">Automobile <i class="fa-solid fa-chevron-right"></i> Customers  List</h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    <div class="table-responsive mt-5">
+        
+        <table class="table table-bordered table-hover table-striped table-sm  ">
+            <tr class="table-success fs-6 fw-bold">
+               
+                <th class="fs-6 text-center fw-bold">Sr No</th>
+                <th class="fs-6 text-center fw-bold">Customer Name</th>
+                <th class="fs-6 text-center fw-bold">Customer Mobile</th>
+                <th class="fs-6 text-center fw-bold">Customer Email</th>
+               
+                <th class="fs-6 text-center fw-bold">Customer Status</th>
+                 <th class="fs-6 text-center fw-bold">Customer Image</th>
+
+            </tr>
+            <% for(var i=0;i<Customer.length;i++){%>
+                <tr>
+                    
+                    <td class="fs-6 text-center "><%- i+1 %></td>
+                    <td class="fs-6 text-center "><%-Customer[i].name%></td>
+                    <td class="fs-6 text-center "><%-Customer[i].mobile%></td>
+                    <td class="fs-6 text-center "><%-Customer[i].email%></td>
+                    <td class="fs-6 text-center "><%-Customer[i].status%></td>
+                    <td>
+                        <img src="/upload/<%-Customer[i].image%>" width="100px" height="100px" class="rounded shadow">
+                    </td>
+                </tr>
+                <%}%>
+        </table>
+<%-include('footer.ejs')%>
