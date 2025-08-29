@@ -17,6 +17,9 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }))
+// cart count middleware
+
+
 app.use('/',user_router)
 app.use('/admin',admin_router)
 
