@@ -10,12 +10,12 @@ var conn = mysql.createPool({
 });
 
 // Promisify queries
-// var conn   = mysql.createConnection({
-//     host:'localhost',
-//     user:'root',
-//     password:'',
-//     database:'automobile1'
-// })
+    // var conn   = mysql.createConnection({
+    //     host:'localhost',
+    //     user:'root',
+    //     password:'',
+    //     database:'automobile1'
+    // })
 var exe = util.promisify(conn.query).bind(conn);
 
 module.exports = exe;

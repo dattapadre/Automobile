@@ -16,6 +16,7 @@ app.use(session({
     secret:'qwertyi',
     resave:true,
     saveUninitialized:true
+
 }))
 
 
@@ -28,6 +29,8 @@ app.use(async function (req, res, next) {
     }
     next();
 });
+// cart count middleware
+
 
 
 app.use('/',user_router)

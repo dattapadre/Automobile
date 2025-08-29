@@ -4,11 +4,31 @@ var url = require('url')
 var exe = require('../connection')
 
 
+router.use(async (req, res, next) => {
+    let count = 0;
 
+    if (req.session.user_id) {
+        const customer_id = req.session.user_id;
+        const sql = `SELECT SUM(quantity) as total FROM cart WHERE customer_id = ?`;
+        const result = await exe(sql, [customer_id]);
+        count = result[0].total || 0;
+    } else {
+        let carts = req.cookies.cart ? JSON.parse(req.cookies.cart) : [];
+        // cookie मध्ये qty property असेल तर त्याचा sum घे
+        count = carts.reduce((acc, item) => acc + (parseInt(item.qty) || 1), 0);
+    }
+    var categories = await exe(`SELECT * FROM vehicle_brand`);
+    res.locals.categories = categories;
+
+    res.locals.cartCount = count;
+    res.locals.is_login = req.session.user_id ? true : false;
+      // सर्व templates मध्ये available होईल
+    next();
+});
 router.get("/search_products/:text", async function (req, res) {
     try {
         let text = req.params.text;
-        let sql = `SELECT product_name FROM products WHERE product_name LIKE ? LIMIT 10`;
+        let sql = `SELECT product_name,product_id FROM products WHERE product_name LIKE ? LIMIT 10`;
         let result = await exe(sql, [`%${text}%`]);
 
         res.json(result); // suggestions परत करायच्या
@@ -19,14 +39,17 @@ router.get("/search_products/:text", async function (req, res) {
 
 });
 
-router.get("/product_list/:name", async function (req, res) {
+router.get("/product_list/:id", async function (req, res) {
 
-    let name = req.params.name;
-    let sql = `SELECT * FROM products WHERE product_name LIKE ?`;
-    let result = await exe(sql, [`%${name}%`]);
+    let id = req.params.id;
+    let products = await exe(`SELECT * FROM products WHERE product_id = '${id}'`);
 
+    // let sql2 = ``;
+    let result = await exe(`SELECT * FROM products WHERE product_sub_part = '${products[0].product_sub_part}' `)
+    // res.send(result);
     let categories = await exe(`SELECT * FROM vehicle_brand`);
     let is_login = req.session.user_id ? true : false;
+    // var data = `${products}`
 
     res.render("user/product_details.ejs", { result, categories, is_login });
 });
@@ -85,9 +108,8 @@ router.get("/", async function (req, res) {
 
     var performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
 
-    var categories = await exe(`SELECT * FROM vehicle_brand`);
 
-    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, "categories": categories };
+    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, };
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {
