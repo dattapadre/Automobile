@@ -445,6 +445,7 @@ router.get("/product_details/:id", async function (req, res) {
     res.render('user/product_information.ejs', { result, is_login })
 })
 router.get('/login', function (req, res) {
+
     res.render('user/login.ejs')
 })
 router.post("/login", async function (req, res) {
@@ -767,6 +768,30 @@ router.get('/buy_cart/:id', checkLogin, async function (req, res) {
     res.render('user/cart_data.ejs', { result, total })
 })
 
-
+router.get('/profile', checkLogin, async function (req, res) {
+    var result = await exe(`SELECT * FROM customers WHERE id = '${req.session.user_id}'`)
+    res.render('user/profile.ejs', { result })
+})
+router.post('/update_profile', checkLogin, async function (req, res) {
+    var d = req.body;   
+    var filename = d.old_image;
+    if (req.files) {
+        filename = new Date().getTime() + req.files.image.name;
+        req.files.image.mv('public/upload/' + filename)
+    }   
+    var sql = `UPDATE customers SET name = ?, mobile = ?, email = ?, image = ? WHERE id = ?`
+    var result = await exe(sql, [d.name, d.mobile, d.email, filename, req.session.user_id])
+    res.redirect('/profile')
+})
+router.get('/logout', function (req, res) {
+    req.session.destroy();
+    res.redirect('/')
+});
+router.get("/profile", (req, res) => {
+    if (!req.session.user_id) {
+        return res.redirect("/login"); 
+    }
+    res.render("profile", { user: res.locals.user });
+});
 
 module.exports = router;
