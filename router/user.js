@@ -47,11 +47,11 @@ router.get("/product_list/:id", async function (req, res) {
     // let sql2 = ``;
     let result = await exe(`SELECT * FROM products WHERE product_sub_part = '${products[0].product_sub_part}' `)
     // res.send(result);
-    let categories = await exe(`SELECT * FROM vehicle_brand`);
+    
     let is_login = req.session.user_id ? true : false;
     // var data = `${products}`
 
-    res.render("user/product_details.ejs", { result, categories, is_login });
+    res.render("user/product_details.ejs", { result, is_login });
 });
 
 router.get("/like/:product_id", async (req, res) => {
@@ -138,10 +138,10 @@ router.get('/body-parts', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'bodypart'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+   
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Body Parts'
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 });
 router.get('/interior', async function (req, res) {
     var data = url.parse(req.url, true).query;
@@ -172,10 +172,10 @@ router.get('/interior', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Interior'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Interior Parts'
-    res.render('user/product_details.ejs', { result, categories, is_login,data})
+    res.render('user/product_details.ejs', { result, is_login,data})
 
 });
 router.get('/Suspension', async function (req, res) {
@@ -198,10 +198,10 @@ router.get('/Suspension', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = "Suspension"`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Suspension'
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 
 });
 router.get('/Air_Suspension', async function (req, res) {
@@ -233,10 +233,10 @@ router.get('/Air_Suspension', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Air'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Air_Suspension '
-    res.render('user/product_details.ejs', { result, categories, is_login,data })
+    res.render('user/product_details.ejs', { result, is_login,data })
 
 });
 router.get('/Electric_partd', async function (req, res) {
@@ -274,11 +274,11 @@ router.get('/Electric_partd', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Electric'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var data = 'Electric Parts '
     var is_login = (req.session.user_id) ? true : false;
 
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 
 });
 router.get('/Engine', async function (req, res) {
@@ -301,10 +301,10 @@ router.get('/Engine', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Engine'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Engine '
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 
 });
 router.get('/sensors', async function (req, res) {
@@ -342,10 +342,10 @@ router.get('/sensors', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Sensors'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Sensors '
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 
 });
 router.get('/brake', async function (req, res) {
@@ -368,10 +368,10 @@ router.get('/brake', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Brake'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Break '
-    res.render('user/product_details.ejs', { result, categories, is_login,data })
+    res.render('user/product_details.ejs', { result, is_login,data })
 
 });
 router.get('/ac_part', async function (req, res) {
@@ -412,10 +412,10 @@ router.get('/ac_part', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'AC'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'AC Parts '
-    res.render('user/product_details.ejs', { result, categories, is_login,data })
+    res.render('user/product_details.ejs', { result, is_login,data })
 
 });
 router.get('/maintenance', async function (req, res) {
@@ -441,10 +441,10 @@ router.get('/maintenance', async function (req, res) {
         sql = `SELECT * FROM products WHERE product_part_type = 'Maintenance'`;
     }
     var result = await exe(sql);
-    var categories = await exe(`SELECT * FROM vehicle_brand`)
+    
     var is_login = (req.session.user_id) ? true : false;
     var data = 'Maintenance Parts '
-    res.render('user/product_details.ejs', { result, categories, is_login ,data})
+    res.render('user/product_details.ejs', { result, is_login ,data})
 });
 router.get("/vehicle/:id",async function(req,res){
     var sql = `SELECT * FROM products WHERE product_vehicle_type_id = '${req.params.id}'`
@@ -797,16 +797,14 @@ router.get('/profile', checkLogin, async function (req, res) {
 router.post('/update_profile', checkLogin, async function (req, res) {
     try {
         let d = req.body;   
-        let filename = d.old_image;   // जुनी image default घे
-
-        // फक्त image आली असेल तरच update कर
-        if (req.files && req.files.image) {
-            filename = new Date().getTime() + "_" + req.files.image.name;
-            await req.files.image.mv('public/upload/' + filename);
+        if (req.files) {
+            filename = new Date().getTime()+ req.files.image.name;
+            req.files.image.mv('public/upload/' + filename);
+            var sql2 =await exe `UPDATE customers SET image = '${filename}'WHERE id = '${req.session.user_id}'`
         }
 
-        let sql = `UPDATE customers SET name = ?, mobile = ?, email = ?, image = ? WHERE id = ?`;
-        await exe(sql, [d.name, d.mobile, d.email, filename, req.session.user_id]);
+        let sql = `UPDATE customers SET name = ?, mobile = ?, email = ? WHERE id = ?`;
+        await exe(sql, [d.name, d.mobile, d.email, req.session.user_id]);
 
         res.redirect('/profile');
     } catch (err) {
