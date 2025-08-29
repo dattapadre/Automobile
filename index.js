@@ -17,8 +17,8 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }))
-<<<<<<< Updated upstream
-=======
+
+
 app.use(async function (req, res, next) {
     if (req.session.user_id) {
         let user = await exe(`SELECT name, email FROM customers WHERE id=${req.session.user_id}`);
@@ -28,7 +28,7 @@ app.use(async function (req, res, next) {
     }
     next();
 });
->>>>>>> Stashed changes
+
 
 app.use('/',user_router)
 app.use('/admin',admin_router)
