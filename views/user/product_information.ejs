@@ -14,7 +14,7 @@
       <!-- Product Image -->
       <div class="col-lg-6 text-center">
         <img id="mainImage" src="/product/<%-result[0].product_image%>" class="img-fluid main-img mb-3"
-          alt="Main Product Image">
+          alt="Main Product Image" >
 
         <!-- Thumbnails -->
         <div class="row g-2 justify-content-center">
@@ -74,13 +74,13 @@
           <p class="fw-bold mb-1">Secure checkout with</p>
           <div class="d-flex flex-wrap align-items-center gap-3">
             <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png" alt="MasterCard"
-              style="height:30px;">
+              style="height:40px;">
             <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa"
-              style="height:30px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_Pay_Logo.png" alt="Google Pay"
-              style="height:30px;">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/PhonePe_Logo.png" alt="PhonePe"
-              style="height:30px;">
+              style="height:25px;">
+            <img src="https://images.seeklogo.com/logo-png/32/1/google-pay-logo-png_seeklogo-324563.png" alt="Google Pay"
+              style="height:70px;">
+            <img src="https://w7.pngwing.com/pngs/332/615/png-transparent-phonepe-india-unified-payments-interface-india-purple-violet-text-thumbnail.png" alt="PhonePe"
+              style="height:40px;">
           </div>
         </div>
 
@@ -194,5 +194,20 @@
         var url =  `/buy_now/<%-result[0].product_id%>?qty=${qty}`
         location.href = url;
       }
+
+
+      // Select all thumbnails
+const thumbs = document.querySelectorAll(".thumb-img");
+const mainImage = document.getElementById("mainImage");
+
+// Loop through thumbnails
+thumbs.forEach(thumb => {
+  thumb.addEventListener("click", function () {
+    let newSrc = thumb.getAttribute("src") || thumb.getAttribute("data-src");
+    mainImage.setAttribute("src", newSrc);
+    thumbs.forEach(t => t.classList.remove("active"));
+    thumb.classList.add("active");
+  });
+});
 
     </script>
