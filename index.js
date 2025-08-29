@@ -17,7 +17,8 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }))
+
 app.use('/',user_router)
 app.use('/admin',admin_router)
 
-app.listen(1000)
+app.listen(1000);

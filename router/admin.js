@@ -23,7 +23,7 @@ router.post("/login",async function(req,res){
         return res.redirect("/admin/home");
     } else {
         console.log("Login Failed");
-        return res.redirect("/admin");
+        return res.redirect("/");
     }
 
 
@@ -33,7 +33,7 @@ function authMiddleware(req, res, next) {
   if (req.session && req.session.admin_id) {
     next(); // session exists, continue
   } else {
-    res.redirect("/admin"); // no session, redirect to login
+    res.redirect("/"); // no session, redirect to login
   }
 }
 function noCache(req, res, next) {
@@ -50,7 +50,7 @@ router.get('/logout', function(req, res) {
       return res.send("Error logging out.");
     }
 
-    res.redirect('/admin'); // or wherever you want to send after logout
+    res.redirect('/'); // or wherever you want to send after logout
   });
 });
 router.get("/home",authMiddleware,noCache, async function (req, res) {
