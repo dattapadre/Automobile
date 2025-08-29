@@ -22,6 +22,18 @@ header {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.logo {
+  height: 100px !important;   /* Desktop */
+  width: 250px !important;
+  object-fit: contain;
+}
+
+@media (max-width: 768px) {
+  .logo {
+    height: 70px !important;   /* Mobile */
+    width: 180px !important;
+  }
+}
 
 
 .search-bar {
