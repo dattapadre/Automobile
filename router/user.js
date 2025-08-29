@@ -795,16 +795,26 @@ router.get('/profile', checkLogin, async function (req, res) {
     res.render('user/profile.ejs', { result })
 })
 router.post('/update_profile', checkLogin, async function (req, res) {
-    var d = req.body;   
-    var filename = d.old_image;
-    if (req.files) {
-        filename = new Date().getTime() + req.files.image.name;
-        req.files.image.mv('public/upload/' + filename)
-    }   
-    var sql = `UPDATE customers SET name = ?, mobile = ?, email = ?, image = ? WHERE id = ?`
-    var result = await exe(sql, [d.name, d.mobile, d.email, filename, req.session.user_id])
-    res.redirect('/profile')
-})
+    try {
+        let d = req.body;   
+        let filename = d.old_image;   // जुनी image default घे
+
+        // फक्त image आली असेल तरच update कर
+        if (req.files && req.files.image) {
+            filename = new Date().getTime() + "_" + req.files.image.name;
+            await req.files.image.mv('public/upload/' + filename);
+        }
+
+        let sql = `UPDATE customers SET name = ?, mobile = ?, email = ?, image = ? WHERE id = ?`;
+        await exe(sql, [d.name, d.mobile, d.email, filename, req.session.user_id]);
+
+        res.redirect('/profile');
+    } catch (err) {
+        console.error("Profile update error:", err);
+        res.send("Something went wrong while updating profile.");
+    }
+});
+
 router.get('/logout', function (req, res) {
     req.session.destroy();
     res.redirect('/')
