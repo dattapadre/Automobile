@@ -70,7 +70,7 @@ router.get("/customers" ,authMiddleware,noCache, async function (req, res) {
 router.get("/parts_inventory",authMiddleware,noCache, function (req, res) {
     res.render("admin/parts_inventory.ejs")
 })
-router.get("/vehicles", function (req, res) {
+router.get("/vehicles", authMiddleware,noCache, function (req, res) {
   
     res.render("admin/vehicles.ejs")
 });

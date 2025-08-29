@@ -101,7 +101,7 @@
               <%= result[2].title %>
             </h2>
             <p>Unleash the Power of Precision Engineering for Your Auto Needs.</p>
-            <a href="#" class="shop-btn">SHOP NOW</a>
+            <a href="/Engine" class="shop-btn">SHOP NOW</a>
           </div>
         </div>
         <div class="auto-card" style="--bg: url('/home/<%= result[5].image %>')">
@@ -110,7 +110,7 @@
               <%= result[5].title %>
             </h2>
             <p>Elevate Your Vehicle's Performance with Our Premium Auto Parts.</p>
-            <a href="#" class="shop-btn">SHOP NOW</a>
+            <a href="/body-parts" class="shop-btn">SHOP NOW</a>
           </div>
         </div>
         <div class="auto-card" style="--bg: url('/home/<%= result[4].image %>')">
@@ -119,7 +119,7 @@
               <%= result[4].title %>
             </h2>
             <p>Where Cutting-Edge Innovation Meets Top-Notch Auto Spare Parts.</p>
-            <a href="#" class="shop-btn">SHOP NOW</a>
+            <a href="/suspension" class="shop-btn">SHOP NOW</a>
           </div>
         </div>
       </section>
@@ -162,71 +162,9 @@
 
             </div>
             <% } %>
-              <!-- <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card product-card">
-            <div class="position-relative">
-              <img src="upload/Bowden.jpg" class="card-img-top" alt="Bowden Cable">
-              <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">A to Z Auto Parts</h5>
-              <div class="card-title-main">
-                <p>Enhance the look and safety of your Audi A4, A3, or A6 with this A4 Mirror Glass....</p>
-              </div>
-              <p class="price">
-                <del>₹2,500</del>
-               <span class="text-danger">₹2,200</span>
-              </p>
-              <button class="btn btn-add-to-cart w-100">
-                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card product-card">
-            <div class="position-relative">
-              <img src="upload/bearing.jpg" class="card-img-top" alt="BMW Bearing">
-              <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">A to Z Auto Parts</h5>
-              <div class="card-title-main">
-                <p>Enhance the look and safety of your Audi A4, A3, or A6 with this A4 Mirror Glass....</p>
-              </div>
-              <p class="price">
-                <del>₹4,000</del>
-               <span class="text-danger">₹2,500</span>
-              </p>
-              <button class="btn btn-add-to-cart w-100">
-                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="card product-card">
-            <div class="position-relative">
-              <img src="upload/bm2.jpg" class="card-img-top" alt="Fog Lamp Cover">
-              <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">A to Z Auto Parts</h5>
-              <div class="card-title-main">
-                <p>Enhance the look and safety of your Audi A4, A3, or A6 with this A4 Mirror Glass....</p>
-              </div>
-              <p class="price">
-                <del>₹3,000</del> 
-                <span class="text-danger">₹1,800</span>
-              </p>
-              <button class="btn btn-add-to-cart w-100">
-                <i class="fas fa-shopping-cart me-2"></i>ADD TO CART
-              </button>
-            </div>
-          </div>
-        </div> -->
+             
               <div class="col-12 text-center mt-5">
-                <a href="#" class="design_btn">Show More</a>
+                <a href="/body-parts" class="design_btn">Show More</a>
               </div>
         </div>
       </div>
@@ -295,7 +233,7 @@
         <div class="row g-3 justify-content-center">
           <% for (var i=0; i < vehicle.length; i++) { %>
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-              <a href="#" class="brand-logo">
+              <a href="/vehicle/<%= vehicle[i].vehicle_id %>" class="brand-logo">
                 <img src="/categories/<%= vehicle[i].vehicle_image %>" class="img-fluid"
                   alt="<%= vehicle[i].vehicle_name %>">
               </a>
