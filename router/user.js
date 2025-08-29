@@ -17,7 +17,7 @@ router.use(async (req, res, next) => {
         // cookie मध्ये qty property असेल तर त्याचा sum घे
         count = carts.reduce((acc, item) => acc + (parseInt(item.qty) || 1), 0);
     }
-     var categories = await exe(`SELECT * FROM vehicle_brand`);
+    var categories = await exe(`SELECT * FROM vehicle_brand`);
     res.locals.categories = categories;
 
     res.locals.cartCount = count;
@@ -109,7 +109,7 @@ router.get("/", async function (req, res) {
     var performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
 
 
-    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, "categories": categories };
+    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, };
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {
