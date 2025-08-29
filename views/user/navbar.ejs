@@ -48,6 +48,12 @@
                                     <i class="fas fa-shopping-cart fa-lg"></i>
                                 </button>
                             </a>
+                <a href="/profile"><button class="btn"><i class="far fa-user fa-lg"></i></button></a>
+                <!-- <a href="/signup"><button class="btn"><i class="far fa-user fa-lg"></i></button></a> -->
+                <a href="/add_to_cart"><button class="btn position-relative me-1">
+                        <i class="fas fa-shopping-cart fa-lg"><%-result.length%></i>
+                    </button>
+                </a>
             </div>
             <!-- updated -->
         </nav>
@@ -67,13 +73,15 @@
 
                     <!-- Categories Submenu -->
                     <div class="collapse ms-3" id="categoriesSubmenu">
-                        
-                      
+
+
                         <% for (var i=0; i<categories.length; i++) { %>
-                        <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>"><%= categories[i].vehicle_name %></a></li>
-                   <% } %>
-                  
-                        
+                            <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>">
+                                    <%= categories[i].vehicle_name %>
+                                </a></li>
+                            <% } %>
+
+
                     </div>
 
 
@@ -251,21 +259,21 @@
                 <span class="d-block small">Collection</span>
             </a>
 
-                <!-- <a href="/profile" class="nav-item text-center flex-fill">
+            <!-- <a href="/profile" class="nav-item text-center flex-fill">
                     <i class="far fa-user"></i>
                     <span class="d-block small">Profile</span>
                 </a> -->
-                    <a href="/signup" class="nav-item text-center flex-fill">
-                        <i class="far fa-user"></i>
-                        <span class="d-block small">Sign up</span>
-                    </a>
-                        <a href="/add_to_cart" class="nav-item text-center flex-fill position-relative">
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="d-block small">Cart</span>
-                            <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-dark">
-                                0
-                            </span>
-                        </a>
+            <a href="/signup" class="nav-item text-center flex-fill">
+                <i class="far fa-user"></i>
+                <span class="d-block small">Sign up</span>
+            </a>
+            <a href="/add_to_cart" class="nav-item text-center flex-fill position-relative">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="d-block small">Cart</span>
+                <span class="position-absolute top-0 start-75 translate-middle badge rounded-pill bg-dark">
+                    0
+                </span>
+            </a>
         </nav>
 
 
@@ -275,8 +283,7 @@
                 <div class="container-fluid">
 
                     <a class="navbar-brand" href="/">
-                        <img src="http://localhost:1000/product/logo.jpg"
-                            alt="Logo" height="50">
+                        <img src="http://localhost:1000/product/logo.jpg" alt="Logo" height="50">
                     </a>
 
                     <form class="d-flex flex-grow-1 mx-3 search-bar" onsubmit="return false">
@@ -294,21 +301,21 @@
 
                     <div class="d-flex align-items-center">
 
-                            <!-- <a href="/profile" class="text-dark mx-3"><i class="far fa-user"></i> Profile </a> -->
+                        <!-- <a href="/profile" class="text-dark mx-3"><i class="far fa-user"></i> Profile </a> -->
 
-                                <a href="/signup" class="text-dark mx-3"><i class="far fa-user"></i> Sign In</a>
-                                
+                        <a href="/signup" class="text-dark mx-3"><i class="far fa-user"></i> Sign In</a>
 
-                                    <a href="/myorder" class="text-dark mx-3"><i class="fas fa-clipboard-list"></i> </i>
-                                        My
-                                        Order</a>
-                                    <a href="/wish_list" class="text-dark mx-3"><i class="far fa-heart"></i> Wish
-                                        Lists</a>
-                                    <a href="/add_to_cart" class="text-dark position-relative mx-3 px-4">
-                                        <i class="fas fa-shopping-cart"></i> Cart
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
-                                    </a>
+
+                        <a href="/myorder" class="text-dark mx-3"><i class="fas fa-clipboard-list"></i> </i>
+                            My
+                            Order</a>
+                        <a href="/wish_list" class="text-dark mx-3"><i class="far fa-heart"></i> Wish
+                            Lists</a>
+                        <a href="/add_to_cart" class="text-dark position-relative mx-3 px-4">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                            <span
+                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+                        </a>
                     </div>
                 </div>
             </nav>
@@ -320,13 +327,15 @@
                     <button class="btn category-btn dropdown-toggle" data-bs-toggle="dropdown">
                         <i class="fas fa-bars mx-2"></i> Category
                     </button>
-                    
+
                     <ul class="dropdown-menu">
                         <% for (var i=0; i<categories.length; i++) { %>
-                        <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>"><%= categories[i].vehicle_name %></a></li>
-                   <% } %>
+                            <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>">
+                                    <%= categories[i].vehicle_name %>
+                                </a></li>
+                            <% } %>
                     </ul>
-                    
+
                 </div>
 
                 <!-- Product Links -->
