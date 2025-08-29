@@ -19,16 +19,6 @@ app.use(session({
 
 }))
 
-
-app.use(async function (req, res, next) {
-    if (req.session.user_id) {
-        let user = await exe(`SELECT name, email FROM customers WHERE id=${req.session.user_id}`);
-        res.locals.user = user[0]; 
-    } else {
-        res.locals.user = null;
-    }
-    next();
-});
 // cart count middleware
 
 

@@ -367,4 +367,5 @@ router.get('/order_details/:id',authMiddleware,noCache, async function(req,res){
     res.render('admin/order_details.ejs',{order,products})
 });
 
+
 module.exports = router;
