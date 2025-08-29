@@ -503,6 +503,7 @@ async function transferData(req, res) {
 }
 router.post("/signin", async function (req, res) {
     var d = req.body;
+    console.log(req.files)
     var sql = `SELECT * FROM customers WHERE email = '${d.email}' AND mobile ='${d.mobile}'`
     var customers = await exe(sql)
 
@@ -510,7 +511,6 @@ router.post("/signin", async function (req, res) {
         req.session.user_id = customers[0].id;
         console.log("custmores login id", req.session.user_id)
         await transferData(req, res);
-        // 
         res.redirect("/login")
     } else {
         var filename = ""

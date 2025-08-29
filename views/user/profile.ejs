@@ -12,25 +12,22 @@
         <div class="card-body text-center">
           <!-- Profile Image -->
           <div class="mb-3">
-            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            <img src="/upload/<%-result[0].image%>"
                  alt="Profile" width="120" class="rounded-circle border p-2">
           </div>
 
           <!-- User Information -->
-          <h4 class="mb-1"><%= user.name %></h4>
-          <p class="text-muted"><%= user.email %></p>
+          <h4 class="mb-1 text-start">Name :- <%= result[0].name %></h4>
+          <h5 class="m-3 text-start">Mobile:- <%= result[0].mobile %></h5>
+          <h4 class="mb-1 text-start">Email :- <%= result[0].email %></h4>
 
           <hr>
 
-          <div class="text-start px-3">
-            <p><strong>User ID:</strong> <%= user.id %></p>
-            <!-- जर आणखी fields DB मध्ये असतील तर -->
-            <!-- <p><strong>Phone:</strong> <%= user.phone %></p> -->
-            <!-- <p><strong>Address:</strong> <%= user.address %></p> -->
-          </div>
+         
 
           <!-- Buttons -->
-          <a href="/logout" class="btn btn-danger mt-3">Logout</a>
+          <a href="/logout" class="btn btn-success mt-3 float-end">Update Profile</a>
+          <a href="/logout" class="btn btn-danger m-3 float-end">Logout</a>
         </div>
       </div>
 
