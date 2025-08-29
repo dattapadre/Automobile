@@ -67,16 +67,13 @@
 
                     <!-- Categories Submenu -->
                     <div class="collapse ms-3" id="categoriesSubmenu">
-                        <a href="#" class="d-block py-1">Audi</a>
-                        <a href="#" class="d-block py-1">Porsche</a>
-                        <a href="#" class="d-block py-1">Skoda</a>
-                        <a href="#" class="d-block py-1">Volkswagen</a>
-                        <a href="#" class="d-block py-1">BMW</a>
-                        <a href="#" class="d-block py-1">Mini Cooper</a>
-                        <a href="#" class="d-block py-1">Mercedes</a>
-                        <a href="#" class="d-block py-1">Land Rover</a>
-                        <a href="#" class="d-block py-1">Jaguar</a>
-                        <a href="#" class="d-block py-1">Volvo Car</a>
+                        
+                      
+                        <% for (var i=0; i<categories.length; i++) { %>
+                        <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>"><%= categories[i].vehicle_name %></a></li>
+                   <% } %>
+                  
+                        
                     </div>
 
 
@@ -323,18 +320,13 @@
                     <button class="btn category-btn dropdown-toggle" data-bs-toggle="dropdown">
                         <i class="fas fa-bars mx-2"></i> Category
                     </button>
+                    
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Audi</a></li>
-                        <li><a class="dropdown-item" href="#">Porsche</a></li>
-                        <li><a class="dropdown-item" href="#">Skoda</a></li>
-                        <li><a class="dropdown-item" href="#">Volkswagen</a></li>
-                        <li><a class="dropdown-item" href="#">BMW</a></li>
-                        <li><a class="dropdown-item" href="#">Mini Cooper</a></li>
-                        <li><a class="dropdown-item" href="#">Mercedes</a></li>
-                        <li><a class="dropdown-item" href="#">Land Rover</a></li>
-                        <li><a class="dropdown-item" href="#">Jaguar</a></li>
-                        <li><a class="dropdown-item" href="#">Volvo Car</a></li>
+                        <% for (var i=0; i<categories.length; i++) { %>
+                        <li><a class="dropdown-item" href="/vehicle/<%= categories[i].vehicle_id%>"><%= categories[i].vehicle_name %></a></li>
+                   <% } %>
                     </ul>
+                    
                 </div>
 
                 <!-- Product Links -->
