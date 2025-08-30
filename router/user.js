@@ -83,8 +83,21 @@ router.get("/dislike/:product_id", async (req, res) => {
 
 router.get("/wish_list", async function (req, res) {
     var data = await exe(`SELECT * FROM products WHERE like_wish='like'`);
-    res.send(data);
+   res.render("user/wish_list.ejs", {"products": data })
 })
+
+router.get("/delete_wishlist/remove/:product_id", async (req, res) => {
+    var id = req.params.product_id;
+
+    try {
+        await exe("UPDATE products SET like_wish='none' WHERE product_id=?", [id]);
+        res.redirect("/user/wish_list");
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Database error");
+    }
+});
+
 
 
 

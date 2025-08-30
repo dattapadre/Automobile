@@ -23,7 +23,7 @@ router.post("/login",async function(req,res){
         return res.redirect("/admin/home");
     } else {
         console.log("Login Failed");
-        return res.redirect("/");
+        return res.redirect("/admin");
     }
 
 
@@ -33,7 +33,7 @@ function authMiddleware(req, res, next) {
   if (req.session && req.session.admin_id) {
     next(); // session exists, continue
   } else {
-    res.redirect("/"); // no session, redirect to login
+    res.redirect("/admin"); // no session, redirect to login
   }
 }
 function noCache(req, res, next) {
@@ -50,33 +50,41 @@ router.get('/logout', function(req, res) {
       return res.send("Error logging out.");
     }
 
-    res.redirect('/'); // or wherever you want to send after logout
+    res.redirect('/admin'); // or wherever you want to send after logout
   });
 });
 router.get("/home",authMiddleware,noCache, async function (req, res) {
+    
     if (!req.session.admin_id) {
         return res.redirect("/admin");
     } else {
+        var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
         var sql = `SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`;
         var result = await exe(sql);
-        var obj = { "admin": result[0] }
+        var obj = { "admin": result[0], "user": user[0] };
         res.render("admin/home.ejs", obj);
     }
 });
 router.get("/customers" ,authMiddleware,noCache, async function (req, res) {
+        var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
+
     var Customer = await exe(`SELECT * FROM customers`);
-    res.render("admin/customers.ejs", { Customer });
+    res.render("admin/customers.ejs", { Customer, "user": user[0] });
 })
-router.get("/parts_inventory",authMiddleware,noCache, function (req, res) {
-    res.render("admin/parts_inventory.ejs")
+router.get("/parts_inventory",authMiddleware,noCache, async function (req, res) {
+        var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
+
+    res.render("admin/parts_inventory.ejs", { "user": user[0] });
 })
-router.get("/vehicles", authMiddleware,noCache, function (req, res) {
-  
-    res.render("admin/vehicles.ejs")
+router.get("/vehicles", authMiddleware,noCache, async function (req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
+
+    res.render("admin/vehicles.ejs", {  "user": user[0] });
 });
 router.get("/vehicle_list",authMiddleware,noCache, async function (req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
       var vehicle = await exe(`SELECT * FROM vehicle_brand`)
-    var obj = { "vehicle": vehicle };
+    var obj = { "vehicle": vehicle, "user": user[0] };
     res.render("admin/vehicle_list.ejs",obj)
 });
 router.post("/save_vehicle", async function (req, res) {
@@ -95,14 +103,16 @@ router.post("/save_vehicle", async function (req, res) {
 });
 
 router.get("/delete_vehicle/:vehicle_id", async (req, res) => {
+   
     var sql = `DELETE FROM vehicle_brand WHERE vehicle_id = ?`;
     var result = await exe(sql,[req.params.vehicle_id]);
     res.redirect("/admin/vehicle_list");
 });
 router.get("/edit_vehicle/:vehicle_id", async function (req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql = `SELECT * FROM vehicle_brand WHERE vehicle_id = ?`;
     var result = await exe(sql, [req.params.vehicle_id]);
-    res.render("admin/edit_vehicle.ejs", { vehicle: result[0] });
+    res.render("admin/edit_vehicle.ejs", { vehicle: result[0], "user": user[0] });
 });
 
 router.post("/update_vehicle", async function (req, res) {
@@ -121,8 +131,9 @@ router.post("/update_vehicle", async function (req, res) {
     res.redirect("/admin/vehicle_list");
 });
 router.get("/add_product", authMiddleware,noCache, async function (req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
-    res.render('admin/add_product.ejs', { vehicle })
+    res.render('admin/add_product.ejs', { vehicle,"user": user[0] });
 })
 router.post("/save_product", async function (req, res) {
     var d = req.body
@@ -175,18 +186,21 @@ router.get("/all_parts", authMiddleware,noCache, async function (req, res) {
 
     // Pagination सह query
     var result = await exe(`SELECT * FROM products LIMIT ${limit} OFFSET ${offset}`);
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
 
     res.render("admin/product_list.ejs", {
         result,
         currentPage: page,
-        totalPages
+        totalPages,
+       "user": user[0]
     });
 });
 router.get('/edit_product/:id',async function(req,res){
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql =`SELECT * FROM products WHERE product_id ='${req.params.id}'`;
     var result = await exe(sql)
     var vehicle = await exe(`SELECT * FROM vehicle_brand`)
-    res.render("admin/edit_product.ejs",{result,vehicle})
+    res.render("admin/edit_product.ejs",{result,vehicle,"user": user[0]})
 });
 
 router.post("/update_product",async function (req,res) {
@@ -264,10 +278,11 @@ router.get("/delete_product/:product_id", async (req, res) => {
 });
 
 router.get("/slider",authMiddleware,noCache, async function(req,res){
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
       var sql = `SELECT * FROM slider`;
     var data = await exe(sql);
-    var obj = { "list": data }
-    res.render("admin/slider.ejs", { data })
+    var obj = { "data": data, "user": user[0] }
+    res.render("admin/slider.ejs", obj)
 })
 router.post("/save_slider", async function (req, res) {
     var d = req.body;
@@ -288,10 +303,11 @@ router.get("/delete/:id", async (req, res) => {
   res.redirect("/admin/slider");
 });
 router.get("/edit_slider/:id", async function(req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var id = req.params.id;
     var sql = `SELECT * FROM slider WHERE id = ?`;
     var data = await exe(sql, [id]);
-    res.render("admin/edit_slider.ejs", { slider: data[0] });
+    res.render("admin/edit_slider.ejs", { slider: data[0], "user": user[0] });
 });
 router.post("/update_slider", async function (req, res) {
       var d = req.body;
@@ -307,10 +323,11 @@ router.post("/update_slider", async function (req, res) {
     res.redirect("/admin/slider");
 });
 router.get("/category", authMiddleware,noCache, async function(req,res){
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql = `SELECT * FROM category`;
     var category = await exe(sql);
-    var obj = { "list": category }
-    res.render("admin/category.ejs", { category })
+    var obj = { "list": category, "user": user[0] }
+    res.render("admin/category.ejs", obj);
 });
 router.post("/save_category", async function (req, res) {
     var d = req.body;
@@ -331,12 +348,13 @@ router.get("/delete_category/:id", async (req, res) => {
   res.redirect("/admin/category");
 });
 router.get("/edit_category/:id", async function(req, res) {
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var id = req.params.id;
 
     try {
         var data = await exe(`SELECT * FROM category WHERE id = '${id}'`);
-        var obj = { list: data };
-        res.render("admin/edit_category.ejs",{category:data[0]});
+        var obj = { list: data  };
+        res.render("admin/edit_category.ejs",{category:data[0],"user": user[0]});
     } catch (err) {
         console.log("Error:", err);
         res.status(500).send("Database error");
@@ -354,18 +372,42 @@ router.post("/update_category", async function (req, res) {
    res.redirect("/admin/category");
 });
 router.get('/pending_order',authMiddleware,noCache, async function(req,res){
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql =` SELECT * FROM orders`
     var result = await exe(sql)
-    res.render('admin/pending_order.ejs',{result})
+    res.render('admin/pending_order.ejs',{result, "user": user[0]})
 })
 router.get('/order_details/:id',authMiddleware,noCache, async function(req,res){
+    var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql = `SELECT * FROM orders WHERE order_id = '${req.params.id}'`
     var order = await exe(sql) 
     var sql2 = `SELECT * FROM order_products WHERE order_id = '${req.params.id}'`
     var products = await exe(sql2)
     console.log(products, order)
-    res.render('admin/order_details.ejs',{order,products})
+    res.render('admin/order_details.ejs',{order,products,user: user[0]})
 });
+router.get("/profile",authMiddleware,noCache, async function (req, res) {
+   const result = await exe(`SELECT * FROM login WHERE admin_id = '${req.session.admin_id}'`);
+    res.render("admin/profile.ejs", { admin: result[0], "user": result[0] });
+});
+router.post("/save_profile", async (req, res) => {
+  let d = req.body;
 
+  if (req.files && req.files.admin_image) {
+        var admin_image = new Date().getTime()+req.files.admin_image.name;
+        req.files.admin_image.mv("public/upload/"+admin_image);
+        var sql = `UPDATE login SET admin_image = '${admin_image}'WHERE admin_id = '${d.admin_id}'`
+        var data = await exe(sql);
+    }
+
+   
+    var sql = ` UPDATE login SET
+        admin_name = ?,  admin_mobile = ?, admin_email = ?,
+        admin_password = ?
+      WHERE admin_id = '${d.admin_id}'`;
+    var data = await exe(sql,[ d.admin_name, d.admin_mobile, d.admin_email, d.admin_password]);
+//   res.send(data)
+  res.redirect("/admin/profile")
+});
 
 module.exports = router;

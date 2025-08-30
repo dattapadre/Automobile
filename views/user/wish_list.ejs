@@ -1,0 +1,37 @@
+<%-include('navbar.ejs')%>
+
+<div class="container my-4">
+  <h2 class="mb-3"><i class="far fa-heart text-danger"></i> My Wishlist</h2>
+
+  <% if (products.length > 0) { %>
+    <div class="row">
+      <% products.forEach(function(p, index) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card shadow-sm h-100">
+            <img src="/product/<%= p.product_image %>" class="card-img-top" alt="<%= p.product_name %>" style="height:200px; object-fit:cover;">
+            
+            <div class="card-body">
+              <h5 class="card-title"><%= p.product_name %></h5>
+              <p class="card-text mb-1">
+                <span class="fw-bold text-success">₹ <%= p.product_price %></span>
+                <small class="text-muted ms-2"><s>₹ <%= p.product_market_price %></s></small>
+              </p>
+              <p class="text-muted small">Availability: <%= p.product_availability %></p>
+            </div>
+            
+            <div class="card-footer text-center bg-white">
+              <a href="/dislike/<%= p.product_id %>?redirect=/delete_wishlist" 
+                 class="btn btn-sm btn-danger">
+                 <i class="fas fa-trash"></i> Remove
+              </a>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } else { %>
+    <div class="alert alert-warning">No items in wishlist.</div>
+  <% } %>
+</div>
+
+<%-include('footer.ejs')%>

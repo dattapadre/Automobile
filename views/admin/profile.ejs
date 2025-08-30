@@ -1,0 +1,265 @@
+<%-include('navbar.ejs')%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Update Student Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #4e73df;
+      --secondary-color: #2c3e50;
+      --accent-color: #f8f9fc;
+      --text-color: #5a5c69;
+      --border-color: #e3e6f0;
+    }
+    
+    body {
+      background-color: var(--accent-color);
+      font-family: 'Nunito', sans-serif;
+      color: var(--text-color);
+    }
+    
+    .profile-container {
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+    
+    .profile-card {
+      border: none;
+      border-radius: 0.35rem;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #224abe 100%);
+      color: white;
+      padding: 1.5rem;
+      border-bottom: none;
+      position: relative;
+    }
+    
+    .card-header h3 {
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .card-header i {
+      margin-right: 10px;
+    }
+    
+    .card-body {
+      padding: 2.5rem;
+      background-color: white;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    
+    .form-control, .form-select {
+      border: 1px solid var(--border-color);
+      border-radius: 0.35rem;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      height: calc(1.5em + 1rem + 2px);
+    }
+    
+    textarea.form-control {
+      height: auto;
+      min-height: 100px;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      padding: 0.75rem 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2e59d9;
+      border-color: #2653d4;
+      transform: translateY(-1px);
+    }
+    
+    .profile-photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .profile-photo-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border-color);
+      margin-bottom: 1rem;
+    }
+    
+    .photo-upload-label {
+      cursor: pointer;
+      background-color: var(--accent-color);
+      padding: 0.5rem 1rem;
+      border-radius: 0.35rem;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    
+    .photo-upload-label:hover {
+      background-color: var(--border-color);
+    }
+    
+    .section-divider {
+      margin: 2rem 0;
+      border-top: 1px dashed var(--border-color);
+    }
+    
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .profile-container {
+        margin: 1rem auto;
+      }
+    }
+
+    
+    
+    @media (max-width: 768px) {
+        .banner-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem 1rem !important;
+        }
+        
+        .banner-actions {
+            margin-top: 1rem;
+        }
+        
+        .banner-wave {
+            height: 40px;
+        }
+    }
+  </style>
+</head>
+<body>
+   <div class="container bg-white p-4 mb-4">
+    <div class="row mb-4">
+      <div class="col-md-12">
+            <div class="banner d-flex align-items-center rounded-3">
+            <h3 class="text-white px-3 fw-bold">Student <i class="fa-solid fa-chevron-right fw-bold"></i> Profile </h3>
+            <div class="stripes"></div>
+           </div>
+      </div>
+    </div>
+  
+  <div class="profile-container">
+    <div class="card profile-card">
+      <div class="card-header">
+      
+      </div>
+      <div class="card-body">
+        <form action="/admin/save_profile" method="post" enctype="multipart/form-data">
+          <input type="hidden" name="admin_id" value="<%= admin.admin_id %>" >
+          
+          <div class="row mb-4">
+            <div class="col-md-3 profile-photo-container">
+              <img src="/upload/<%= admin.admin_image %>" class="profile-photo-preview" id="photoPreview">
+              <label for="admin_image" class="photo-upload-label text-center">
+                <i class="fas fa-camera me-2"></i>Change Photo
+              </label>
+              <input type="file" name="admin_image" id="admin_image" class="d-none" accept="image/*">
+            </div>
+            
+            <div class="col-md-9">
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="admin_name" class="form-label">Full Name</label>
+                  <input type="text" name="admin_name" class="form-control" value="<%= admin.admin_name %>" required>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="admin_email" class="form-label">Email Address</label>
+                  <input type="email" name="admin_email" class="form-control" value="<%= admin.admin_email %>" required>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="admin_mobile" class="form-label">Mobile Number</label>
+                  <input type="tel" name="admin_mobile" class="form-control" value="<%= admin.admin_mobile %>" required>
+                </div>
+                  <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="admin_password" class="form-label"> Password</label>
+                  <input type="tel" name="admin_password" class="form-control" value="<%= admin.admin_password %>" required>
+                </div>
+                
+               
+              </div>
+            </div>
+          </div>
+          
+          
+          
+         
+          
+          <div class="d-flex justify-content-end mt-4">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save me-2"></i>Update Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Preview uploaded photo
+    document.getElementById('student_photo').addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+          document.getElementById('photoPreview').src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+   
+  </script>
+</body>
+</html>
+<%-include('footer.ejs')%>
+
+
+
+
+
+
+
+
+
+
