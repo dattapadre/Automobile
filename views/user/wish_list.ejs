@@ -9,14 +9,14 @@
         <div class="col-md-4 mb-4">
           <div class="card shadow-sm h-100 position-relative">
 
-            <!-- Like/Dislike Button (Wishlist Remove) -->
+           
             <a href="/dislike/<%= p.product_id %>?redirect=/wish_list" 
                class="btn btn-light position-absolute top-0 end-0 m-2 rounded-circle shadow-sm" 
                title="Remove from Wishlist">
                <i class="fas fa-heart text-danger"></i>
             </a>
 
-            <!-- Product Image -->
+            
             <img src="/product/<%= p.product_image %>" 
                  class="card-img-top" 
                  alt="<%= p.product_name %>" 
@@ -32,7 +32,7 @@
             </div>
             
             <div class="card-footer text-center bg-white">
-              <!-- (Optional: Add to Cart button) -->
+              
               <a href="/add_to_cart/<%= p.product_id %>" class="btn btn-sm btn-primary">
                 <i class="fas fa-shopping-cart"></i> Add to Cart
               </a>
