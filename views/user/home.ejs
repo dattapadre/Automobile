@@ -139,7 +139,23 @@
 
                 <div class="position-relative">
                   <img src="/product/<%-product[i].product_image%>" class="card-img-top" alt="Spark Plug">
-                  <button class="wishlist-btn" aria-label="Add to wishlist"><i class="fa-regular fa-heart"></i></button>
+                <% if(product[i].like_wish === "like"){ %>
+  <!-- agar already like hai to dislike route chale -->
+  <a href="/dislike/<%= product[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+    <button class="wishlist-btn" aria-label="Remove from wishlist">
+      <i class="fa-solid fa-heart text-danger"></i>
+    </button>
+  </a>
+<% } else { %>
+  <!-- agar like nahi hai to like route chale -->
+  <a href="/like/<%= product[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+    <button class="wishlist-btn" aria-label="Add to wishlist">
+      <i class="fa-regular fa-heart"></i>
+    </button>
+  </a>
+<% } %>
+
+
                 </div>
                 <a href="/product_details/<%-product[i].product_id%>" class="text-decoration-none text-dark">
                   <div class="card-body">
@@ -149,7 +165,7 @@
                     </div>
                     <p class="price">
                       <del><%- product[i].product_market_price %></del>
-                      <span class="text-danger"><%- product[i].product_price %></span>
+                      <span clas  s="text-danger"><%- product[i].product_price %></span>
                     </p>
                 </a>
                     <button class="btn btn-primary btn-add-to-cart mt-2"
@@ -273,9 +289,21 @@
                   <div class="card-img-container">
                     <img src="/product/<%- products[i].product_image %>" class="img-fluid"
                       alt="<%- products[i].product_name %>" />
-                    <button class="wishlist-btn" aria-label="Add to wishlist">
-                      <i class="fa-regular fa-heart"></i>
-                    </button>
+                    <% if(products[i].like_wish === "like"){ %>
+
+                <a href="/dislike/<%= products[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Remove from wishlist">
+                    <i class="fa-solid fa-heart text-danger"></i>
+                  </button>
+                </a>
+              <% } else { %>
+                <!-- agar like nahi hai to like route chale -->
+                <a href="/like/<%= products[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </a>
+              <% } %>
                   </div>
                   <a href="/product_details/<%-products[i].product_id%>" class="text-decoration-none text-dark">
                     <div class="card-body">
@@ -320,9 +348,21 @@
                   <div class="product-card-final">
                     <div class="card-image-wrapper">
                       <img src="/product/<%- interior[i].product_image %>" alt="Product Image">
-                      <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                        <i class="fa-regular fa-heart"></i>
-                      </button>
+                     <% if(interior[i].like_wish === "like"){ %>
+
+                <a href="/dislike/<%= interior[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Remove from wishlist">
+                    <i class="fa-solid fa-heart text-danger"></i>
+                  </button>
+                </a>
+              <% } else { %>
+                <!-- agar like nahi hai to like route chale -->
+                <a href="/like/<%= interior[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </a>
+              <% } %>
                     </div>
                     <a href="/product_details/<%-interior[i].product_id%>" class="text-decoration-none text-dark">
                       <div class="card-content">
@@ -365,9 +405,21 @@
                   <div class="product-card-final">
                     <div class="card-image-wrapper">
                       <img src="/product/<%- exterior[i].product_image %>" alt="Product Image">
-                      <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                        <i class="fa-regular fa-heart"></i>
-                      </button>
+                     <% if(exterior[i].like_wish === "like"){ %>
+
+                <a href="/dislike/<%= exterior[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Remove from wishlist">
+                    <i class="fa-solid fa-heart text-danger"></i>
+                  </button>
+                </a>
+              <% } else { %>
+                <!-- agar like nahi hai to like route chale -->
+                <a href="/like/<%= exterior[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </a>
+              <% } %>
                     </div>
                     <a href="/product_details/<%-exterior[i].product_id%>" class="text-decoration-none text-dark">
                       <div class="card-content">
@@ -409,9 +461,21 @@
                   <div class="product-card-final">
                     <div class="card-image-wrapper">
                       <img src="/product/<%- performance[i].product_image %>" alt="Product Image">
-                      <button class="wishlist-icon-final" aria-label="Add to wishlist">
-                        <i class="fa-regular fa-heart"></i>
-                      </button>
+                     <% if(performance[i].like_wish === "like"){ %>
+
+                <a href="/dislike/<%= performance[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Remove from wishlist">
+                    <i class="fa-solid fa-heart text-danger"></i>
+                  </button>
+                </a>
+              <% } else { %>
+                <!-- agar like nahi hai to like route chale -->
+                <a href="/like/<%= performance[i].product_id %>?redirect=<%= encodeURIComponent(currentUrl) %>">
+                  <button class="wishlist-btn" aria-label="Add to wishlist">
+                    <i class="fa-regular fa-heart"></i>
+                  </button>
+                </a>
+              <% } %>
                     </div>
                     <a href="/product_details/<%-performance[i].product_id%>" class="text-decoration-none text-dark">
                       <div class="card-content">
@@ -438,36 +502,7 @@
       </section>
     </div>
 
-    <!-- Section 12: After Market Brands -->
-    <!-- <div class="container-fluid brand-section ">
-    <h2 class="brand-title">SHOP BY AFTER MARKET BRAND</h2>
-    <div class="row g-4 justify-content-center">
-      <div class="col-lg-2 col-md-4 col-sm-6">
-        <a href="#" class="brand-box">
-            <img src="https://atozautopartsindia.com/cdn/shop/files/albro_940x.jpg?v=1694763070" alt="Albro Germany Logo">
-        </a>
-    </div>
-      <div class="col-lg-2 col-md-4 col-sm-6">
-        <a href="#" class="brand-box">
-            <img src="https://atozautopartsindia.com/cdn/shop/files/Hegnest1_940x.jpg?v=1694763470" alt="Hengst Filtration Logo">
-        </a>
-    </div>
-      <div class="col-lg-2 col-md-4 col-sm-6">
-        <a href="#" class="brand-box">
-            <img src="https://atozautopartsindia.com/cdn/shop/files/Frey_940x.jpg?v=1694762848" alt="Frey Logo">
-        </a>
-    </div>
-      <div class="col-lg-2 col-md-4 col-sm-6">
-        <a href="#" class="brand-box">
-            <img src="https://atozautopartsindia.com/cdn/shop/files/ZF_940x.jpg?v=1694762950" alt="ZF Logo"></a>
-        </div>
-      <div class="col-lg-2 col-md-4 col-sm-6">
-        <a href="#" class="brand-box">
-            <img src="upload/Sache.jpg" alt="Sachs Logo">
-      </a>
-  </div>
-    </div>
-  </div> -->
+   
 
     <!-- Section 13: REVIEWS SECTION -->
     <section class="reviews-section">

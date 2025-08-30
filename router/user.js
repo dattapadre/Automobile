@@ -120,9 +120,11 @@ router.get("/", async function (req, res) {
     var exterior = await exe(`SELECT * FROM products WHERE product_part_type = 'bodypart' LIMIT 4`);
 
     var performance = await exe(`SELECT * FROM products WHERE product_part_type = 'Engine' LIMIT 4`);
+    
+    
 
 
-    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, };
+    var obj = { "data": data, "result": result, "product": product, "products": products, "interior": interior, "exterior": exterior, "performance": performance, "vehicle": vehicle, currentUrl: req.originalUrl };
     res.render("user/home.ejs", obj);
 })
 router.get('/body-parts', async function (req, res) {

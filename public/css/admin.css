@@ -1,0 +1,280 @@
+ :root {
+      --primary-color: #4e73df;
+      --secondary-color: #2c3e50;
+      --accent-color: #f8f9fc;
+      --text-color: #5a5c69;
+      --border-color: #e3e6f0;
+    }
+    
+    body {
+      background-color: var(--accent-color);
+      font-family: 'Nunito', sans-serif;
+      color: var(--text-color);
+    }
+    
+    .profile-container {
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+    
+    .profile-card {
+      border: none;
+      border-radius: 0.35rem;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      overflow: hidden;
+    }
+    
+    .card-header {
+      background: linear-gradient(135deg, var(--primary-color) 0%, #224abe 100%);
+      color: white;
+      padding: 1.5rem;
+      border-bottom: none;
+      position: relative;
+    }
+    
+    .card-header h3 {
+      font-weight: 600;
+      margin: 0;
+    }
+    
+    .card-header i {
+      margin-right: 10px;
+    }
+    
+    .card-body {
+      padding: 2.5rem;
+      background-color: white;
+    }
+    
+    .form-label {
+      font-weight: 600;
+      color: var(--secondary-color);
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+    }
+    
+    .form-control, .form-select {
+      border: 1px solid var(--border-color);
+      border-radius: 0.35rem;
+      padding: 0.75rem 1rem;
+      transition: all 0.3s;
+      font-size: 0.9rem;
+      height: calc(1.5em + 1rem + 2px);
+    }
+    
+    textarea.form-control {
+      height: auto;
+      min-height: 100px;
+    }
+    
+    .form-control:focus, .form-select:focus {
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+    }
+    
+    .btn-primary {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+      padding: 0.75rem 2.5rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      transition: all 0.3s;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2e59d9;
+      border-color: #2653d4;
+      transform: translateY(-1px);
+    }
+    
+    .profile-photo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .profile-photo-preview {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--border-color);
+      margin-bottom: 1rem;
+    }
+    
+    .photo-upload-label {
+      cursor: pointer;
+      background-color: var(--accent-color);
+      padding: 0.5rem 1rem;
+      border-radius: 0.35rem;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+    
+    .photo-upload-label:hover {
+      background-color: var(--border-color);
+    }
+    
+    .section-divider {
+      margin: 2rem 0;
+      border-top: 1px dashed var(--border-color);
+    }
+    
+    @media (max-width: 768px) {
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .profile-container {
+        margin: 1rem auto;
+      }
+    }
+
+    
+    
+    @media (max-width: 768px) {
+        .banner-content {
+            flex-direction: column;
+            text-align: center;
+            padding: 2rem 1rem !important;
+        }
+        
+        .banner-actions {
+            margin-top: 1rem;
+        }
+        
+        .banner-wave {
+            height: 40px;
+        }
+    }
+
+  :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light-bg: #f8f9fa;
+            --dark-text: #2c3e50;
+            --light-text: #7f8c8d;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --hover-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        body {
+            background-color: #f5f7f9;
+            color: var(--dark-text);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .dashboard-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: none;
+            height: 100%;
+        }
+        
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--hover-shadow);
+        }
+        
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
+        .icon-primary {
+            background-color: rgba(44, 62, 80, 0.1);
+            color: var(--primary);
+        }
+        
+        .icon-success {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+        
+        .icon-warning {
+            background-color: rgba(241, 196, 15, 0.1);
+            color: #f1c40f;
+        }
+        
+        .icon-danger {
+            background-color: rgba(231, 76, 60, 0.1);
+            color: var(--secondary);
+        }
+        
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 5px 0;
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 0.9rem;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        .badge-pending {
+            background-color: #ffeaa7;
+            color: #d35400;
+        }
+        
+        .badge-completed {
+            background-color: #d1f7c4;
+            color: #27ae60;
+        }
+        
+        .badge-processing {
+            background-color: #cce5ff;
+            color: #2980b9;
+        }
+        
+        .btn-order {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.85rem;
+            border-radius: 6px;
+        }
+        
+        .btn-order:hover {
+            background-color: #c0392b;
+        }
+        
+        .navbar-custom {
+            background-color: var(--primary);
+        }
+        
+        .footer-custom {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .table th {
+            font-weight: 600;
+            color: var(--light-text);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+        
+        .table td {
+            vertical-align: middle;
+        }
+    

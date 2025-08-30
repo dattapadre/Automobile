@@ -326,7 +326,7 @@ router.get("/category", authMiddleware,noCache, async function(req,res){
     var user = await exe(`SELECT * FROM login WHERE admin_id='${req.session.admin_id}'`);
     var sql = `SELECT * FROM category`;
     var category = await exe(sql);
-    var obj = { "list": category, "user": user[0] }
+    var obj = { "category": category, "user": user[0] }
     res.render("admin/category.ejs", obj);
 });
 router.post("/save_category", async function (req, res) {
